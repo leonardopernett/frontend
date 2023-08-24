@@ -1,0 +1,37 @@
+<ng-container *appUserRoleIsIn="28">
+
+<div class="Listheader mb1">
+    <app-search-input (onConfirm)="search($event)"></app-search-input>
+    <app-icon class="editIcon ml1" [iconName]="'mdi:calendar'" (click)="showCalendar()" *ngIf="mode == 'published'" tooltip="Filtrar por fecha" placement="top" show-delay="500">
+    </app-icon>
+</div>
+
+<h5 class="dafaultMessage" *ngIf="!!!newsList.length && !calendarMode">{{'No hay noticias, agrega la primer noticia'| translate}}</h5>
+
+<div *ngIf="calendarMode" >
+    <ejs-calendar (change)="filtrarPorFecha($event)" [max]='maxDate' [value]="selectedDate" ></ejs-calendar>
+</div>
+
+<div class="scroll">
+    <ng-scrollbar *ngIf="!calendarMode" class="scrollBar">
+        <div infiniteScroll
+        (scrolled)="onScroll($event)"
+        [infiniteScrollDistance]="200"
+        [infiniteScrollThrottle]="50" 
+        [scrollWindow]="false">
+        <div class="scroll">
+            <div class="newsEditable" *ngFor="let news of newsList">
+                <h4 class="title">{{news.title}}</h4>
+                <div class="iconsContainer">
+                    <span class="separator"></span>
+                    <app-icon *appUserRoleIsIn="26" class="editIcon" [iconName]="'mdi:pencil'" (click)="editNews(news.id)"></app-icon>
+                    <app-icon *appUserRoleIsIn="27" class="editIcon" [iconName]="'mdi:trash'" (click)="deleteNews(news.id)"></app-icon>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    </ng-scrollbar>
+</div>
+
+</ng-container>

@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-md-10">
+        <div class="search_box">
+            <input 
+                type="text" 
+                required 
+                (keyup.enter)="buscarArticulos(buscar.value)"
+                [value]="voiceService.text"
+                #buscar 
+                placeholder="{{ 'search' | translate }}" 
+                class="search_box_input" 
+                (keydown)="Teclado($event)"
+                autofocus
+                autocomplete="off">
+            
+        
+             <div class="search_box_suggestions" *ngIf="mostrar">
+                <div class="search_box_suggestion"
+                    *ngFor="let items of lista"
+                    [ngClass]="{'selected': items.selected}"
+                    (click)="buscarArticulos(items)">
+                        <strong>{{items}}</strong>
+                </div>
+            </div> 
+    </div>
+    </div>
+    <div class="col-md-2">
+        <ng-container *ngIf="!voiceService.isStarted; else noVisible">
+            <em (click)="recognitionStart()" class="fa icono fa-microphone-slash" aria-hidden="true"></em>
+          </ng-container>
+          
+          <ng-template #noVisible>
+            <em #enter (click)="recognitionStop()" class="fa icono icono2 fa-microphone" aria-hidden="true"></em>
+          </ng-template>
+    </div>
+</div>
+
+
+
+
+    

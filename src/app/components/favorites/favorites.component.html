@@ -1,0 +1,14 @@
+
+<h4 *ngIf="searchError" class="ma2">Se ha producido un error 😕, intentaremos de nuevo en {{searchErrorMessage}}s.</h4>
+<h4 *ngIf="error$ | async" class="ma2">Se ha producido un error 😕, intentalo mas tarde.</h4>
+<div class="scroll"
+    infiniteScroll
+    (scrolled)="onScroll($event)"
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="1000"
+    [scrollWindow]="false">
+    <ngx-masonry [options]="{ gutter: 15}" [updateLayout]="updateMasonryLayout">
+        <app-article ngxMasonryItem  class="masonry-item" (imageLoaded)="updateMasonryLayout = !updateMasonryLayout" *ngFor="let article of articles" [article]="article" (onDeleteFavorite)="onDeleteFavorite($event)"></app-article>
+        <app-articleplaceholder [type]="'articulo'" ngxMasonryItem  class="masonry-item" *ngFor="let placeholder of placeholders"> </app-articleplaceholder>
+    </ngx-masonry>
+</div>

@@ -1,0 +1,270 @@
+.rm1{
+  font-size: 22px;
+}
+
+:host{
+    width: 100%;
+    height: 100%;
+    padding: 2rem 1rem 2rem 3rem;
+    display: flex;
+}
+/* #region article container */
+
+:host .articleContainer{
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: var(--shadow2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+
+  
+:host .articleContainer .header{
+    background-color: var(--terciaryDark);
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    display: flex;
+    padding: 1rem;    
+    align-items: center;    
+}
+:host .articleContainer .header app-icon:hover{
+    color: var(--color-principal);
+    cursor: pointer;
+}
+
+:host .articleContainer .header .title{
+    margin:0 1rem;
+    flex-grow: 1;
+}
+
+:host .articleContainer .content{
+    grid-row: 2 / 2;
+    grid-column: 1 / 2;
+    overflow-y: auto;
+}
+
+:host .articleContainer .footer{
+  background-color: var(--terciaryDark);
+  display: -webkit-box;
+  display: flex;
+  align-items: center;
+  padding: .75rem 1rem;
+  overflow: hidden;
+  
+}
+
+:host .articleContainer .footer .socialButton{
+    margin-left: 1rem;
+    margin-right: .2rem;
+}
+
+:host .articleContainer .footer .leyend{
+    margin-left: 1rem;
+    flex-grow: 1;
+}
+
+:host .articleContainer .content iframe{
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+/* #endregion */
+
+/* #region social buttons */
+
+.socialButton.favorite{
+    color: gold;
+}
+
+.socialButton:hover{
+    color: var(--color-green);
+    cursor: pointer;
+}
+
+
+/* #endregion */
+  
+/* #region Indice */
+
+.side_panel{
+  height: 100%;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+}
+
+.H1,.H2,.H3,.H4,.H5,.H6{
+  overflow: hidden;
+  padding: .5rem 1rem;
+  width: 100%;
+  font-weight: 500;
+  position: relative;
+}
+
+.H1:hover:after,.H2:hover:after,.H3:hover:after,.H4:hover:after,.H5:hover:after,.H6:hover:after,.H1.active:after,.H2.active:after,.H3.active:after,.H4.active:after,.H5.active:after,.H6.active:after{
+  content: '';
+  position: absolute;
+  top: .7rem;
+  left: 0rem;
+  width: .5rem;
+  height: .5rem;
+  color: var(--color-secondary);
+  border-radius: 50%;
+}
+
+.H1::before,.H2::before,.H3::before,.H4::before,.H5::before,.H6::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: .2rem;
+  width: 1px;
+  height: 100%;
+  background-color: lightgray;
+}
+
+.H2{
+  padding-left: 2rem;
+}
+
+.H3,.H4,.H5,.H6{
+  padding-left: 3rem;
+}
+
+.H1:hover,.H2:hover,.H3:hover,.H4:hover,.H5:hover,.H6:hover{
+  color: var(--color-secondary);
+  cursor: pointer;
+}
+
+.comments{
+  height: 50%;
+  overflow: hidden;  
+  padding-left: 1rem;
+}
+
+.adjuntosButton{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.adjuntosButton:hover{
+  cursor: pointer;
+  color: var(--color-secondary);
+}
+
+.fileList{
+  height: calc(100% - 5rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.index{
+  height: 50%;
+  width: 100%;
+  padding-left: 1rem;
+  overflow-y: scroll;
+}
+
+
+.index::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+ 
+}
+.index::-webkit-scrollbar-track {
+  background: #fff ; 
+  border-radius: 10px;
+}
+.index::-webkit-scrollbar-thumb {
+  border-radius: 15px;
+  height: 5px;
+  background: #cccccc;
+}
+
+
+.index_menu{
+  display: flex;
+  justify-content: space-between;
+  height: 3rem;
+}
+
+.tab{
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid rgba(0,0,0,0.1);
+  padding: 10px;
+  overflow-x: hidden;
+ /*  padding-right: 1rem;/*  */ 
+  flex-grow: 1;
+}
+
+.tab:hover{
+  cursor: pointer;
+  color: var(--color-secondary);
+}
+
+.tab.active{
+  color: var(--color-secondary);
+  border-bottom: 3px solid   var(--color-secondary);
+}
+
+.indice{
+  margin-top: 1rem;
+  height: calc(100% - 5rem);
+}
+
+.tagList{
+  height: calc(100% - 5rem);
+}
+
+.tagList .lista{
+  display: flex;  
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+.tag{
+  padding: .2rem .5rem;
+  border-radius: 5px;
+  background-color:   var(--color-green);
+  font-size: .75rem;
+  margin-right: .3rem;
+  margin-bottom: .3rem;
+  text-decoration: none;
+  color: #fff;
+}
+
+.tag:hover{
+  cursor: pointer;
+  box-shadow: var(--shadow2);
+}
+
+.fa-indent, .fa-tags , .fa-paperclip{
+  font-size: 20px;
+  padding-right: 5px;
+  padding-left: 10px;
+}
+
+.footer-page{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* #endregion */ 
+
+
+#links{
+  padding-left: 32px;
+  font-weight: bold;
+  color: #00448d;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+
+
+

@@ -1,0 +1,4 @@
+<ngx-masonry [options]="masonryOptions" [updateLayout]="updateMasonryLayout">
+    <app-article (imageLoaded)="updateMasonryLayout = !updateMasonryLayout"   ngxMasonryItem  class="masonry-item item efecto" *ngFor="let article of articles" [article]="article"></app-article>
+    <app-articleplaceholder [type]="'articulo'" ngxMasonryItem  class="masonry-item" *ngFor="let placeholder of placeholders">a</app-articleplaceholder>
+</ngx-masonry>

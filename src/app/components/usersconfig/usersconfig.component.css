@@ -1,0 +1,28 @@
+:host{
+    padding: 2rem 3rem;
+    height: 100% !important;
+    width: 100%;
+    display: flex;
+}
+
+.side_var{
+    width: 25%;
+}
+
+.userCard{
+    display: flex;
+    flex-direction: column;
+    margin-left: 3rem;
+}
+
+.radio{
+    border-color: var(--color-secondary);
+}
+
+.pcrcPicker{
+    height: 300px;
+}
+
+.accesoTodos {
+    display: flex;
+}

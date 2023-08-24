@@ -1,0 +1,64 @@
+<div class="verticalColumn">
+
+     <ng-container>
+        <div>
+            <h3 class="columnTitle">Administrar Articulos Obligatorios</h3>
+            <button class="btn btn-primary btn-block" routerLink="/app/obligatorios">Administrar</button>
+        </div>
+    <br>
+    </ng-container>
+ 
+    <ng-container *appUserRoleIsIn="17">
+        <h3 class="columnTitle">{{'Categorias' | translate }}</h3>
+        <ng-scrollbar>
+            <app-categories-editor (onCategorySelected)="onCategorySelected($event)" (onCategoryDeleted)="onCategoryDeleted($event)"></app-categories-editor>
+        </ng-scrollbar>
+    </ng-container>
+</div>
+
+<ng-container *appUserRoleIsIn="23">
+    <div class="verticalColumn" *ngIf="categorySelected">
+        <h3 class="columnTitle">{{categorySelected.name }}</h3>
+        <ng-scrollbar>
+            <div class="scroll">
+                <div class="Listheader mb1">
+                    <app-search-input (onConfirm)="search($event)"></app-search-input>
+                    <em *appUserRoleIsIn="2" class="editIcon fa fa-plus-square fa-2x icono" (click)="goToArticleCreation()" tooltip="Crear articulo" placement="top" show-delay="500"></em>
+                </div>
+                <div class="list">
+                    <app-article-editable [article]="article" (onArticleDeleted)="articuloEliminado($event)" *ngFor="let article of articles"></app-article-editable>
+                </div>
+
+                <button *ngIf="!articlesLoadingSpinner" class="btn btn-primary btn-block" (click)="loadMoreArticles()">
+                {{'Cargar mas' | translate}}
+            </button>
+                <app-articleplaceholder [type]="'articulorow'" *ngIf="articlesLoadingSpinner"></app-articleplaceholder>
+                <app-articleplaceholder [type]="'articulorow'" *ngIf="articlesLoadingSpinner"></app-articleplaceholder>
+                <app-articleplaceholder [type]="'articulorow'" *ngIf="articlesLoadingSpinner"></app-articleplaceholder>
+            </div>
+        </ng-scrollbar>
+    </div>
+</ng-container>
+<ng-container *appUserRoleIsIn="24">
+    <div class="verticalColumn" *ngIf="categorySelected">
+        <h3 class="columnTitle">{{'Borradores' | translate }}</h3>
+        <ng-scrollbar>
+            <div class="scroll">
+                <div class="Listheader mb1">
+                    <app-search-input (onConfirm)="searchBorradores($event)"></app-search-input>
+                </div>
+                <div class="list">
+                    <app-article-editable [article]="borrador" (onArticleDeleted)="borradorEliminado($event)" *ngFor="let borrador of borradores"></app-article-editable>
+                </div>
+                <button *ngIf="!borradoresLoadingSpinner" class="btn btn-primary btn-block" (click)="loadMoreBorradores()">
+               {{'Cargar mas' | translate}}
+            </button>
+
+
+                <app-articleplaceholder [type]="'articulorow'" *ngIf="borradoresLoadingSpinner"></app-articleplaceholder>
+                <app-articleplaceholder [type]="'articulorow'" *ngIf="borradoresLoadingSpinner"></app-articleplaceholder>
+                <app-articleplaceholder [type]="'articulorow'" *ngIf="borradoresLoadingSpinner"></app-articleplaceholder>
+            </div>
+        </ng-scrollbar>
+    </div>
+</ng-container>

@@ -1,0 +1,3 @@
+<app-icon class="pagerArrow" [iconName]="'mdi:page-first'" *ngIf="!pagesActive.includes(1)" (click)="selectPage(1)"></app-icon>
+<span class="pagerNumber" *ngFor="let number of pagesActive" (click)="selectPage(number)" [ngClass]="{'active': selectedPage == number}" >{{ number }}</span>
+<app-icon class="pagerArrow" [iconName]="'mdi:page-last'" *ngIf="!pagesActive.includes(pages[pages.length-1])" (click)="selectPage(pages[pages.length-1])"></app-icon>

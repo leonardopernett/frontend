@@ -1,0 +1,227 @@
+<div class="articleContainer">
+    {{articleId}}
+    <header class="header" *ngIf="article">
+
+        <em class="fa fa-arrow-left" (click)="goBack()" [ngStyle]="{'cursor':'pointer'}"></em>
+        <h4 class="title">{{ article.title }}</h4>
+
+         <button *ngIf="condicionId > 0 && condicionverify==true && verifyjarvisrequired && condicionverifyfecha==false" type="button" id="color" class="btn btn-secondary">
+            Desplazar hasta abajo
+            para aceptar términos 
+          </button>
+          
+          <button #modalvalidar id="modalvalidar" data-toggle="modal" data-target="#exampleModal" *ngIf="validarCuestionariovariable==0" type="button" id="color" class="btn btn-secondary">
+           Validar
+          </button> 
+
+          
+
+    </header>
+
+     <!-- condicionId = para validar que es un obligatorio  -->
+     <!-- condicionverify = para validar si ya aceptaron terminos  -->
+     <!-- verifyjarvisrequired = para validar que muestre solo si es del pcrc en el que esta parado -->
+
+    <!-- <div class="content" #scroll>
+        <div #content  [hidden]="adjuntosVisibles">
+          
+                <app-rteview></app-rteview >
+           
+        </div>
+       
+    </div> -->
+    <ng-scrollbar class="content">
+        <div #content [hidden]="adjuntosVisibles">
+
+            <app-rteview (contador)="obtenercontador($event)"></app-rteview>
+
+        </div>
+
+        <button *ngIf="condicionId > 0 " #modalvalidar id="modalvalidar" data-toggle="modal" data-target="#exampleModal" hidden></button>
+
+        <ng-container *ngIf="condicionId > 0 && condicionverify==true && verifyjarvisrequired && condicionverifyfecha==false">
+
+            <div class="condiciones">
+               <p>Has llegado al final del artículo, ¿Te quedaron claros los cambios en la información?</p>
+                <p>Haz click para confirmar que la información es clara y la aplicarás a partir de este momento.
+                    <input type="checkbox" [disabled]="checkActive" [(ngModel)]="vistoArtReq" id="vistoArtReq" (click)="vistoArticuloObligatorio(article.id)">
+                </p>
+            </div>
+
+        </ng-container> 
+
+    </ng-scrollbar>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cancelarvalidacion()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h5>¡QUE NOTA QUE HAYAS APRENDIDO ALGO NUEVO!</h5>
+              <p class="cuest1">Validemos que te haya quedado claro</p>
+              <p class="cuest2">(Es necesario aprobar la validación para que confirmar que leíste el artículo)</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="cancelarvalidacion()">Validar más  tarde</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal2" (click)="obtenerpreguntas()">Validar ahora</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal 2-->
+      <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cancelarvalidacion()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+                <ng-container *ngFor="let preguntas of pregunta; let u=index">
+                            <h5>{{preguntas.pregunta}}</h5>
+                            
+                        <ng-container *ngFor="let respuesta of respuestas; let i=index">
+                            <div class="form-check">
+                                <input class="form-check-input" (change)="capturar($event,u)" type="radio" name="exampleRadios{{preguntas.id}}" id="exampleRadios1" value="{{respuesta.id_respuestas}}" *ngIf="respuesta.id_pregunta==preguntas.id">
+                                <label class="form-check-label" for="exampleRadios1" *ngIf="respuesta.id_pregunta==preguntas.id">{{respuesta.respuestas}}</label>
+                              </div>
+                        </ng-container>
+                </ng-container>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="cancelarvalidacion()">Hacer Despues</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="validarCuestionario(article.id)">Enviar Respuestas</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+    <div class="footer footer-page" *ngIf="article">
+
+
+
+        <div class="div mt-2">
+            <p>{{'explorer.actualizacion' | translate }}: {{ article.fecha_evento | date}}</p>
+        </div>
+        <div class="div">
+
+
+
+
+            <ng-container *ngIf="article.id_otros===null">
+              <em target="blank" class="fa fa-file-pdf-o socialButton rm1
+              " *appUserRoleIsIn="70" (click)="articlePdfExport()"></em>
+                <em class="fa fa-trash socialButton rm1" *appUserRoleIsIn="15" (click)="articleDelete()"></em>
+
+                <em class="fa fa-pencil socialButton rm1" *appUserRoleIsIn="14" (click)="goToArticleEdition()" tooltip="Editar articulo" placement="top" show-delay="500"></em>
+
+            </ng-container>
+            <img *appUserRoleIsIn="68" src="../../../assets/cambio.png" data-toggle="modal" data-target="#cambio"  tooltip="Mover Articulo" placement="top" show-delay="500" class="cambio">
+            <em class="fa fa-star socialButton favoriteIcon rm1" *ngIf="article.type != 'news'" tooltip="Agregar a favoritos" placement="top" show-delay="500" (click)="addToFavorites()"></em>
+            <span *ngIf="article.type != 'news'">{{article.favoritos}}</span>
+            <em class="fa fa-thumbs-o-up socialButton rm1" tooltip="Útil" placement="top" show-delay="500" (click)="addLike()"></em>
+            <span>{{article.likes}}</span>
+            <em class="fa fa-thumbs-o-down socialButton rm1" tooltip="No útil" placement="top" show-delay="500" (click)="addDislike()"></em>
+            <span>{{article.dislikes}}</span>
+        </div>
+    </div>
+</div>
+<div class="side_panel">
+    <div class="index" *ngIf="article">
+        <div class="index_menu" *ngIf="article.type != 'noticia'">
+            <div class="tab {{modo == 'indice' ? 'active':''}}" [ngStyle]="{'cursor':'pointer'}" (click)="modo = 'indice'" class="d-flex align-items-center">
+                <em class="fa fa-indent" aria-hidden="true"></em>
+                <h6 [ngStyle]="{'margin':'0'}"> {{'Indice' | translate }}</h6>
+            </div>
+            <div class="tab {{modo == 'tags' ? 'active':''}}" (click)="modo = 'tags'" [ngStyle]="{'cursor':'pointer'}" class="d-flex align-items-center">
+                <em class="fa fa-tags" aria-hidden="true"></em>
+                <h6 [ngStyle]="{'margin':'0'}"> Tags</h6>
+            </div>
+            <div class="tab {{modo == 'adjuntos' ? 'active':''}}" [ngStyle]="{'cursor':'pointer'}" (click)="modo = 'adjuntos'" class="d-flex align-items-center">
+                <em class="fa fa-paperclip" aria-hidden="true"></em>
+                <h6 [ngStyle]="{'margin':'0'}">{{'Adjuntos' | translate}}</h6>
+            </div>
+        </div>
+
+        <div class="fileList pt1" *ngIf="modo == 'adjuntos'">
+            <ng-scrollbar>
+                <app-file-prev class="mb.5" *ngFor="let file of article.attached" [fileName]="file" [articleId]="article.id" [mode]="'notDelete'"></app-file-prev>
+            </ng-scrollbar>
+        </div>
+        <div class="tagList" *ngIf="modo == 'tags'">
+            <ng-scrollbar>
+                <div class="lista">
+                    <div class="tag" *ngFor="let tag of article.tags" (click)="searchTag(tag)">{{tag}}</div>
+
+                </div>
+            </ng-scrollbar>
+        </div>
+        <div class="indice" *ngIf="modo == 'indice'">
+
+            <div *ngFor="let el of indexElements; index as i" [innerHTML]="el.innerHTML" [ngClass]="[el.tagName, calculateActive(i)]" (click)="scrollTo(el)"></div>
+
+        </div>
+    </div>
+    <div class="comments" *ngIf="article">
+        <app-comment-list [articleId]="article.id" [comentarios]="comments"></app-comment-list>
+    </div>
+</div>
+
+<!-- Modal de cambio de articulo -->
+
+<div class="modal fade bd-example-modal-lg" id="cambio" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-large">
+    <div class="modal-content">
+    
+
+         <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Mover Articulo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body preturno-modal">
+        
+        <div class="row">
+          <div class="col-md-12">
+              <div class="form-group">
+                  <select class="form-control" (change)="seleccionarcliente($event.target.value)">
+                      <option value="0">{{'Client' | translate}}</option>
+                      <option *ngFor="let cliente of listClient" value="{{cliente.id_dp_clientes}}">{{cliente.cliente}}</option>
+                    </select>
+                                                     
+                    <br>
+                    <select class="form-control" *ngIf="pcrc" (change)="seleccionarpcrc($event.target.value)">
+                      <option>Pcrc</option>
+                      <option *ngFor="let pcrc of pcrcList" value="{{pcrc.id_dp_pcrc}}">{{pcrc.pcrc}}</option>
+                    </select>
+                    <br>
+                    <select class="form-control"  *ngIf="categoria" (change)="seleccionarcategoria($event.target.value)">
+                      <option>{{'Categoria' | translate }}</option>
+                      <option *ngFor="let categoria of categoriaList" value="{{categoria.id}}">{{categoria.name}}</option>
+                    </select>
+              </div>
+          </div>
+      </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal" (click)="guardardatos()">Guardar Cambio</button>
+      </div>
+    </div>
+  </div>
+</div>

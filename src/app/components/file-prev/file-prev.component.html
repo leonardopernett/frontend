@@ -1,0 +1,4 @@
+<app-icon class="icon" [iconName]="getIconName()"></app-icon>
+<a [href]="getLink()" rel="noopener noreferrer" target="_blank" data-toggle="tooltip" data-placement="top" title="{{fileName}}">{{fileName}}</a>
+<app-icon class="deleteIcon" [iconName]="'mdi:close-circle-outline'" (click)="deleteFile()" *ngIf="mode != 'notDelete'"></app-icon>
+<!-- data-toggle="tooltip" data-placement="top" title="{{fileName}}" -->

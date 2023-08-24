@@ -1,0 +1,26 @@
+
+    <div class="inputArea_container">
+        <div class="inputArea">
+
+           <em  class="fa fa-smile-o  iconPicker"  (click)="emojiMode = !emojiMode"></em>
+
+            <div class="inputScroll">
+                <textarea autosize class="textareaInput" #input placeholder="{{'Comentarios' | translate}}" [maxLength]="250"></textarea>
+            </div>
+            <em class="fa fa-send sendIcon" (click)="sendComment()"   ></em>
+        </div>
+        <emoji-mart  [perLine]="8" [sheetSize]="16" [hideObsolete]="true" [i18n]="localStrings" [totalFrequentLines]="2" [emojiSize]="20" [color]="'#039be5'" [isNative]="true" (emojiSelect)="iconoSeleccionado($event);emojiMode = false" *ngIf="emojiMode"></emoji-mart>
+        
+        <span class="lenghtIndicator">
+            {{input.value.length}}/250
+        </span> 
+        <h4 *ngIf="!comentarios.length">{{'No hay comentarios, Sé el primero en comentar' | translate }}! 👍🏽 </h4>
+    </div>    
+<div class="commentList">
+    <ng-container *appUserRoleIsIn="61">
+    <button class="btn btn-primary btn-sm boton"  *ngIf="comentarios.length > 1" (click)="borrarcomentarios()">{{'Borrar Todos' | translate}}</button>
+    </ng-container> 
+    <app-comment *ngFor="let comment of comentarios" [comment]="comment"  [comments]="comentarios"></app-comment>  
+
+</div> 
+

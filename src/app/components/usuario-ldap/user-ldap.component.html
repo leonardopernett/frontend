@@ -1,0 +1,206 @@
+<h3>Usuarios Temporales</h3>
+
+<div class="row caja">
+   
+        <div class="form-group col-md-2">
+            <label for="exampleInputUsuario">Codigo</label>
+            <input [(ngModel)]="usuario" type="text" class="form-control" id="exampleInputUsuario" placeholder="Ingresa Codigo">
+          </div>
+          
+          <button class="btn btn-primary col-md-2 boton" data-toggle="modal" data-target="#exampleModal" (click)="limpiar()">Registrar</button>
+          <button (click)="buscarusuario()" class="btn btn-primary col-md-2 boton2">Buscar</button>
+</div>
+
+<div class="cabeza">
+    <table class="table table-bordered  table-wrapper">
+    
+        <thead [ngStyle]="{'background':'#039be5', 'color':'#fff'}">
+            <tr>
+                <th scope="col">Codigo</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Correo Personal</th>
+                <th scope="col">Genero</th>
+                <th scope="col">Fecha Nacimiento</th>
+                <th scope="col">Direccion</th>
+                <th scope="col">Correo Corporativo</th>
+                <th scope="col">Fecha Expiracion</th>
+                <th scope="col">Bloqueo</th>
+                <th scope="col">Restablecer</th>
+                <th scope="col">Celular</th>
+                <th scope="col">Telefono</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+    
+        <tr  *ngFor="let res of usuarios ">
+            
+            <td>{{res.documento}}</td>
+            <td>{{res.nombre}}</td>
+            <td>{{res.correo_personal}}</td>
+            <td>{{res.genero}}</td>
+            <td>{{res.fecha_nacimiento | date: 'dd-MM-yyyy'}}</td>
+            <td>{{res.direccion}}</td>
+            <td>{{res.correo_corporativo}}</td>
+            <td>{{res.fecha_expiracion | date: 'dd-MM-yyyy'}}</td>
+            <td>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" (click)="desbloquearbtn(res.id,res.bloqueo)"  [checked]="res.bloqueo == 3" class="custom-control-input" [id]="'ccustomSwitch' + res.id">
+                    <label class="custom-control-label" [for]="'ccustomSwitch' + res.id">{{ res.bloqueo === 3 ? 'Bloqueado' : 'Desbloqueado' }}</label>
+                </div>
+            </td>
+            <td>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2" (click)="obtenercorreo(res.correo_personal,res.correo_corporativo)">Restablecer Contraseña</button>
+            </td>
+            <td>{{res.celular}}</td>
+            <td>{{res.telefono}}</td>
+   
+            
+            <td>
+              <em  class="fa fa-trash rm1" title="Elimiar usuario" tooltip="Elimiar usuario" placement="top" show-delay="500" (click)="eliminarusuario(res.id,res.documento)"></em>
+            </td>
+
+            <td>
+                <em  class="fa fa-pencil rm1" data-toggle="modal" data-target="#exampleModal" title="Editar usuario" tooltip="Editar usuario" placement="top" show-delay="500" (click)="editarusuario(res.id,res.nombre,res.correo_personal,res.id_genero,res.fecha_nacimiento,res.direccion,res.correo_corporativo,res.celular,res.telefono,res.tipo_usuario,res.fecha_actividad)"></em>
+              </td>
+    
+        </tr>
+   
+        <tr>
+           
+               <td *ngIf="validartabla === 0" colspan="12" style="text-align: center;">{{'No hay datos' | translate}}</td>
+            
+   
+        </tr>
+    
+    </table>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Registrar Usuario</h5>
+            <button type="button" #cerrar class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group col-md-11" *ngIf="formulario=='registrar'">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <label for="exampleInputDocumento">Codigo</label>
+                            <input [(ngModel)]="documento" type="text" class="form-control" id="exampleInputDocumento" placeholder="El usuario de red debe ser un codigo numerico de 20 digitos">        
+                        </div>
+                        <div class="col-md-1">
+                            <span class="fa fa-refresh rm2" (click)="generarcodigo()" title="Generar"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12" *ngIf="formulario=='registrar'">
+                    <label for="exampleInputPassword">Password</label>
+                    <input [(ngModel)]="password" type="password" class="form-control" id="exampleInputPassword" placeholder="Ingresa Password">
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="exampleInputUsuario">Nombre</label>
+                    <input [(ngModel)]="nombre" type="text" class="form-control" id="exampleInputNombre" placeholder="Ingresa Nombre">
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="exampleInputCorreoPersonal">Correo Personal</label>
+                    <input [(ngModel)]="correo_personal" type="email" class="form-control" id="exampleInputCorreoPersonal" placeholder="Ingresa Correo Personal">
+                </div>
+
+                <div class="form-group col-md-12">
+                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Genero</label>
+                    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" [(ngModel)]="genero_capturado">
+                        <option  *ngFor="let gen of generos;" [value]="gen.id_genero">{{gen.genero}}</option>
+                        
+                    </select>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="exampleInputFechaNacimiento">Fecha Nacimiento</label>
+                    <input [(ngModel)]="fecha_nacimiento" type="date" class="form-control" id="exampleInputFechaNacimiento" placeholder="Ingresa Fecha Nacimiento">
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="exampleInputDireccion">Direccion</label>
+                    <input [(ngModel)]="direccion" type="text" class="form-control" id="exampleInputDireccion" placeholder="Direccion">
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="exampleInputCorreoCorporativo">Correo Corporativo</label>
+                    <input [(ngModel)]="correo_corporativo" type="email" class="form-control" id="exampleInputCorreoCorporativo" placeholder="Ingresa Correo Corporativo">
+                </div>
+
+                <div class="form-group col-md-12" *ngIf="formulario=='editar'">
+                    <label for="exampleInputFechaActividad">Fecha Inicial De Expiracion</label>
+                    <input [(ngModel)]="actividad" type="date" class="form-control" id="exampleInputFechaActividad" placeholder="Ingresa Fecha Inicial De Expiracion">
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="exampleInputCelular">Celular</label>
+                    <input [(ngModel)]="celular" type="text" class="form-control" id="exampleInputCelular" placeholder="Ingresa Celular">
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="exampleInputTelefono">Telefono</label>
+                    <input [(ngModel)]="telefono" type="text" class="form-control" id="exampleInputTelefono" placeholder="Ingresa Telefono">
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Tipo</label>
+                        <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" [(ngModel)]="tipo_capturado">
+                            <option *ngFor="let tip of tipos;" [value]="tip.id">
+                                {{tip.tipo}}<span *ngIf="tip.fecha_bloqueo > 0"> - Se Desactiva por un periodo de {{tip.fecha_bloqueo}} días</span>
+                              </option>
+                            
+                        </select>
+                    </div>
+                
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button *ngIf="formulario=='registrar'" type="button" (click)="guardarusuario()" class="btn btn-primary">Guardar Usuario</button>
+            <button *ngIf="formulario=='editar'" type="button" (click)="editarusuariobase()" class="btn btn-primary">Editar Usuario</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Restablecer Por Email</h5>
+            <button type="button" #cerrar class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+
+           <div class="row">
+               <div class="col-md-6">
+                <button class="btn btn-primary" (click)="resetEmail(1)">Restablecer Contraseña Personal</button>
+               </div>
+               <div class="col-md-6">
+                <button class="btn btn-primary" (click)="resetEmail(2)">Restablecer Contraseña Corporativa</button>
+               </div>
+           </div> 
+
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+</div>
+

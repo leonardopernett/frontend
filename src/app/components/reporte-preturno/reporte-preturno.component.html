@@ -1,0 +1,159 @@
+<div class="filters">
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="formField">
+                <span class="label">{{'Fecha inicial' | translate}}</span>
+                <div class="formInput d-flex align-items-center">
+                    <em class="fa fa-calendar-o dateDrop" (click)="initialDateDrop = !initialDateDrop; finalDateDrop = false"></em>
+                    <span class="mr.5 dateText" [ngClass]="{ 'active': initialDateDrop }">{{initialDateHumanRead}}</span>
+                    <em class="fa fa-times-circle dateClose" (click)="finalDateDrop = false; initialDateDrop = false; initialDateHumanRead = ''; initialDate = undefined" *ngIf="initialDateHumanRead"></em>
+
+
+                    <div class="drop" *ngIf="initialDateDrop">
+                        <ejs-calendar (change)='onInitialDateChange($event); initialDateDrop = false'></ejs-calendar>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="formField">
+                <span class="label">{{'Client' | translate}}</span>
+                <div class="formInput">
+                    <app-drop-down [textoInicial]="cargando ? 'loading...': 'Client' | translate" (valueText)="getClient($event)" [textField]="'cliente'" [values]="clientesList" (onValueSelected)="clienteSelected($event)"></app-drop-down>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="formField">
+                <span class="label">{{'Fecha final' | translate}}</span>
+                <div class="formInput d-flex align-items-center">
+                    <em class="fa fa-calendar-o dateDrop" (click)="finalDateDrop = !finalDateDrop; initialDateDrop = false"></em>
+                    <span class="dateText" [ngClass]="{ 'active': finalDateDrop }">{{finalDateHumanRead}}</span>
+                    <em class="fa fa-times-circle dateClose" (click)="finalDateDrop = false; initialDateDrop = false; finalDateHumanRead = ''; finalDate = undefined" *ngIf="finalDateHumanRead"></em>
+                    <div class="drop" *ngIf="finalDateDrop">
+                        <ejs-calendar (change)='onFinalDateChange($event); finalDateDrop = false'></ejs-calendar>
+                    </div>
+                </div>
+            </div>
+
+            <div class="formField" *ngIf="isPcrcActive">
+                <span class="label">Pcrc</span>
+                <div class="formInput">
+                    <app-drop-down [textoInicial]="'Pcrc'" (valueText)="getPcrc($event)" [textField]="'pcrc'" [values]="pcrcList" (onValueSelected)="pcrcSelected($event)"></app-drop-down>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="search" [ngStyle]="{'text-align':'center', 'margin-top':'15px'}">
+    <input class="inputButton" type="submit" value="{{'search' | translate }}" (click)="search()">
+    <input class="inputButton ml-5" type="submit" value="{{'limpiar' | translate }}" (click)="limpiar()">
+</div>
+
+
+
+<div *ngIf="tableIsLoading">
+    <div class="spinner"></div>
+</div>
+
+<div class="container-fluid  mx-auto">
+    <h4>{{'Bases' | translate }}:</h4>
+    <hr>
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="table-responsive">
+                <table class="table table-wrapper" id="table" *ngIf="lectura==1" #table>
+                    <caption class="hide"> </caption>
+                    <thead class="bg-fondo">
+    
+                        <tr>
+                            <th>{{ 'Titulo' | translate}}</th>
+                            <th>{{ 'Fecha Respuesta Preturno' | translate}}</th>
+    
+                            <th>{{ 'Cedula' | translate}}</th>
+    
+                            <th>{{ 'Nombre' | translate}}</th>
+    
+                            <th>{{ 'Porcentaje Selección Múltiple' | translate}}</th>
+    
+                            <th>{{ 'Porcentaje Respuesta Corta' | translate}}</th>
+    
+                            <th>{{ 'Porcentaje Selección Concepto' | translate}}</th>
+    
+                            <th>{{ 'Intentos' | translate}}</th>
+    
+    
+                        </tr>
+                    </thead>
+    
+                    <tr class="cabeza" *ngFor="let res of data  | paginate: { itemsPerPage: 10, currentPage: p }  ">
+                        <td>{{res.titulo}}</td>
+                        <td>{{ res.fecha_respuesta | date:'medium'}} </td>
+    
+                        <td>{{res.documento }}</td>
+    
+                        <td>{{res.user_name}}</td>
+    
+                        <td *ngIf="res.porcentaje_multiple!=null">{{res.porcentaje_multiple}} %</td>
+    
+                        <td *ngIf="res.porcentaje_multiple==null">Sin Data</td>
+    
+                        <td *ngIf="res.porcentaje_unico!=null">{{ res.porcentaje_unico }} % </td>
+    
+                        <td *ngIf="res.porcentaje_unico==null">Sin Data</td>
+    
+                        <td *ngIf="res.porcentaje_concepto!=null">{{ res.porcentaje_concepto }} %</td>
+    
+                        <td *ngIf="res.porcentaje_concepto==null">Sin Data</td>
+    
+                        <td>{{res.intentos}}</td>
+    
+                    </tr>
+    
+                    <tr>
+                        <td *ngIf="!verificar" colspan="10" style="text-align: center;">{{'No hay datos' | translate}}</td>
+                    </tr>
+                    
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="d-flex my-2">
+        <button (click)="preview()" [disabled]="atras"  class="btn btn-primary hide btn-sm"><i class="fa fa-arrow-left"></i></button>
+        <button (click)="next()" [disabled]="siguiente" class="btn btn-primary btn-primary2 hide mx-2 btn-sm"><i class="fa fa-arrow-right"></i></button><br>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="input-group">
+                <select class="custom-select" *ngIf="verificar" (change)="seleccionarexport($event.target.value)" [(ngModel)]="numeroexportarpag" id="inputGroupSelect04" aria-label="Example select with button addon">
+                  <option value="0" selected>Selecciona número de exportable</option>
+                  <option value="{{item}}" *ngFor="let item of numeroexportar">Exportable pagina {{item}}</option>
+                </select>
+              </div>
+        </div>
+        <div class="col-md-2">
+            <button (click)="sendData()" *ngIf="verificar" class="btn btn-success d-flex justify-content-center align-items-center">
+                <span> {{ !generando ? 'Generar excel'  : 'Generando excel...'  }}</span>
+                <span *ngIf="generando" class="spinner2" ></span>
+            </button>
+        </div>
+    </div>
+    
+ </div>
+

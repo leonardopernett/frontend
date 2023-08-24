@@ -1,0 +1,22 @@
+<div class="articleTitle">
+    <input class="articleTitle_input" type="text" placeholder="{{'Titulo de la noticia'| translate}}" #articleTitle>
+</div>
+<div class="editor">
+    <app-rich-text-editor></app-rich-text-editor>
+</div>
+<div class="footer">
+    <ng-container *appUserRoleIsIn="29">
+    <app-button *ngIf="!!!newsOnEdition || newsOnEdition.state == 'archived'" [iconName]="'mdi:archive'" [buttonText]="'Guardar borrador' | translate" (click)="saveAsDraft()"></app-button>
+    </ng-container>
+    <app-spinner *ngIf="saveDraftNewsSpinner"></app-spinner>
+    <ng-container *appUserRoleIsIn="4">
+    <app-button class="ml.5" [iconName]="'mdi:publish'" [buttonText]="newsOnEdition && newsOnEdition.state == 'published' ? Actualizar: Publicar" (click)="publishNews()"></app-button>
+    </ng-container>
+    <app-spinner *ngIf="postNewsSpinner"></app-spinner>
+</div>
+
+<jw-modal *ngIf="sinContenidoModalOpen" (onClose)="sinContenidoModalOpen = false">
+    <app-card>
+        <h4>{{'Debes proporcionar el contenido de la noticia y un titulo' | translate}}</h4>
+    </app-card>
+</jw-modal>

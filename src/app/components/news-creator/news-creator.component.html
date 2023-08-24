@@ -1,0 +1,20 @@
+<div class="side_var">
+    <div class="selector">
+        <div *appUserRoleIsIn="28" class="tab " (click)="listMode = 'published'" [ngClass]="{active: listMode == 'published'}">
+            <app-icon class="mr.5" [iconName]="'mdi:newspaper'"></app-icon> {{'Noticias' | translate}}
+        </div>
+        <h3 class="separator">  |  </h3>
+        <div *appUserRoleIsIn="51" class="tab" (click)="listMode = 'archived'" [ngClass]="{active: listMode == 'archived'}">
+            <app-icon class="mr.5" [iconName]="'mdi:archive'"></app-icon>
+            {{'Borradores' | translate}}
+        </div>
+    </div>
+    <div class="list">
+        <app-button *appUserRoleIsIn="4" [buttonText]="'Noticia nueva' | translate" class="mb.5" (click)="onAddNews()"></app-button>
+        <app-news-list-editable [mode]="listMode" (onAddNews)="onAddNews()" (onNewsEdit)="onNewsEdit($event)" (onNewsDeleted)="onNewsDeleted($event)">
+        </app-news-list-editable>
+    </div>
+</div>
+<div class="editor">
+    <router-outlet></router-outlet>
+</div>

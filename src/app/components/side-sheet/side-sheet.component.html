@@ -1,0 +1,68 @@
+<div class="drawer" *ngIf="state.sideSheetOpen$ | async" (click)="state.toogleSideSheet()">
+    
+</div>
+<div class="scroll" id="scroll">
+    <div  class="menuSection">
+        <img src="../../../assets/nik.png" class="logo" alt="" width="200">
+        <h2 class="headerTitle">{{userName}}</h2>
+        <h5 class="headerSubtitle">{{rol}}</h5>
+
+        
+        <div class="headerDataBaseSelector" *ngIf="!changePcrc" (click)="changePcrc = true" style="cursor:pointer" [ngStyle]="{'cursor':'pointer'}">
+            <span>{{(state.selectedCliente$ | async)?.cliente }} / {{(state.selectedPcrc$ | async)?.pcrc }}</span>
+            <em class="fa fa-database mr1" show-delay="500" ></em>
+        </div>
+
+
+        <div class="treeView" [hidden]="!changePcrc">
+            <div class="menu">
+                <app-tree-view *ngIf="state.userPcrc$ | async" [data]="state.userPcrc$ | async" [child]="'pcrcs'" [childText]="'pcrc'" [dataText]="'cliente'" (onChildSeleccionado)="onPcrcSeleccionado($event); changePcrc = false"></app-tree-view>
+            </div>
+        </div>
+    </div>
+    <div  class="menuSection">
+        <h3 class="sectionTitle">Menú</h3>
+        <div class="tab"  (click)="state.toogleSideSheet()" routerLinkActive="active" routerLink="/app/explore" ><em class="fa fa-search mr1"></em> {{ 'menu.explorer' | translate }} </div>
+        <div class="tab"  (click)="state.toogleSideSheet()" routerLinkActive="active" routerLink="/app/news" ><em class="fa fa-book mr1"></em> {{ 'menu.notices' | translate }}</div>
+        <div class="tab"  (click)="state.toogleSideSheet()"  routerLinkActive="active" routerLink="/app/favorites" ><em class="fa fa-star mr1"></em> {{ 'menu.favorites' | translate }}</div>
+    </div>
+    <div  class="menuSection">
+        <h3 class="sectionTitle">{{'Edicion' | translate }}</h3>
+        <div class="tab" *appUserRoleIsIn="1" (click)="state.toogleSideSheet()" routerLinkActive="active" routerLink="/app/edicion" ><em class="fa fa-file mr1"></em> {{ 'menu.explorer' | translate }} </div>
+        <div class="tab" *appUserRoleIsIn="7" (click)="state.toogleSideSheet()" routerLinkActive="active" routerLink="/app/newseditor" ><em class="fa fa-newspaper-o mr1"></em> {{ 'menu.noticias' | translate }} </div>
+        <div class="tab" *appUserRoleIsIn="62" (click)="state.toogleSideSheet()" [routerLink]="['/app/admin-preturno']"   routerLinkActive="active"  ><em class="fa fa-calendar-check-o mr1"></em> {{'Preturno' | translate}} </div>
+    </div>
+    <div  class="menuSection">
+        <h3 class="sectionTitle">{{'Administracion' | translate }}</h3>
+        <div class="tab" *appUserRoleIsIn="8" (click)="state.toogleSideSheet()"   routerLinkActive="active" routerLink="/app/users" ><em class="fa fa-users mr1"></em> Permisos Bases </div>
+        <div class="tab" *appUserRoleIsIn="9" (click)="state.toogleSideSheet()" routerLinkActive="active" routerLink="/app/reports" ><em class="fa fa-line-chart mr1"></em> {{ 'menu.indicadores' | translate }} </div>
+        <div class="tab" *appUserRoleIsIn="10" (click)="state.toogleSideSheet()" routerLinkActive="active" routerLink="/app/zendesk" ><img class="mr1" src="../../../assets/zendesk.jfif" alt="">Zendesk</div>
+        <div class="tab" *appUserRoleIsIn="11" (click)="state.toogleSideSheet()" routerLinkActive="active" routerLink="/app/bases" ><em class="fa fa-database mr1"></em>Nik {{'Bases' | translate}} </div>
+
+         <div class="tab" *appUserRoleIsIn="12" (click)="state.toogleSideSheet()" routerLinkActive="active" routerLink="/app/permisos" ><em class="fa fa-cogs mr1"></em>{{'Permisos Usuarios' | translate}}</div> 
+
+        <div class="tab" *appUserRoleIsIn="59" (click)="state.toogleSideSheet()" [routerLink]="['/app/papeleria-reciclaje']"   routerLinkActive="active"  ><em class="fa fa-trash mr1"></em> {{ 'Papeleria de reciclaje' | translate }} </div>
+        <div class="tab" *appUserRoleIsIn="69" (click)="state.toogleSideSheet()" [routerLink]="['/app/usuario-ldap']"   routerLinkActive="active"  ><em class="fa fa-user-plus mr1"></em> Usuarios Temporales </div>
+    </div>
+    <div class="menuSection">
+        <h3 class="sectionTitle">{{'Configuración' | translate }}</h3>
+        <div class="configurar_seguridad mt.5" *appUserRoleIsIn="13">
+            <h5 class="ma0" *ngIf="state.permisoCopiar$ | async">{{ 'deshabilitada' | translate }}</h5>
+            <h5 class="ma0" *ngIf="!(state.permisoCopiar$ | async)">{{ 'habilitados' | translate }}</h5>
+            <h5 *ngIf="permisoCopiarLoading">...</h5>
+            <app-icon [iconName]="'mdi:toggle-switch'" *ngIf="!(state.permisoCopiar$ | async) && !permisoCopiarLoading" (click)="cambiarProteccionDeDatos()" class="active"></app-icon>
+            <app-icon [iconName]="'mdi:toggle-switch-off-outline'" *ngIf="(state.permisoCopiar$ | async) && !permisoCopiarLoading" (click)="cambiarProteccionDeDatos()"></app-icon>
+        </div>
+        <div class="configurar_seguridad mt.5" *appUserRoleIsIn="71">
+            <h5 *ngIf="busqueda==1">Buscador de Contingencia Habilitado</h5>
+            <h5 *ngIf="busqueda==0">Buscador de Contingencia Deshabilitado</h5>
+            <app-icon [iconName]="'mdi:toggle-switch'" *ngIf="busqueda===1" (click)="cambiarBusqueda(busqueda)" class="active"></app-icon>
+            <app-icon [iconName]="'mdi:toggle-switch-off-outline'" *ngIf="busqueda===0" (click)="cambiarBusqueda(busqueda)"></app-icon>
+        </div>
+    </div>
+   
+    <div  class="menuSection"> 
+        <div class="tab" (click)="logOut()" *ngIf="!logoutLoading"><em class="fa fa-power-off mr1"></em>{{ 'logout' | translate }}</div>
+        <app-spinner *ngIf="logoutLoading"></app-spinner>
+    </div>             
+</div>

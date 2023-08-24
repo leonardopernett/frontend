@@ -1,0 +1,112 @@
+
+<div class="row container principal">
+  <div class="col-md-5">
+    <input type="text" class="form-control" id="base" [(ngModel)]="base" placeholder="{{ 'Base a registrar' | translate}}">
+    </div>
+    <div class="col-md-1 boton">
+      <em *appUserRoleIsIn="31" class="fa fa-plus-square fa-2x icono"  (click)="crearbase()"  tooltip="{{'Crear base' | translate}}" placement="top" show-delay="500"></em>
+      <em class="fa fa-search fa-2x icono"  (click)="buscarbase()"  tooltip="Buscar base" placement="top" show-delay="500"></em>
+  
+    </div>
+  <div class="col-md-6">
+  </div>
+</div>
+
+
+
+<div class="row container principal">
+
+  <div *appUserRoleIsIn="32" class="col-md-5 ng" >
+
+    <ng-container *ngIf="bases?.length > 0" >
+
+    <div  class="cards" *ngFor="let baseF of bases  | filterclient:baseB">
+
+      <div class="row" *ngIf="editaractive ">
+      <p class="col-md-10" (click)="cargardatospcrc(baseF.id_clientes,baseF.nombre)">{{baseF.nombre}}</p>
+      <em *appUserRoleIsIn="35" class="col-md-1 fa fa-trash editIcon" (click)="eliminarbase(baseF.id_clientes)" tooltip="Eliminar Base" placement="top" show-delay="500"></em>
+      <em *appUserRoleIsIn="37" class="col-md-1 fa fa-pencil editIcon" (click)="editar(baseF.id_clientes,baseF.nombre)"  tooltip="Editar Base" placement="top" show-delay="500"></em>
+    </div>
+
+    <div class="row" *ngIf="!editaractive && (baseF.id_clientes != idcliente)">
+      <p class="col-md-10" (click)="cargardatospcrc(baseF.id_clientes)">{{baseF.nombre}}</p>
+      <em *appUserRoleIsIn="35" class="col-md-1 fa fa-trash editIcon" (click)="eliminarbase(baseF.id_clientes)" tooltip="Eliminar Base" placement="top" show-delay="500"></em>
+      <em *appUserRoleIsIn="37" class="col-md-1 fa fa-pencil editIcon" (click)="editar(baseF.id_clientes,baseF.nombre)"  tooltip="{{'Editar Base' | translate}}" placement="top" show-delay="500"></em>
+    </div>
+
+    <div class="row" *ngIf="baseF.id_clientes === idcliente">
+    <input class="input" type="text" id="pcrc" [(ngModel)]="pcrc">
+    <em class="fa fa-window-close icono editIcon" (click)="cancelar()" ></em>
+    <em class="fa fa-check-square icono editIcon" (click)="confirmar(baseF.id_clientes)"></em>
+    </div>
+
+  </div>
+
+</ng-container>
+
+<ng-container *ngIf="bases?.length === 0">
+  <div class="cards">{{'No hay datos' | translate}}</div>
+</ng-container>
+
+    </div>
+
+  <ng-container *appUserRoleIsIn="33">
+  <div  class="col-md-6 " *ngIf="pcrcactive">
+
+    <h3>{{pcrcNombre}}</h3>
+
+    <div class="row segundo">
+
+      <div class="col-md-10">
+        <input type="text" class="form-control" id="pcrcsave" [(ngModel)]="pcrcsave" placeholder="Pcrc a registrar">
+      </div>
+  
+      <div class="col-md-1 icono3">
+        <em  class="editIcon fa fa-plus-square fa-2x icono"  (click)="crearpcrc()" tooltip="Crear pcrc" placement="top" show-delay="500"></em>
+      </div>
+
+      <div class="col-md-1 " id="icono4">
+        <em  class="fa fa-search fa-2x icono"  (click)="buscarpcrc()"  tooltip="Buscar base" placement="top" show-delay="500"></em>
+  
+      </div>
+  
+    </div>
+
+    <div class="ng ng2">
+
+  <ng-container *ngIf="pcrcs?.length > 0" >
+
+    <div class="cards" *ngFor="let pcrcF of pcrcs | filterpcrc:pcrcB" >
+
+    <div class="row" *ngIf="editaractivepcrc ">
+      <p class="col-md-10" >{{pcrcF.pcrc}}</p>
+      <em *appUserRoleIsIn="34" class="col-md-1 fa fa-trash editIcon" (click)="eliminarpcrc(pcrcF.id_dp_pcrc)"  tooltip="Eliminar Pcrc" placement="top" show-delay="500"></em>
+      <em *appUserRoleIsIn="36" class="col-md-1 fa fa-pencil editIcon" (click)="editarpcrc(pcrcF.id_dp_pcrc,pcrcF.pcrc)"  tooltip="Editar Pcrc" placement="top" show-delay="500"></em>
+    </div>
+
+    <div class="row" *ngIf="!editaractivepcrc && (pcrcF.id_dp_pcrc != idpcrc)">
+      <p class="col-md-10">{{pcrcF.pcrc}}</p>
+      <em *appUserRoleIsIn="34" class="col-md-1 fa fa-trash editIcon" (click)="eliminarpcrc(pcrcF.id_dp_pcrc)"  tooltip="Eliminar Pcrc" placement="top" show-delay="500"></em>
+      <em *appUserRoleIsIn="36" class="col-md-1 fa fa-pencil editIcon" (click)="editarpcrc(pcrcF.id_dp_pcrc,pcrcF.pcrc)"  tooltip="Editar Pcrc" placement="top" show-delay="500"></em>
+    </div>
+
+    <div class="row" *ngIf="pcrcF.id_dp_pcrc === idpcrc">
+    <input class="input" type="text" id="pcrcedit" [(ngModel)]="pcrcedit">
+    <em class="fa fa-window-close icono editIcon" (click)="cancelarpcrc()"></em>
+    <em class="fa fa-check-square icono editIcon" (click)="confirmareditar(pcrcF.id_dp_pcrc)"></em>
+    </div>
+
+    </div>
+
+  </ng-container>
+
+  <ng-container *ngIf="pcrcs?.length === 0">
+    <div class="cards">{{ 'No hay datos' | translate }}</div>
+  </ng-container>
+
+</div>
+
+  </div>
+</ng-container>
+
+</div>

@@ -1,0 +1,50 @@
+<div class="filters">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="formField">
+                        <span class="label">{{'Fecha inicial' | translate}}</span>
+                        <input type="month" class="form-control" id="fechaInicial" #inicial>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="formField space">
+                        <span class="label">{{'Fecha final' | translate}}</span>
+                        <input type="month" class="form-control" id="fechaFin" #final>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12 text-center mt-2">
+                    <input class="inputButton" type="submit" value="{{'search' | translate }}" (click)="search()">
+                    <input class="inputButton ml-5" type="submit" value="{{'limpiar' | translate }}" (click)="limpiar()">
+                    <div class="spinner" *ngIf="loading"></div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container">
+    <h2>{{'Consolidado' | translate }}</h2>
+    <hr>
+
+    <div class="row">
+        <div class="col-md-2">
+            <button (click)="sendData()" *ngIf="verificar" class="btn btn-success d-flex justify-content-center align-items-center">
+                <span> {{ !generando ? 'Generar excel'  : 'Generando excel...'  }}</span>
+                <span *ngIf="generando" class="spinner2" ></span>
+            </button>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!--  -->

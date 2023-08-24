@@ -1,0 +1,80 @@
+.icono{
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+#icono4{
+    padding-left: 0px;
+    cursor: pointer;
+}
+
+.icono3{
+    padding-right: 0px;
+    margin-right: 0px;
+    cursor: pointer;
+}
+
+.principal{
+    padding-top: 20px;
+    
+}
+
+.ng{
+    height: 70vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.ng2{
+    padding-right: 13px;
+}
+
+.ng::-webkit-scrollbar {
+    width: 5px;
+   
+}
+.ng::-webkit-scrollbar-track {
+    background: #fff ; 
+    border-radius: 10px;
+}
+.ng::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    height: 5px;
+    background: #cccccc;
+}
+
+.boton{
+    padding: 0;
+}
+
+.cards{
+
+    background-color: rgb(241 241 241);
+    color: black;
+    border-radius: 3px;
+    padding: 8px;
+    box-shadow: 0 1px  3px  rgba(0,0,0,0.12), 0 1px 2px   rgba(0,0,0,0.24);
+    margin-bottom: 10px ;
+}
+
+.segundo{
+    margin-bottom: 10px;
+}
+
+.editIcon{
+    float: right;
+    padding-left: 4px;
+    padding-right: 4px;
+    cursor:pointer;
+}
+
+p{
+    cursor: pointer;
+    margin:0px;
+}
+
+.input{
+    
+    margin-left: 20px;
+
+}

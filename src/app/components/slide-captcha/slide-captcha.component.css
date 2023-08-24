@@ -1,0 +1,53 @@
+.tam{
+    font-size: 23px;
+}
+
+.slide_container{
+    padding: 1rem;
+    background-color: #eaeaea;
+    border-radius: 10px;
+}
+
+.slide{
+    width: 300px;
+    height: 3rem;        
+    position: relative;
+    border-radius: 5px;
+    user-select: none;
+    background: linear-gradient(145deg, #d3d3d3, #fafafa);
+}
+
+.slide .text{
+    position: absolute;
+    top: 1rem;
+    left: 5rem;
+    z-index: 0;
+    color:var(--color-principal);
+    font-weight: 500;
+}
+
+.slide .box:hover{
+    cursor: pointer;
+}
+
+.slide .box app-icon{
+    pointer-events: none;
+}
+
+.slide .box{
+    z-index: 2;
+    position: absolute;
+    height: 100%;
+    width: 48px;
+    padding: 0.8rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+    background:#CC0F69;
+    /* box-shadow:  8px 8px 68px #5898ce, 
+                 -8px -8px 68px #5ea2da; */
+}

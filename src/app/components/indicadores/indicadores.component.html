@@ -1,0 +1,113 @@
+<div class="filters">
+    <div class="leftColumm">
+        <div class="formField">
+            <span class="label">Fecha inicial</span>
+            <div class="formInput">
+                <app-icon [iconName]="'mdi:calendar'" class="dateDrop" (click)="initialDateDrop = !initialDateDrop; finalDateDrop = false"></app-icon>
+                <span class="mr.5 dateText" [ngClass]="{ 'active': initialDateDrop }">{{initialDateHumanRead}}</span>                
+                <app-icon [iconName]="'mdi:close-circle-outline'" class="dateClose" (click)="finalDateDrop = false; initialDateDrop = false; initialDateHumanRead = ''; initialDate = undefined" *ngIf="initialDateHumanRead"></app-icon>
+
+                
+                <div class="drop" *ngIf="initialDateDrop">
+                    <ejs-calendar (change)='onInitialDateChange($event); initialDateDrop = false'></ejs-calendar>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="formField">
+            <span class="label">Cliente</span>
+            <div class="formInput">
+                <app-drop-down [textoInicial]="'Cliente'" [textField]="'cliente'" [values]="clientesList" (onValueSelected)="clienteSelected($event)"></app-drop-down>
+            </div>
+        </div>
+        <div class="formField" *ngIf="isPcrcActive">
+            <span class="label">Pcrc</span>
+            <div class="formInput">
+                <app-drop-down [textoInicial]="'Pcrc'" [textField]="'pcrc'" [values]="pcrcList"
+                    (onValueSelected)="pcrcSelected($event)"></app-drop-down>
+            </div>
+        </div>
+        <div class="formField" *ngIf="isCategoriaActive">
+            <span class="label">Categoria</span>
+            <div class="formInput">
+                <div class="categorySelector" (click)="categoryDrop = !categoryDrop">
+                    {{selectedCategory?.name || 'Seleccionar' }}
+                    <app-icon [iconName]="'mdi:file-tree'"></app-icon>
+                </div>
+                <div class="drop" *ngIf="categoryDrop">
+                    <app-categories [categories]="categoriesList" [mode]="'report'"
+                        (onCategorySelected)="categorySelected($event);categoryDrop = false"></app-categories>
+                </div>
+            </div>
+        </div>
+        <div class="formField" *ngIf="isArticleActive">
+            <span class="label">Articulo</span>
+            <div class="formInput">
+                <div class="categorySelector" (click)="articlesDrop = !articlesDrop">
+                    {{selectedArticle?.title || 'Seleccionar' }}
+                    <app-icon [iconName]="'mdi:file-document-outline'"></app-icon>
+                </div>
+                <div class="articlesDrop" *ngIf="articlesDrop">
+                    <app-short-article-list [category]="selectedCategory" (onArticleSelected)="articleSelected($event)">
+                    </app-short-article-list>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rightColumm">
+        <div class="formField">
+            <span class="label">Fecha final</span>
+            <div class="formInput">
+                <app-icon [iconName]="'mdi:calendar'" class="dateDrop" (click)="finalDateDrop = !finalDateDrop; initialDateDrop = false"></app-icon>
+                <span class="dateText"  [ngClass]="{ 'active': finalDateDrop }">{{finalDateHumanRead}}</span>
+                <app-icon [iconName]="'mdi:close-circle-outline'" class="dateClose" (click)="finalDateDrop = false; initialDateDrop = false; finalDateHumanRead = ''; finalDate = undefined" *ngIf="finalDateHumanRead"></app-icon>
+                <div class="drop" *ngIf="finalDateDrop">
+                    <ejs-calendar (change)='onFinalDateChange($event); finalDateDrop = false'></ejs-calendar>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="formField space">
+        </div> -->
+        <div class="formField">
+            <span class="label">Director</span>
+            <div class="formInput">
+                <app-drop-down (onValueSelected)="onDirectorSelected($event)" [textoInicial]="'Director'"
+                    [textField]="'nombre'" [values]="directores"></app-drop-down>
+            </div>
+        </div>
+        <div class="formField" *ngIf="isGerenteActive">
+            <span class="label">Gerente</span>
+            <div class="formInput">
+                <app-drop-down (onValueSelected)="onGerenteSelected($event)" [textoInicial]="'Gerente'"
+                    [textField]="'nombre'" [values]="gerentesList"></app-drop-down>
+            </div>
+        </div>
+        <div class="formField" *ngIf="isCoordinadorActive">
+            <span class="label">Coordinador operaciones</span>
+            <div class="formInput">
+                <app-drop-down (onValueSelected)="onCoordiSelected($event)" [textoInicial]="'Coordinador operaciones'"
+                    [textField]="'nombre'" [values]="coordisList"></app-drop-down>
+            </div>
+        </div>
+        <div class="formField" *ngIf="isLiderActive">
+            <span class="label">Lider</span>
+            <div class="formInput">
+                <app-drop-down (onValueSelected)="onLiderSelected($event)" [textoInicial]="'Lider'"
+                    [textField]="'nombre'" [values]="lideresList"></app-drop-down>
+            </div>
+        </div>
+
+    </div>
+    <div class="search">
+        <input class="inputButton" type="button" value="Buscar" (click)="search()">
+    </div>
+</div>
+<div class="dash">
+    <div class="indicadores">
+        <div class="indicador" *ngFor="let indicador of indicadores | keyvalue">
+            <div class="indicador_header">{{indicador.value.name}}</div>
+            <div class="indicador_value">{{indicador.value.value}}</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<ng-container *appUserRoleIsIn="42">
+<div *ngIf="allpcrc$ | async as combinedData">
+    <div *ngIf="(state.selectedUserPcrcsState$ | async).state == 'finish' else loading">
+        <app-tree-view-multi-row  *ngFor="let cliente of combinedData.allPcrc" [cliente]="cliente" [clienteData]="combinedData" (onChildSeleccionado)="childSeleccionado($event)"></app-tree-view-multi-row> 
+    </div>
+
+    <ng-template #loading>
+        <app-spinner></app-spinner>
+    </ng-template>
+</div> 
+</ng-container>

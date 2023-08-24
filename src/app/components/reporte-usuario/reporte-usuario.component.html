@@ -1,0 +1,106 @@
+<div class="filters">
+        <div class="row">
+            <div class="col-md-6">
+   
+
+                <div class="formField">
+                    <span class="label" >{{'Client' | translate}}</span>
+                    <div class="formInput">
+                        <app-drop-down [textoInicial]="cargando ? 'loading...': 'Client' | translate " (valueText)="getTexto($event)" [textField]="'cliente'" [values]="clientesList" (onValueSelected)="clienteSelected($event)"></app-drop-down>
+                    </div>
+                </div>
+
+           
+            </div>
+
+            <div class="col-md-6">
+
+
+                <div class="formField" *ngIf="isPcrcActive">
+                    <span class="label">Pcrc</span>
+                    <div class="formInput">
+                        <app-drop-down [textoInicial]="'Pcrc'" (valueText)="getPcrc($event)" [textField]="'pcrc'" [values]="pcrcList"
+                            (onValueSelected)="pcrcSelected($event)"></app-drop-down>
+                    </div>
+                </div>
+
+          
+            </div>
+        </div>
+     
+        <div class="col-md-12 text-center mt-5">
+            <input class="inputButton" type="submit" value="{{'search' | translate }}" (click)="search()" >
+            <input class="inputButton ml-5" type="submit" value="{{'limpiar' | translate }}" (click)="limpiar()" >
+        </div>
+
+ 
+</div>
+
+ <div *ngIf="loading">
+    <div class="spinner"></div>
+  </div>
+
+
+    <div>
+      
+    </div>
+   <div>
+  <div class="container">
+    <h4>{{'menu.usuarios' | translate}}:</h4>
+    <p class="">{{this.selectedData?.text}}</p>
+    <hr>
+      <div class="row">
+          <div class="col-md-12 col-lg-12 ">
+           
+                <table class="table table-bordered hide  " id="table">
+                
+                    <thead class="bg-fondo">
+                     <tr>
+                         <th scope="col" [ngStyle]="{'width':'250px'}">{{'Nombre Usuario' | translate}}</th>
+                         <th scope="col" [ngStyle]="{'width':'200px'}">{{'Cedula' | translate}}</th>
+                         <th scope="col" [ngStyle]="{'width':'200px'}">{{'Fecha de Creacion' | translate}}</th>
+                         <th scope="col">{{'Rol' | translate}}</th>
+                         <th colspan="2" [ngStyle]="{'width':'200px'}">Pcrc</th>
+                       </tr>
+                    </thead>   
+                    
+                     <tbody>
+                          <tr class="cabeza" *ngFor="let res of data |  paginate: { itemsPerPage: 5, currentPage: p } " >
+                                <td>{{res.usuarios}}</td>
+                                <td>{{res.documento}}</td>
+                                <td>{{res.fecha_creacion | date:'M/d/yyyy HH:mm'}}</td>
+                                <td>{{res.rol}}</td>
+                                <td>{{selectedPcrc.pcrc}}</td>
+                           </tr>            
+                        <tr>
+                            <td *ngIf="!verificar" colspan="7" style="text-align: center;">{{'No hay datos' | translate}}</td>
+                        </tr>
+                     </tbody>
+                   </table>
+                   
+                   <div class="d-flex my-2">
+                    <button (click)="preview()" [disabled]="atras"  class="btn btn-primary hide btn-sm"><i class="fa fa-arrow-left"></i></button>
+                    <button (click)="next()" [disabled]="siguiente" class="btn btn-primary btn-primary2 hide mx-2 btn-sm"><i class="fa fa-arrow-right"></i></button><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <select class="custom-select" *ngIf="verificar" (change)="seleccionarexport($event.target.value)" [(ngModel)]="numeroexportarpag" id="inputGroupSelect04" aria-label="Example select with button addon">
+                              <option value="0" selected>Selecciona número de exportable</option>
+                              <option value="{{item}}" *ngFor="let item of numeroexportar">Exportable pagina {{item}}</option>
+                            </select>
+                          </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button (click)="sendData()" *ngIf="verificar" class="btn btn-success d-flex justify-content-center align-items-center">
+                            <span> {{ !generando ? 'Generar excel'  : 'Generando excel...'  }}</span>
+                            <span *ngIf="generando" class="spinner2" ></span>
+                        </button>
+                    </div>
+                </div>
+
+          </div>
+      </div>
+  </div>
+
+<br>

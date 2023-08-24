@@ -1,0 +1,25 @@
+.centrado{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+   
+}
+
+h2{
+    text-align: center;
+   
+}
+.tarjeta{
+    box-shadow: 0 0 10px -4px rgba(0,0,0,.5);
+    width: 500px;
+    text-align: left;
+    box-sizing: border-box;
+    padding:1rem;
+    background: rgba(138, 92, 92, 0.05);
+}
+
+.boton{
+    background:#039be5 ;
+    color:#fff;
+}

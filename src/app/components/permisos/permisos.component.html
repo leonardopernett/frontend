@@ -1,0 +1,522 @@
+
+<div class="row">
+  <div class="col-md-12">
+    <h3>{{'Permisos Usuario' | translate}}</h3>
+  </div>
+</div>
+
+<div class="row container principal">
+  <div class="col-md-3">
+    <input type="text" class="form-control" id="cedula" [(ngModel)]="cedula" placeholder="Buscar Por Cedula">
+    </div>
+    <div class="col-md-1 boton">
+      <em class="fa fa-search fa-2x icono"  (click)="buscarusuario()"  tooltip="Buscar Usuario" placement="top" show-delay="500"></em>
+  
+    </div>
+    <div class="col-md-8">
+      <button class="btn btn-primary rol api" data-toggle="modal" data-target="#exampleModal3">{{'Administrar Api'| translate}}</button>
+        <button class="btn btn-primary rol" data-toggle="modal" data-target="#exampleModal2">{{'Administrar Roles' | translate}}</button>
+    </div>
+</div>
+
+<!-- Modal Rol -->
+<div class="modal" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document" >
+    <div class="modal-content ">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{'Administracion de Api'}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-api-user" role="tab" aria-controls="pills-home" aria-selected="true">{{'Administracion Usuarios Api'| translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-api-permiso" role="tab" aria-controls="pills-profile" aria-selected="false">{{'Asignar Permiso Usuarios Api'| translate}}</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-api-user" role="tabpanel" aria-labelledby="pills-home-tab">
+            
+            <div class="row">
+              <div class="col-md-3">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal5"  >{{'Crear Usuario'| translate}}</button>
+              </div>
+            </div>
+              <br>
+              <br>
+
+              <div class="modal" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document" >
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">{{'Crear Usuario Api' | translate}}</h5>
+                      <button type="button" class="close" onclick="$('#exampleModal5').modal('hide');" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <br>
+                      <div class="col-md-12">
+
+                        <input type="text" class="form-control" id="usuarioapi" [(ngModel)]="usuarioapi" placeholder="{{'Ingresar Usuario' | translate}}">  
+
+                      </div>
+                      <br>
+                      <div class="col-md-12">
+                        <input type="password" class="form-control" id="passwordapi" [(ngModel)]="passwordapi" placeholder="Ingresar Password">  
+                      </div>
+                      <br>
+                      <div class="col-md-12">
+                        <select class="form-control" aria-label="Default select example" id="estado" [(ngModel)]="estado">
+                          <option selected value="undefined">{{'Selecciona una opcion'| translate}}</option>
+                          <option value="0">{{'Inactivo' | translate}}</option>
+                          <option value="1">{{'Activo' | translate}}</option>
+                        </select>
+                      </div>
+                      <br>
+                    </div>
+                    <div class="modal-footer">
+
+                      <button type="button" class="btn btn-secondary" onclick="$('#exampleModal5').modal('hide');" aria-label="Close" >{{'cerrar' | translate}}</button>
+                      <button type="button" class="btn btn-primary" onclick="$('#exampleModal5').modal('hide');" (click)="crearusuarioapi(usuarioapi,passwordapi,estado)">{{'Crear Usuario'| translate}}</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <table class="table table-bordered hide  table-wrapper" id="table">
+               <caption>description</caption>
+                <thead [ngStyle]="{'background':'#039be5', 'color':'#fff'}">
+                    <tr>
+                        <th scope="col">{{'Username' | translate}}</th>
+                        <th scope="col"></th>
+                    
+                    </tr>
+                </thead>
+            
+                <tr class="cabeza" *ngFor="let res of userapi ">
+
+                    <td>{{res.usuario}}</td>
+
+                    
+                    <td>
+                      <em  class="fa fa-pencil rm1 " title="Editar rol" tooltip="Editar rol" placement="top" show-delay="500" data-toggle="modal" data-target="#exampleModal7" (click)="editarusuarioapi(res.id,res.usuario,res.estado)"></em>
+                      <em  class="fa fa-trash rm1" title="Elimiar rol" tooltip="Elimiar rol" placement="top" show-delay="500" (click)="eliminarusuarioapi(res.id)"></em>
+                    </td>
+        
+                      <div class="modal" id="exampleModal7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document" >
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">{{'Editar Usuario Api' | translate}}</h5>
+                              <button type="button" class="close" onclick="$('#exampleModal7').modal('hide');" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <br>
+                              <div class="col-md-12">
+                                <input type="text" class="form-control" id="usuarioapi" [(ngModel)]="usuarioapiedit" placeholder="Ingresar Usuario">  
+                              </div>
+                              <br>
+                              <div class="col-md-12">
+                                <input type="password" class="form-control" id="passwordapi" [(ngModel)]="passwordapiedit" placeholder="Ingresar Password">  
+                              </div>
+                              <br>
+                              <div class="col-md-12">
+                                <select class="form-control" aria-label="Default select example" id="estado" [(ngModel)]="estadoapiedit">
+                
+                                  <option value="0">{{'Inactivo' | translate}}</option>
+                                  <option value="1">{{'Activo' | translate}}</option>
+                                </select>
+                              </div>
+                              <br>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" onclick="$('#exampleModal7').modal('hide');" aria-label="Close" >{{'cerrar'}}</button>
+                              <button type="button" class="btn btn-primary" onclick="$('#exampleModal7').modal('hide');" (click)="editarusuarioapiF()">{{'Editar Usuario' | translate}}</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+            
+                </tr>
+   
+                <tr>
+                    <td *ngIf="contApi === 0" colspan="9" style="text-align: center;">{{'No hay datos' | translate}}</td>
+                </tr>
+            
+            </table>
+
+          </div>
+          <div class="tab-pane fade" id="pills-api-permiso" role="tabpanel" aria-labelledby="pills-profile-tab">
+           
+            <div class="row container principal">
+              <div class="col-md-4">
+                <input type="text" class="form-control" id="buscarusuarioapi" [(ngModel)]="buscarusuarioapi" placeholder="Ingresa el usuario">
+                </div>
+                <div class="col-md-1 boton">
+                  <em class="fa fa-search fa-2x icono"  (click)="buscarusuarioapiFuncion()"  tooltip="Buscar Usuario" placement="top" show-delay="500"></em>
+              
+                </div>
+                <div class="col-md-7">
+                 </div>
+            </div>
+            <br>
+            <br>
+
+            <ng-container *ngIf="validardatos">
+
+            <div id="accordion" *ngIf="validarusuarioapi">
+
+              <ng-container>
+              <div class="card" *ngFor="let res of categoriapi;let indice=index">
+                <div class="card-header" style="cursor:pointer" id="headingOne" data-toggle="collapse" [attr.data-target]="'#collapseOne'+indice+1" aria-expanded="true" aria-controls="collapseOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapseOne'+indice+1" aria-expanded="true" aria-controls="collapseOne">
+                      {{res.categoria}}
+                    </button>
+                  </h5>
+                </div>
+            
+                <div id="{{'collapseOne'+indice+1}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <ng-container *ngFor="let res2 of permisoapi;let indice=index">
+
+                      <ng-container *ngIf="res.id===res2.id_categoria">
+                    
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="{{'flexCheckDefault'+indice+1}}" (click)="asignarApi(res2.id,$event.target.checked)" [checked]="res2.seleccion === 0">
+                          <label class="form-check-label" for="{{'flexCheckDefault'+indice+1}}">
+                            {{res2.descripcion}}
+                          </label>
+                        </div>
+
+                      </ng-container>
+
+                    </ng-container>
+
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+              
+            </div>
+
+            <div id="accordion" *ngIf="!validarusuarioapi">
+              <h5 class="titulo">{{'El usuario no existe' | translate}}</h5>
+            </div>
+
+          </ng-container>
+
+          <ng-container *ngIf="!validardatos">
+            <h5 class="titulo">{{'Ingresa un usuario' | translate}}</h5>
+          </ng-container>
+
+            </div>
+
+          </div>
+        </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'cerrar' | translate}}</button>
+      </div>
+
+    </div>
+    </div>
+  </div>
+
+
+<!-- Modal Rol -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document" >
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{'Administracion de Roles'| translate}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-rol" role="tab" aria-controls="pills-home" aria-selected="true">{{'Administracion Roles'| translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-permiso" role="tab" aria-controls="pills-profile" aria-selected="false">{{'Asignar Permiso Roles' | translate}}</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-rol" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="row">
+              <div class="col-md-10">
+                <input type="text" class="form-control" id="rolcreado" [(ngModel)]="rolcreado" placeholder="Agregar Rol">  
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-primary" (click)="crearol()">{{'Crear Rol' | translate}}</button>
+              </div>
+            </div>
+              <br>
+              <br>
+              <table class="table table-bordered hide  table-wrapper" id="table">
+                  <caption>des</caption>
+                <thead [ngStyle]="{'background':'#039be5', 'color':'#fff'}">
+                    <tr>
+                        <th scope="col">{{'Rol' | translate}}</th>
+                        <th scope="col"></th>
+                    
+                    </tr>
+                </thead>
+            
+                <tr class="cabeza" *ngFor="let res of rol ">
+
+                    <td *ngIf="!check">{{res.rol}}</td>
+
+                    <ng-container *ngIf="check && (res.id === rolcomparar)">
+                      <td >
+                        <input (ngModelChange)="pasarol($event)" type="text" [(ngModel)]="res.rol" class="form-control" >
+                      
+                    </td>
+                    <td>
+                      <em (click)="cancelarol()" class="fa fa-window-close rm1"></em>
+                      <em (click)="editarolF(res.id,res.rol)" class="fa fa-check-square rm1"></em>
+                      <em *ngIf="res.condicion === 1" class="fa fa-trash rm1" title="Elimiar rol" tooltip="Elimiar rol" placement="top" show-delay="500" (click)="eliminarol(res.id)"></em>
+                    </td>
+                    </ng-container>
+
+                    <ng-container *ngIf="check && (res.id != rolcomparar)">
+                      <td >
+                        {{res.rol}}
+                      
+                    </td>
+                    <td>
+                      <em  class="fa fa-pencil rm1 " title="Editar rol" tooltip="Editar rol" placement="top" show-delay="500" (click)="editarol(res.id)"></em>
+                      <em *ngIf="res.condicion === 1" class="fa fa-trash rm1" title="Elimiar rol" tooltip="Elimiar rol" placement="top" show-delay="500" (click)="eliminarol(res.id)"></em>
+                    </td>
+                    </ng-container>
+
+                    <td>
+                      
+                      <em *ngIf="!check" class="fa fa-pencil rm1 " title="Editar rol" tooltip="Editar rol" placement="top" show-delay="500" (click)="editarol(res.id)"></em>
+                      <em *ngIf="!check && (res.condicion === 1)" class="fa fa-trash rm1" title="Elimiar rol" tooltip="Elimiar rol" placement="top" show-delay="500" (click)="eliminarol(res.id)"></em>
+                      
+                    </td>
+                   
+            
+                </tr>
+   
+                <tr>
+                    <td *ngIf="cont === 0" colspan="9" style="text-align: center;">{{'No hay datos' | translate}}</td>
+                </tr>
+            
+            </table>
+
+          </div>
+          <div class="tab-pane fade" id="pills-permiso" role="tabpanel" aria-labelledby="pills-profile-tab">
+            
+            <select [(ngModel)]="opcionSeleccionado" (change)="capturar()"  class="form-control" aria-label="Default select example">
+              
+              <option *ngFor="let res of rol" value="{{res.id}}">{{res.rol}}</option>
+            </select>
+
+            <div id="accordion" *ngIf="acordeon">
+
+              <ng-container>
+              <div class="card" *ngFor="let res of categoria;let indice=index">
+                <div class="card-header" style="cursor:pointer" id="headingOne" data-toggle="collapse" [attr.data-target]="'#collapseOne'+indice+1" aria-expanded="true" aria-controls="collapseOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapseOne'+indice+1" aria-expanded="true" aria-controls="collapseOne">
+                      {{res.categoria}}
+                    </button>
+                  </h5>
+                </div>
+            
+                <div id="{{'collapseOne'+indice+1}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+
+                    <ng-container *ngFor="let res2 of permisorol;let indice=index">
+
+                      <ng-container *ngIf="res.id===res2.id_categoria">
+                    
+                        <div class="form-check">
+                          <input (click)="asignarolpermiso(res2.id,$event.target.checked)" class="form-check-input" type="checkbox" id="{{'flexCheckDefault'+indice+1}}" [checked]="res2.seleccion === 0">
+                          <label class="form-check-label" for="{{'flexCheckDefault'+indice+1}}">
+                            {{res2.permiso}}
+                          </label>
+                        </div>
+
+                      </ng-container>
+
+                    </ng-container>
+
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+              
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'cerrar' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-10 col-md-12 table-edicion">
+<div class="table-responsive">
+  <table  class="table table-bordered hide table-wrapper " id="table">
+    <caption>description</caption>
+       <thead [ngStyle]="{'background':'#039be5', 'color':'#fff'}">
+           <tr >
+               <th scope="col">{{'Documento' | translate}}</th>
+               <th scope="col">{{'Nombre' | translate}}</th>
+               <th scope="col">{{'Usuario Red' | translate}}</th>
+               <th scope="col">{{'Estado' | translate}}</th>
+               <th scope="col">{{'Cargo' | translate}}</th>
+               <th scope="col" *appUserRoleIsIn="53"></th>
+             </tr>
+       </thead>
+
+       <ng-container *ngIf="usuario === undefined">
+        <tr>
+          <td class="mensaje" colspan="6">{{'Sin Datos' | translate}}</td>
+        </tr>
+      </ng-container>
+      
+       <ng-container *ngIf="usuario?.length === 0">
+        <tr>
+          <td class="mensaje" colspan="6">El Usuario no fue encontrado</td>
+        </tr>
+      </ng-container>
+
+      <ng-container *ngIf="usuario?.length > 0" >
+     
+       <tr *ngFor="let res of usuario">
+         <td>{{res.documento}}</td>
+         <td>{{res.nombre_completo}}</td>
+     
+         <td>{{res.usuario_red}}</td>
+
+         <td>{{res.tipo_estado}}</td>
+
+         <td>{{res.posicion}}</td>
+     
+         <td *appUserRoleIsIn="53" class="boton">
+          <em class="fa fa-search fa-2x icono"  tooltip="Consultar Permiso" (click)="consultarusuario()" placement="top" show-delay="500" data-toggle="modal" data-target="#exampleModal"></em>
+         </td>
+     
+       </tr>
+
+      </ng-container>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content ">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">{{'Asignacion de permisos' | translate}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li *appUserRoleIsIn="53" class="nav-item">
+                  <a class="nav-link active" id="pills-permisos-tab" data-toggle="pill" href="#pills-permisos" role="tab" aria-controls="pills-permisos" aria-selected="true">Permisos</a>
+                </li>
+                <li *appUserRoleIsIn="54" class="nav-item">
+                  <a class="nav-link" id="pills-roles-tab" data-toggle="pill" href="#pills-roles" role="tab" aria-controls="pills-roles" aria-selected="false">{{'Rol' | translate}}</a>
+                </li>
+              </ul>
+              <div class="tab-content" id="pills-tabContent">
+
+                <div class="tab-pane fade show active" id="pills-permisos" role="tabpanel" aria-labelledby="pills-permisos-tab">
+               
+                  <div id="accordion">
+
+                    <ng-container *appUserRoleIsIn="53">
+                    <div class="card" *ngFor="let res of categoria;let indice=index">
+                      <div class="card-header" style="cursor:pointer" id="headingOne" data-toggle="collapse" [attr.data-target]="'#collapseOne'+indice+1" aria-expanded="true" aria-controls="collapseOne">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapseOne'+indice+1" aria-expanded="true" aria-controls="collapseOne">
+                            {{res.categoria}}
+                          </button>
+                        </h5>
+                      </div>
+                  
+                      <div id="{{'collapseOne'+indice+1}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+
+                          <ng-container *ngFor="let res2 of permiso;let indice=index">
+
+                            <ng-container *ngIf="res.id===res2.id_categoria">
+                          
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="{{'flexCheckDefault'+indice+1}}" (click)="asignar(res2.id,$event.target.checked)" [checked]="res2.seleccion === 0">
+                                <label class="form-check-label" for="{{'flexCheckDefault'+indice+1}}">
+                                  {{res2.permiso}}
+                                </label>
+                              </div>
+    
+                            </ng-container>
+
+                          </ng-container>
+
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                    
+                  </div>
+
+                </div>
+
+                <div class="tab-pane fade" id="pills-roles" role="tabpanel" aria-labelledby="pills-roles-tab">
+                  
+                  <ng-container *ngFor="let res of roles;">
+                  
+                    <div class="form-check">
+                      <input (click)="asignarol(res.id)" class="form-check-input" type="radio" name="flexRadioDefault" id="{{res.rol}}" [checked]="res.seleccion === 0">
+                      <label class="form-check-label" for="{{res.rol}}">
+                        {{res.rol}}
+                      </label>
+                    </div>
+
+                  </ng-container>
+
+                </div>
+               
+              </div>
+             
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'cerrar' | translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+  </table>
+      
+      </div>
+   
+  </div>
+</div>

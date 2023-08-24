@@ -1,0 +1,86 @@
+
+<h2 style="text-align: center;">Zendesk</h2>
+  <div class="spinner" *ngIf="cargando"></div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 mx-auto table-size">
+      <div class="row">
+        <div class="col-md-3 mb-2 mt-2">
+          <input type="text" class="form-control" placeholder="{{'search' | translate}}" name="filter" [(ngModel)]="filter" >
+      </div>
+      </div>
+
+        <table class="table table-bordered">
+          <caption>des</caption>
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">{{'Titulo' | translate}}</th>
+                <th scope="col">{{'Client' | translate}}</th>
+                <th scope="col">Pcrc</th>
+                <th scope="col">{{'Categoria' | translate}}</th>
+                <th scope="col" *appUserRoleIsIn="30"></th>
+              </tr>
+            </thead>
+            
+            <tbody>
+              <tr *ngFor="let articulo of articulos | zendesk:filter">
+                <th scope="row">{{articulo.id}}</th>
+                <td>{{articulo.title}}</td>
+                <td>{{articulo.cliente_id == 5000 ? "Zendesk":articulo.cliente}}</td>
+                <td>{{articulo.base_id == 5000 ? "Zendesk":articulo.pcrc}}</td>
+                <td>{{articulo.name}}</td>
+                <td *appUserRoleIsIn="30"><a type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#zendesk" (click)="obtenerid(articulo.id)">{{'Cambiar' | translate}}</a></td>
+              </tr>
+
+              <tr *ngIf="articulos ==0">
+                <td>{{'No hay datos'| translate}}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
+  
+</div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="zendesk" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{'Asignar a Cliente' | translate}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <select class="form-control" (change)="seleccionarcliente($event.target.value)">
+                            <option value="0">{{'Client' | translate}}</option>
+                            <option *ngFor="let cliente of listClient" value="{{cliente.id_dp_clientes}}">{{cliente.cliente}}</option>
+                          </select>
+                                                           
+                          <br>
+                          <select class="form-control" *ngIf="pcrc" (change)="seleccionarpcrc($event.target.value)">
+                            <option>Pcrc</option>
+                            <option *ngFor="let pcrc of pcrcList" value="{{pcrc.id_dp_pcrc}}">{{pcrc.pcrc}}</option>
+                          </select>
+                          <br>
+                          <select class="form-control"  *ngIf="categoria" (change)="seleccionarcategoria($event.target.value)">
+                            <option>{{'Categoria' | translate }}</option>
+                            <option *ngFor="let categoria of categoriaList" value="{{categoria.id}}">{{categoria.name}}</option>
+                          </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'cerrar'| translate}}</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="guardardatos()">{{'Guardar' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

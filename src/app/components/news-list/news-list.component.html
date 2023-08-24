@@ -1,0 +1,18 @@
+<h4 *ngIf="searchError" class="ma2">{{'Se ha producido un error'| translate}} 😕, {{'intentaremos de nuevo en' | translate}} {{searchErrorMessage}}s.</h4>
+<h4 *ngIf="error$ | async" class="ma2">{{'Se ha producido un error'| translate}} 😕, {{'intentalo mas tarde' | translate}}.</h4>
+
+
+<div class="newsScroll"
+    infiniteScroll
+    (scrolled)="onScroll($event)"        
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="1000" 
+    [scrollWindow]="false">
+
+    <div class="timeLapse">
+        <ngx-masonry [options]="masonryOptions" [updateLayout]="updateMasonryLayout">
+            <app-news-card (imageLoaded)="updateMasonryLayout = !updateMasonryLayout" ngxMasonryItem  class="masonry-item" *ngFor="let news of news" [news]="news" [article]="news"></app-news-card>
+            <app-articleplaceholder ngxMasonryItem  class="masonry-item" *ngFor="let placeholder of placeholders" [type]="'articulo'"> </app-articleplaceholder>
+        </ngx-masonry>
+    </div>
+</div>

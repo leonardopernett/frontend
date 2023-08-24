@@ -1,0 +1,148 @@
+<div class="filters">
+    <div class="row">
+        <div class="col-md-6 text-left">
+            <div class="formField">
+                <span class="label">{{'Fecha inicial' | translate}}</span>
+                <div class="formInput d-flex align-items-center">
+                    <em class="fa fa-calendar-o dateDrop" (click)="initialDateDrop = !initialDateDrop; finalDateDrop = false"></em>
+                    <span class="mr.5 dateText" [ngClass]="{ 'active': initialDateDrop }">{{initialDateHumanRead}}</span>
+                    <em class="fa fa-times-circle dateClose" (click)="finalDateDrop = false; initialDateDrop = false; initialDateHumanRead = ''; initialDate = undefined" *ngIf="initialDateHumanRead"></em>
+
+
+                    <div class="drop" *ngIf="initialDateDrop">
+                        <ejs-calendar (change)='onInitialDateChange($event); initialDateDrop = false'></ejs-calendar>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="formField">
+                <span class="label">{{'Client' | translate}}</span>
+                <div class="formInput">
+                    <app-drop-down [textoInicial]="cargando ? 'loading...': 'Client' | translate" (valueText)="getTexto($event)" [textField]="'cliente'" [values]="clientesList" (onValueSelected)="clienteSelected($event)"></app-drop-down>
+                </div>
+            </div>
+
+            <div class="formField" *ngIf="isCategoriaActive">
+                <span class="label">{{'Categoria' | translate}}</span>
+                <div class="formInput">
+                    <div class="categorySelector" (click)="categoryDrop = !categoryDrop">
+                        {{selectedCategory?.name || 'Seleccionar' | translate }}
+                        <app-icon [iconName]="'mdi:file-tree'"></app-icon>
+                    </div>
+                    <div class="drop" *ngIf="categoryDrop">
+                        <app-categories [categories]="categoriesList" [mode]="'report'" (onCategorySelected)="categorySelected($event);categoryDrop = false"></app-categories>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-6 text-left">
+            <div class="formField">
+                <span class="label">{{'Fecha final' | translate}}</span>
+                <div class="formInput d-flex align-items-center">
+                    <em class="fa fa-calendar-o dateDrop" (click)="finalDateDrop = !finalDateDrop; initialDateDrop = false"></em>
+                    <span class="dateText" [ngClass]="{ 'active': finalDateDrop }">{{finalDateHumanRead}}</span>
+                    <em class="fa fa-times-circle dateClose" (click)="finalDateDrop = false; initialDateDrop = false; finalDateHumanRead = ''; finalDate = undefined" *ngIf="finalDateHumanRead"></em>
+                    <div class="drop" *ngIf="finalDateDrop">
+                        <ejs-calendar (change)='onFinalDateChange($event); finalDateDrop = false'></ejs-calendar>
+                    </div>
+                </div>
+            </div>
+
+            <div class="formField" *ngIf="isPcrcActive">
+                <span class="label">Pcrc</span>
+                <div class="formInput">
+                    <app-drop-down [textoInicial]="'Pcrc'" (valueText)="getPcrc($event)" [textField]="'pcrc'" [values]="pcrcList" (onValueSelected)="pcrcSelected($event)"></app-drop-down>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-12 text-center mt-2">
+        <input class="inputButton" type="submit" value="{{'search' | translate }}" (click)="search()">
+        <input class="inputButton ml-5" type="submit" value="{{'limpiar' | translate }}" (click)="limpiar()">
+    </div>
+
+
+</div>
+
+<div *ngIf="loading">
+    <div class="spinner"></div>
+</div>
+
+
+<div class="container">
+    <h4>{{'Lectura'| translate}}:</h4>
+    <p class="">{{this.selectedData?.text}}</p>
+    <hr>
+    <div class="row">
+        <div class="col-md-10 col-md-12 ">
+
+            <table class="table table-bordered hide  table-wrapper" id="table">
+                <caption></caption>
+                <thead class="bg-fondo">
+                    <tr>
+                        <td>{{ 'Id Articulo' | translate}}</td>
+                        <td scope="col" [ngStyle]="{'width':'150px'}">{{ 'Titulo' | translate}}</td>
+                        <td>{{'Cedula' |translate}}</td>
+                        <td scope="col" [ngStyle]="{'width':'150px'}">{{ 'Nombre Usuario' | translate}} </td>
+                        <td>{{'Fecha Vista' |translate}}</td>
+                        <td>{{'Tipo' | translate}}</td>
+                        <td>Pcrc</td>
+                        <td>{{ 'Categoria' | translate}}</td>
+                        <td>{{'Permanencia Por mas de 10 segundo en el articulo' | translate}}</td>
+                    </tr>
+                </thead>
+
+                
+                <tbody>
+                    <tr class="cabeza" *ngFor="let res of dataLimit">
+                        <td>{{res.id}}</td>
+                        <td>{{res.titulo}}</td>
+                        <td>{{res.cedula}}</td>
+                        <td>{{res.nombre}}</td>
+                        <td>{{res.initial_date | date : "dd-MM-yy hh-mm" }}</td>
+                        <td *ngIf="res.tipo === 'articulo' ">
+                            {{res.tipo}}
+                        </td>
+                        <td>{{selectedPcrc.pcrc}}</td>
+                        <td>{{res.categoria}}</td>
+                        <td>{{res.rebote.slice(-2) > 10 ? 'SI' : 'NO'}}</td>
+
+                    </tr>
+                    <tr>
+                        <td *ngIf="!verificar" colspan="8" style="text-align: center;">{{'No hay datos' | translate}}</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <div class="d-flex my-2">
+                <button (click)="preview()" [disabled]="atras"  class="btn btn-primary hide btn-sm"><i class="fa fa-arrow-left"></i></button>
+                <button (click)="next()" [disabled]="siguiente" class="btn btn-primary btn-primary2 hide mx-2 btn-sm"><i class="fa fa-arrow-right"></i></button><br>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <select class="custom-select" *ngIf="verificar" (change)="seleccionarexport($event.target.value)" [(ngModel)]="numeroexportarpag" id="inputGroupSelect04" aria-label="Example select with button addon">
+                          <option value="0" selected>Selecciona número de exportable</option>
+                          <option value="{{item}}" *ngFor="let item of numeroexportar">Exportable pagina {{item}}</option>
+                        </select>
+                      </div>
+                </div>
+                <div class="col-md-2">
+                    <button (click)="sendData()" *ngIf="verificar" class="btn btn-success d-flex justify-content-center align-items-center">
+                        <span> {{ !generando ? 'Generar excel'  : 'Generando excel...'  }}</span>
+                        <span *ngIf="generando" class="spinner2" ></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br>

@@ -1,0 +1,10 @@
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb bg-light">
+      <li class="breadcrumb-item"><a class="color-link" routerLink="/app/explore">Inicio</a></li>
+      <li *ngIf="rutaActual == '/app/articles'" class="breadcrumb-item"><a class="color-link" routerLink="/app/explore">{{cliente}}</a></li>
+      <li *ngIf="rutaActual != '/app/explore'" class="breadcrumb-item"><a class="color-link" routerLink="{{rutaActual}}">{{nombre}}</a></li>
+      <li *ngIf="rutaActual == '/app/articles'" class="breadcrumb-item"><a class="color-link" routerLink="explore" >{{categoria}}</a></li>
+   <!--    <li class="breadcrumb-item active" aria-current="page">Data</li> -->
+    </ol>
+  </nav>

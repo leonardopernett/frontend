@@ -1,0 +1,29 @@
+<header class="header">
+    <app-icon [iconName]="getIcon()" *ngIf="!editCategoryNameMode" (click)="showIconPicker()" tooltip="Seleccionar icono" placement="top" show-delay="500"></app-icon>
+    <h4 class="title" *ngIf="!editCategoryNameMode" (click)="seleccionarCategoria()" [ngClass]="{'leaftCategory': !!!getSubCategories().length}">{{category.name}}</h4>
+    <ng-container *appUserRoleIsIn="21">
+    <em class="fa fa-pencil editIcon" (click)="editCategoryNameMode = true" *ngIf="!editCategoryNameMode" tooltip="Editar nombre" placement="top" show-delay="500"></em>
+    </ng-container>
+    <em *appUserRoleIsIn="22" class="fa fa-trash editIcon" (click)="eliminarCategoria(category.id)" ></em>
+    <app-spinner class="ml1" *ngIf="deleteCategorySpinner"></app-spinner>
+    <ng-container *appUserRoleIsIn="19">
+    <em class="fa fa-plus-circle editIcon" (click)="addCategoryMode = true" *ngIf="!editCategoryNameMode" tooltip="Agregar subcategoria" placement="top" show-delay="500"></em>
+    </ng-container>
+    <ng-container *appUserRoleIsIn="20">
+    <em class="fa fa-caret-square-o-down editIcon" (click)="desplegarSubCategorias()" *ngIf="!editCategoryNameMode && !!getSubCategories().length"></em>
+    </ng-container>
+    <app-text-input [placeholder]="'Nombre Categoria' | translate" [initialText]="category.name" (onConfirm)="actualizarNombre($event); editCategoryNameMode = false" (onCancel)="editCategoryNameMode = false"  *ngIf="editCategoryNameMode"> </app-text-input>
+</header>
+<div class="body" *ngIf="desplegado || addCategoryMode">
+    <app-text-input class="mb.5 mr.5" [placeholder]="'Nombre Nueva categoria' | translate" [initialText]="''" (onConfirm)="agregarCategoria($event); addCategoryMode = false" (onCancel)="addCategoryMode = false"  *ngIf="addCategoryMode"> </app-text-input>
+    <app-category-editable *ngFor="let subcategory of getSubCategories()" [category]="subcategory" [allCategories]="allCategories" (onCategoryDeleted)="subCategoriaEliminada($event)" (onCategorySelected)="seleccionarCategoria($event)"> </app-category-editable>
+</div>
+<jw-modal *ngIf="iconPickerOpen" (onClose)="iconPickerOpen = false">
+    <app-icon-picker (onIconSelected)="updateIcon($event); iconPickerOpen = false"></app-icon-picker>
+</jw-modal>
+<jw-modal *ngIf="deleteCategoryModalOpen" (onClose)="deleteCategoryModalOpen = false">    
+    <app-card>
+        <h4>{{'Eliminar Categoria' | translate}}: {{category.name}}</h4>
+        <app-button [buttonText]="'Confirmar' | translate" [iconName]="'mdi:delete'" (click)="eliminarCategoria(); deleteCategoryModalOpen = false"></app-button>
+    </app-card>
+</jw-modal>

@@ -1,0 +1,40 @@
+p{
+    margin-bottom: 10px;
+}
+
+.listar {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16)!important
+}
+
+.scroll {
+    height: 70vh;
+    overflow-y: scroll;
+}
+
+.btn-light{
+    background-color: var(--color-principal) !important;
+    color:#fff;
+}
+
+.scroll::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+.scroll::-webkit-scrollbar-track {
+    background: #fff ; 
+    border-radius: 10px;
+}
+.scroll::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    height: 5px;
+    background: #ccc;
+}
+
+.papeleria {
+    height: 50vh;
+    overflow-y: scroll;
+}
+
+.indice {
+    width: 7%;
+}

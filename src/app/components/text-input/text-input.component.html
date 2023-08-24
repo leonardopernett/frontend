@@ -1,0 +1,3 @@
+<input type="text" placeholder="{{placeholder}}" [value]="initialText || ''" #input>
+<em class="fa fa-window-close icono" (click)="cancelar()" *ngIf="cancelButton"></em>
+<em class="fa fa-check-square icono" (click)="confirmar()"></em>

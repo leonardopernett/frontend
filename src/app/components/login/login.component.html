@@ -1,0 +1,116 @@
+<div [ngClass]="{'imageBackGround':normal,'imageBackGround2':hallowen,'imageBackGround3':navidad}" class="fondo4"
+    id="conos">
+
+
+
+    <img *ngIf="hallowen" src="/assets/bat3.png" class="animation" alt="hallowen">
+    <img *ngIf="hallowen" src="/assets/bat3.png" class="animation2" alt="hallowen">
+    <img *ngIf="hallowen" src="/assets/bat3.png" class="animation3" alt="hallowen">
+    <img *ngIf="hallowen" src="/assets/bat3.png" class="animation4" alt="hallowen">
+
+    <img *ngIf="hallowen" src="/assets/ca.png" width="200px" class="anime" alt="hallowen">
+
+    <img *ngIf="navidad" src="/assets/nieve.png" class="animation" alt="navidad">
+    <img *ngIf="navidad" src="/assets/nieve.png" class="animation2" alt="navidad">
+    <img *ngIf="navidad" src="/assets/nieve.png" class="animation3" alt="navidad">
+    <img *ngIf="navidad" src="/assets/nieve.png" class="animation4" alt="navidad">
+
+    <img *ngIf="navidad" src="/assets/arbol.png" width="200px" class="anime" alt="navidad">
+
+
+    <div class="formContainer ">
+
+
+
+        <div class="container">
+
+            <div class="formActions">
+
+
+                <!--    <div *ngIf="hallowen" class="logo">    
+                    <img src="/assets/nik-logo.png">                
+                </div> -->
+                <form class="formulario" [formGroup]="inputValue" (submit)="handlSubmit()">
+
+                    <div *ngIf="normal" class="logo">
+                        <img src="/assets/{{changeicon()}}" alt="" width="200">
+                    </div>
+
+
+                    <div class="username">
+                        <img src="/assets/user.png" alt="" width="40">
+                        <input type="text" placeholder="Usuario" formControlName="username"
+                            [ngClass]="validateClass('username')" #usuario>      
+                    </div>
+                    <small class="text-danger font-bold mb-3 pl-2"
+                        *ngIf="inputValue.get('username')?.errors?.['required'] &&  inputValue.get('username')?.touched">
+                        <strong>El usuario es requerido</strong>
+                    </small>
+                    <br>
+
+                    <div class="password">
+                        <img src="/assets/password.png" alt="" width="40">
+                        <input type="password" placeholder="password" formControlName="password"
+                            [ngClass]="validateClass('password')" #password>
+                        <em class="fa fa-eye fa-1x pr-2" [ngStyle]="{'cursor':'pointer', 'font-size':'20px'}"
+                            (click)="showPassword()"></em>
+                        </div>
+                        <small class="text-danger font-bold pl-2"
+                        *ngIf="inputValue.get('password')?.errors?.['required'] &&  inputValue.get('password')?.touched">
+                        <strong>La contraseña es requerido</strong>
+                    </small>
+                    <br>
+                    
+
+                    <div class="text-center my-2">
+                        <strong class="mx-2 captcha"> {{ token }}</strong> 
+                        <i (click)="generarValidator()" [ngStyle]="{'cursor':'pointer'}" class="fa fa-refresh" aria-hidden="true"></i>
+                    </div>
+                    
+
+                    <div class="mb-2">
+
+                        <input type="number" minlength="4" maxlength="4" formControlName="validador"
+                            [ngClass]="validateClass('validador')" placeholder="Escriba los números"
+                            class="form-control mb-2 cap">
+
+                            <div class="text-center">
+                        <small class="text-danger font-bold"
+                            *ngIf="inputValue.get('validador')?.errors?.['required'] &&  inputValue.get('validador')?.touched">
+                            <strong>Completa este campo de validación</strong>
+                        </small>
+                    </div>
+
+                        <div class="text-center">
+                        <button class="btn btn-danger text-center botonlogin">
+                            Iniciar Sesión
+                        </button>
+                    </div>
+
+
+
+
+                        <p class="text-pie text-center ">{{'Conectamos con el conocimiento' | translate}}</p>
+
+                        <div class="spin mx-auto" *ngIf="isLoading"></div>
+                        <div class="errorMessage mt1" *ngIf="errorMessage && !isLoading">
+                            <strong>Error: </strong><span>{{errorMessage}}</span>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    <div class="fondito">
+        <div class="d-flex justify-content-end idioma">
+            <a class="mr-2" [ngStyle]="{'cursor':'pointer'}" (click)="cambiarIdioma('es')">{{'Español' | translate}}</a>
+            <a class="" [ngClass]="" (click)="cambiarIdioma('en')">{{'Ingles' | translate}}</a>
+        </div>
+
+    </div>

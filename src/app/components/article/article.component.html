@@ -1,0 +1,84 @@
+
+    <ng-container >
+        
+        <div class="img_header" #imgHeader>
+
+            <ng-container *ngIf="article.id_otros==null;else nonull2">
+            <a class="resumme" #resume [routerLink]="['/app/articles/',article.id]">
+                <img *ngIf="imageSrc" [src]="imageSrc" (load)="imageLoad()" alt="data">
+            </a>
+            </ng-container>
+
+            <ng-template #nonull2>
+                <a class="resumme" #resume [routerLink]="['/app/article/',article.id]">
+                    <img *ngIf="imageSrc" [src]="imageSrc" (load)="imageLoad()" alt="data">
+                </a>
+                </ng-template>
+
+        </div>
+
+        <ng-container *ngIf="article.id_otros==null;else nonull">
+        <a class="title" [routerLink]="['/app/articles/',article.id]" [state]="article">{{article.title}}</a>
+        </ng-container>
+
+        <ng-template #nonull>
+            <a class="title" [routerLink]="['/app/article/',article.id]" [state]="article">{{article.title}}</a>
+            </ng-template>
+
+        
+        <div class="article_body">
+
+            <ng-container *ngIf="article.id_otros==null;else nonull3">
+                <a class="resumme" #resume [routerLink]="['/app/articles/',article.id]">
+                    <ng-temple *ngFor="let frase of resumen">
+                        <p  [innerHTML]="frase"></p>
+                    </ng-temple>  
+                </a>
+                </ng-container>
+    
+                <ng-template #nonull3>
+                    <a class="resumme" #resume [routerLink]="['/app/article/',article.id]">
+                        <ng-temple *ngFor="let frase of resumen">
+                            <p  [innerHTML]="frase"></p>
+                        </ng-temple> 
+                    </a>
+                    </ng-template>
+            
+           
+            <div class="resume_lists" #resumeLists>
+                
+            </div>
+            <div class="links">
+                <a *ngFor="let link of links" [href]="link.href" target="'_blank'">{{link.text}}</a>
+            </div>
+        </div>
+
+
+        <app-file-prev class="ml1 mr1 mb.5" *ngFor="let file of article.attached" [fileName]="file" [articleId]="article.id" [mode]="'notDelete'"> </app-file-prev>
+        <div class="footer" *ngIf="article">
+            
+            
+           <p *ngIf="article.fecha_final">Disponible hasta {{article.fecha_final}} días</p>
+           
+            <em class="fa fa-pencil socialButton rm1" *appUserRoleIsIn="14"  (click)="goToArticleEdition()" tooltip="Editar articulo" placement="top" show-delay="500"></em>   
+               
+        
+
+         <em class="fa fa-star socialButton favoriteIcon rm1" *ngIf="article.type != 'news'"  tooltip="Agregar a favoritos" placement="top" show-delay="500" (click)="addToFavorites()"></em>
+        <span *ngIf="article.type != 'news'">{{article.favoritos}}</span>
+    
+        <em class="fa fa-thumbs-o-up socialButton rm1" tooltip="Útil" placement="top" show-delay="500" (click)="addLike()"></em>
+        <span>{{article.likes}}</span>
+    
+        <em class="fa fa-thumbs-o-down socialButton rm1" tooltip="No útil" placement="top" show-delay="500" (click)="addDislike()"></em> 
+        <span>{{article.dislikes}}</span>
+        
+        
+        
+        </div>
+    
+         
+    
+     
+    
+    </ng-container>

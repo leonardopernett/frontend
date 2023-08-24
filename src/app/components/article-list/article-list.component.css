@@ -1,0 +1,23 @@
+:host{
+    width: 100%;
+}
+
+.masonry-item {
+    width: calc((100% / 3) - 15px);   
+    margin-bottom: 50px;
+    background-size: cover; 
+    height: 600px;
+}
+
+
+ngx-masonry {
+    margin: 0 auto;
+  }
+  
+/* .efecto{
+  transition: all .5s ease-in-out;
+}
+
+.efecto:hover{
+    transform: scale(1.03);
+} */

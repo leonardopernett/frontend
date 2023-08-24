@@ -1,0 +1,11 @@
+<div class="focus" tabindex="-1">
+    <header class="notificationsHeader" >
+        <span class="notificationsLabel">{{notifications}} Notificaciones</span>
+        <app-icon [iconName]="'mdi:notification-clear-all'" (click)="clearAllNotifications()"></app-icon>
+    </header>
+    <main class="notificationsContainer">
+        <div *ngFor="let notification of articlesWebSockets.notifications$ | async | orderBy: '-date'">
+            <app-notification  [notification]="notification"></app-notification>
+        </div>
+    </main>
+</div>

@@ -1,0 +1,91 @@
+<div class="filters">
+    <div class="row">
+        <div class="col-md-6 text-left">
+            <div class="formField">
+                <span class="label">Fecha inicial</span>
+                <div class="formInput d-flex align-items-center">
+                    <em  class="fa fa-calendar-o dateDrop" (click)="initialDateDrop = !initialDateDrop; finalDateDrop = false"></em>
+                    <span class="mr.5 dateText" [ngClass]="{ 'active': initialDateDrop }">{{initialDateHumanRead}}</span>                
+                    <em class="fa fa-times-circle dateClose" (click)="finalDateDrop = false; initialDateDrop = false; initialDateHumanRead = ''; initialDate = undefined" *ngIf="initialDateHumanRead"></em>
+    
+                    
+                    <div class="drop" *ngIf="initialDateDrop">
+                        <ejs-calendar (change)='onInitialDateChange($event); initialDateDrop = false'></ejs-calendar>
+                    </div>
+    
+                </div>
+            </div>
+          
+        </div>
+
+        <div class="col-md-6 text-left">
+            <div class="formField">
+                <span class="label">Fecha final</span>
+                <div class="formInput d-flex align-items-center">
+                    <em class="fa fa-calendar-o dateDrop" (click)="finalDateDrop = !finalDateDrop; initialDateDrop = false"></em>
+                    <span class="dateText"  [ngClass]="{ 'active': finalDateDrop }">{{finalDateHumanRead}}</span>
+                    <em class="fa fa-times-circle dateClose" (click)="finalDateDrop = false; initialDateDrop = false; finalDateHumanRead = ''; finalDate = undefined" *ngIf="finalDateHumanRead"></em>
+                    <div class="drop" *ngIf="finalDateDrop">
+                        <ejs-calendar (change)='onFinalDateChange($event); finalDateDrop = false'></ejs-calendar>
+                    </div>
+                </div>
+            </div>
+
+            
+
+           
+        </div>
+    </div> 
+   
+    <div class="col-md-12 text-center mt-2">
+        <button class="inputButton" type="submit"  (click)="buscar()"   id="button">buscar</button>
+        <input class="inputButton ml-5" type="submit" value="limpiar" (click)="limpiar()" >
+    </div>
+
+
+</div>
+
+<div *ngIf="loading">
+  <div class="spinner"></div>
+</div>
+
+
+<div class="container-fluid">
+<h4>Total Visitas:</h4>
+ <hr>
+  <div class="row">
+      <div class="col-md-12">
+       
+            <table  class="table table-bordered hide">
+                <caption>description</caption>
+                <thead class="bg-fondo">
+                 <tr>
+                     <th scope="col" [ngStyle]="{'width':'500px'}">Cliente</th>
+                     <th scope="col" [ngStyle]="{'width':'510px'}">Pcrc</th>
+                     <th scope="col" [ngStyle]="{'width':'530px'}">Total</th>
+                   </tr>
+                </thead>   
+                
+                 <tbody>
+                     <tr class="cabeza" *ngFor="let res of datos2" >
+                        <td>{{res.cliente}}</td>
+                         <td>{{res.pcrc}}</td>
+                         <td>{{res.total}}</td>
+                       </tr>            
+                 <tr>
+                     <td *ngIf="!verificar" colspan="8"  style="text-align: center;">Sin Datos</td>
+                 </tr>
+                 </tbody>
+
+            </table>
+            <div class="hide">
+                <button (click)="preview()" class="btn btn-primary btn-sm"><em class="fa fa-arrow-left"></em></button>
+                <button (click)="next()" class="btn btn-primary ntm-sm"><em class="fa fa-arrow-regiht"></em></button>
+            </div>
+        
+        <button (click)="exportExcel()" *ngIf="verificar" class="btn btn-success mt-3">Exportar Tabla</button>
+      </div>
+  </div>
+</div>
+
+<br>

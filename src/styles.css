@@ -1,0 +1,149 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'css/';
+
+
+:root {
+    --color-principal:#002855;
+    --color-secondary:#CC0F69; 
+    --color-green:#1A948D;
+    --color-gray:#CAC9C9;
+    
+}
+
+body {
+    overflow-x:hidden !important;
+}
+
+.btn-primary:active ,.btn-primary:focus{
+    background: var(--color-green) !important;
+    border:2px solid var(--color-green) !important
+}
+
+.btn-danger{
+    background: #CC0F69!important;
+}
+
+input[type=checkbox] , input[type=checkbox]{
+    background: var(--color-secondary) !important;
+}
+
+thead{
+    background: var(--color-green) !important;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+    background: var(--color-green) !important;
+}
+
+.nav-pills .nav-link{
+  color: var(--color-principal)
+}
+
+.inputButton:hover {
+    background-color: var(--color-green) !important;
+    color: white;
+    cursor: pointer;
+}
+
+
+.ngx-pagination .current{
+    background-color: var(--color-green) !important;
+}
+
+.btn-primary:active {
+    border:none !important;
+}
+
+.btn-primary {
+    background-color: var(--color-green) !important;
+    color:#fff;
+    border:none !important;
+}
+
+.spin{
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation:spiner 1s linear infinite;
+  border:2px solid transparent;
+  border-left-color: var(--color-secondary)
+}
+
+
+@keyframes spiner {
+    0%{
+        transform: rotate(0deg);
+    }
+
+    100%{
+        transform: rotate(365deg);
+    }
+}
+
+.bg-fondo{
+    background-color: var(--color-green) !important;
+    color:#fff;
+}
+.btn-success{
+    background-color: var(--color-green) !important;
+    color:#fff;
+}
+
+.spinner {
+    border:2px solid transparent;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: block;
+    border-left-color: var(--color-secondary);
+    animation: spin 1s linear infinite;
+    margin: 10px auto;
+} 
+
+@font-face {
+    font-family: 'CIBFontSans' ;
+    src: url('/assets/font/CIBFontSans/ttf/CIBFontSans-Regular.ttf');
+}
+
+
+.ql-font-CIBFontSans{
+    font-family: 'CIBFontSans' ; 
+}
+
+@keyframes spin {
+    0%{
+         transform: rotate(0deg);
+    }
+
+    100%{
+        transform: rotate(365deg);
+    }
+}
+
+
+.spinner2 {
+    border:2px solid rgb(231, 229, 229);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: block;
+    border-left-color: #039be5;
+    animation: spine 1s linear infinite;
+   
+}
+
+
+
+@keyframes spine {
+    0%{
+         transform: rotate(0deg);
+    }
+
+    100%{
+        transform: rotate(365deg);
+    }
+}
+
+.ng-scroll-content {
+    max-width: 100% !important;
+}

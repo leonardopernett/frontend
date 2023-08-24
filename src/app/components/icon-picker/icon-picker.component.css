@@ -1,0 +1,63 @@
+:host{
+}
+
+.iconPicker{    
+    box-shadow: var(--shadow3);
+    border-radius: 3px;
+    background-color: white;
+    max-width: 30rem;
+}
+
+.searchBox{
+    display: flex;
+    align-items: center;
+    padding: .5rem;
+    border-bottom: 1px solid lightgray;
+}
+
+.searchInput{
+    width: 100%;
+    border:0;
+    padding: .5rem;
+    outline: none !important;
+    background-color: transparent;
+}
+
+.iconify{
+    font-size: 1.5rem;
+}
+
+.iconsList{
+    padding: .5rem;
+}
+
+.categoryTitle{
+    margin-left: 1rem;
+}
+
+.icons{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.icons .icon{
+    padding: 1rem;
+    border-radius: 3px;
+}
+
+.icons .icon:hover{
+    background-color: var(--primaryLight);
+    cursor: pointer;
+}
+
+.icons .icon.active{
+    cursor: pointer;
+    background-color: var(--primary);
+    color: white;
+}
+.footer{
+    padding-top: 1rem;
+}

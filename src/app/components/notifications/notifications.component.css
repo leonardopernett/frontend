@@ -1,0 +1,62 @@
+:host{
+    position: fixed;
+    top: 5rem;
+    right: -30%;
+    width: 25%;
+    background-color: rgb(241, 241, 241);
+    border-radius: 5px;
+    box-shadow: var(--shadow2);
+    overflow: hidden;
+    transition: right ease-in-out 300ms;
+    z-index: 500;
+}
+
+:host.open{
+    right: 1rem;
+}
+
+.notificationsHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;    
+    padding: 1rem;
+    z-index: 1000;
+}
+
+.notificationsHeader app-icon{
+    color:#837F7F;
+}
+
+.notificationsHeader app-icon:hover{
+    cursor: pointer;
+    
+    color: var(--primary);
+}
+
+.notificationsHeader .notificationsLabel{
+    font-weight: 500;
+    color: var(--primary);
+}
+
+.notificationsContainer{
+    max-height: calc(100vh - 9.5rem);
+    overflow-y: scroll;
+    padding: 0 1rem 0 1rem;
+    margin-right: -1.1rem;
+    z-index: 1000;
+}
+
+.drawer{   
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: red;
+}
+
+.focus{
+    outline: 0 !important;
+}
+
+
+
+

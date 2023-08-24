@@ -1,0 +1,328 @@
+<div class="container-fluid mt-5 contenedor">
+  <div class="row">
+    
+    <div class="col-md-5">
+
+      
+      
+      <div class="card" >
+          <div class="card-header">
+            <h5>Hola, {{ state.getValueOf("user").name }}</h5>
+          </div>
+          <div class="card-body ">
+
+            <h4>Aprendizajes Ágiles</h4>
+          <br>
+            <div class="accordion" id="accordionExample">
+
+              <div class="card">
+                <div class="card-header" id="headingTwo">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      <p class="mb-0">Asignados por tu jefe directo</p>
+              <p><span class="badge badge-primary">{{totalvalidadocargo}}</span> <b> Pendientes</b></p>
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="scroll">
+                      <div *ngFor="let preturno of preturnoscargo">
+                  
+                        <div class="card mb-2" [ngStyle]="{'cursor':'pointer'}" data-toggle="modal" data-target="#exampleModal" (click)="verpreturno(preturno.id_preturno,preturno.titulo,preturno.contenido,preturno.validar_multiple,preturno.validar_unica,preturno.validar_concepto)">
+                          <div class="d-flex justify-content-between align-items-center card-header">
+                            <h5 class="h5-title">{{preturno.titulo+totalvalidadomultiple}}</h5>
+                             <div class="d-flex justify-content-center align-items-center">
+                               <p class="font-weight-bold pr-2 my-0">Faltan {{ preturno.fecha_restante+1 }} Dias </p>
+                              
+                        
+                                  <span [ngClass]="{'semaforo-verde':(preturno.fecha_restante+1) > 2}"></span>
+                                  <span [ngClass]="{'semaforo-amarillo':(preturno.fecha_restante+1) == 2}"></span>
+                                  <span [ngClass]="{'semaforo-rojo':(preturno.fecha_restante+1) <= 1}"></span>
+                  
+                            </div>
+                         </div>
+                  
+                           <div class="card-body">
+                             <p>{{preturno.descripcion}}</p>
+                           </div>
+                  
+                        </div>
+                  
+                      </div>
+                  
+                       
+                  
+                        </div>   
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      <p class="mb-0">Asignados para tu operacion </p>
+              <p> <span class="badge badge-primary">{{totalvalidado}}</span> <b> Pendientes</b></p>
+           
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="scroll">
+                   <div *ngFor="let preturno of preturnos">
+               
+                     <div class="card mb-2" [ngStyle]="{'cursor':'pointer'}" data-toggle="modal" data-target="#exampleModal" (click)="verpreturno(preturno.id_preturno,preturno.titulo,preturno.contenido,preturno.validar_multiple,preturno.validar_unica,preturno.validar_concepto)">
+                       <div class="d-flex justify-content-between align-items-center card-header">
+                         <h5 class="h5-title">{{preturno.titulo}}</h5>
+                          <div class="d-flex justify-content-center align-items-center">
+                            <p class="font-weight-bold pr-2 my-0">Faltan {{ preturno.fecha_restante+1 }} Dias </p>
+                           
+                     
+                               <span [ngClass]="{'semaforo-verde':(preturno.fecha_restante+1) > 2}"></span>
+                               <span [ngClass]="{'semaforo-amarillo':(preturno.fecha_restante+1) == 2}"></span>
+                               <span [ngClass]="{'semaforo-rojo':(preturno.fecha_restante+1) <= 1}"></span>
+               
+                         </div>
+                      </div>
+               
+                        <div class="card-body">
+                          <p>{{preturno.descripcion}}</p>
+                        </div>
+               
+                     </div>
+               
+                   </div>
+               
+                    
+               
+                     </div>    
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+      </div>
+    
+     
+
+    </div>
+
+    <div class="col-md-7">
+
+      <div class="row">
+
+        <div class="col-md-6">
+         
+            <div class="card card-body ">
+              <div class="row">
+                <h6 class="col-md-12">Avances</h6>
+                 <div class="col-md-4 mt-1">
+                     <div class="progress">
+                       <div class="progress-bar progress1" role="progressbar" [style.width.%]="total_tabla"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{total_tabla | number : '1.0-0'}}%</div>
+                     </div>
+                 </div>
+                 <div class="col-md-5">
+                   <p>Completados</p>
+                 </div>
+              </div>
+            </div>
+        
+        </div>
+
+        <div class="col-md-6">    
+          <div class="card card-body">
+             <div class="row">
+                  <h6 class="col-md-12">Aprobación</h6>
+                <div class="col-md-4 mt-1">
+                  <div class="progress">
+                    <div class="progress-bar progress2" role="progressbar" [style.width.%]="aprobado"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{aprobado | number : '1.0-0'}}%</div>
+                  </div> 
+                </div>
+                <div class="col-md-5">
+                  <p>Completados</p>
+                </div>
+             </div>
+         </div>
+        </div>
+        
+      </div>
+
+     <!-- contenido de los preturnos -->
+
+     <div class="scroll">
+
+      <h4>Realizados</h4>  
+      <div *ngFor="let preturno of preturnos_validados">
+        <!-- <div class="d-flex justify-content-between align-items-center">
+          <h5>{{preturno.titulo}}</h5>
+          <span class="semaforo-verde"></span>
+        </div>
+        <p>{{preturno.descripcion}}</p>
+        
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="font-weight-bold text-dias">{{preturno.fecha_restante+1}} Dias Restantes</p>
+            <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" (click)="verpreturno(preturno.id_preturno,preturno.titulo,preturno.contenido,preturno.validar_multiple,preturno.validar_unica,preturno.validar_concepto)">ver mas</a>
+          </div> -->
+
+          <div class="card mb-2" [ngStyle]="{'cursor':'pointer'}"  data-toggle="modal" data-target="#exampleModal" (click)="verpreturno(preturno.id_preturno,preturno.titulo,preturno.contenido,preturno.validar_multiple,preturno.validar_unica,preturno.validar_concepto)">
+            <div class="d-flex justify-content-between align-items-center card-header">
+              <h5>{{preturno.titulo}}</h5>
+               <div class="d-flex justify-content-center align-items-center">
+                 <p class="font-weight-bold pr-2 my-0">Faltan 0 Días </p>
+                
+          
+                    <span class="semaforo-blanco"></span>
+                 
+    
+              </div>
+           </div>
+    
+             <div class="card-body">
+               <p>{{preturno.descripcion}}</p>
+             </div>
+    
+          </div>
+
+         
+      </div>
+
+     
+
+      </div>
+
+
+    </div>
+
+  </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-large">
+    <div class="modal-content">
+    
+
+         <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{titulover}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body preturno-modal">
+        
+      <p [innerHTML]="contenidover"></p>        
+
+      </div>
+      <div class="modal-footer">
+        <button *ngIf="mostrar && visto==0" type="button" class="btn btn-primary" data-dismiss="modal" (click)="validar()">Finalizar preturno</button>
+        <button *ngIf="(mostrarmultiple && vistomultiple==0) || (mostrarunico && vistounico==0) || (mostrarconcepto && vistoconcepto==0)"  type="button" class="btn btn-primary" data-dismiss="modal" (click)="obtenerpreguntasconcepto()" (click)="obtenerpreguntas()" (click)="obtenerpreguntasunicas()" (click)="isVisible=true">Realizar cuestionario</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- contenido de las preguntas -->
+
+<div class="principal" [ngClass]="{'activo': isVisible}"  >
+
+  <ng-container  *ngIf="isVisible" >
+    <div class="wrapper">
+      <div class="content">
+        <h4 class="h4">{{ title }}</h4>
+         <span class="line"></span>
+        <div class="details scroll3">
+          
+          <ng-container *ngIf="mostrarmultiple && vistomultiple==0">
+            <ng-container *ngFor="let preguntas of pregunta; let u=index">
+                        <h5>{{preguntas.pregunta}}</h5>
+                        
+                    <ng-container *ngFor="let respuesta of respuestas; let i=index">
+                        <div class="form-check">
+                            <input class="form-check-input" (change)="capturar($event,u)" type="radio" name="exampleRadios{{preguntas.id}}" id="exampleRadios1" value="{{respuesta.id_respuestas}}" *ngIf="respuesta.id_pregunta==preguntas.id">
+                            <label class="form-check-label" for="exampleRadios1" *ngIf="respuesta.id_pregunta==preguntas.id">{{respuesta.respuestas}}</label>
+                          </div>
+                    </ng-container>
+            </ng-container>
+          </ng-container>
+  
+            <br>
+  
+            <ng-container *ngIf="mostrarunico && vistounico==0">
+            <ng-container *ngFor="let preguntas of preguntaconcepto; let u=index">
+              <h5>{{preguntas.pregunta}}</h5>
+  
+            <input #rs (keyup)="capturarunica(rs,u,preguntas.id)" type="text" class="form-control" placeholder="Escribe tu respuesta correcta">
+            <br>
+            </ng-container>
+
+          </ng-container>
+  
+          <br>
+  
+          <ng-container *ngIf="mostrarconcepto && vistoconcepto==0">
+          <div cdkDropListGroup>
+            
+            
+            <div class="d-flex flex-row" *ngFor="let a of sentenceWords;let indice=index">
+              <p class="d-flex flex-grow-1">{{a.palabra}}&nbsp;</p> 
+              <ng-container *ngFor="let c of dat;let indice2 = index">
+                <div class="example-container" *ngIf="c.id_pregunta==a.id_pregunta">
+                  
+                  <ng-container *ngIf="c.id_pregunta==a.id_pregunta ">
+                   
+                  <div
+                    cdkDropList
+                    [cdkDropListData]="c.value"
+                    class="example-list"
+                    (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let item of c.value" cdkDrag>{{item}}</div>
+                  </div>
+                </ng-container> 
+                
+                </div>
+              </ng-container>
+                
+          </div>
+  
+          <h6 class="tituloarrastre">Arrastra tus palabras en la posicion correcta de la oracion</h6>
+            <div class="example-container" >
+              <div class="scroll2">
+              <div
+                cdkDropList
+                [cdkDropListData]="palabras"
+                class="example-list list"
+                (cdkDropListDropped)="drop($event)">
+                <div class="example-box box" *ngFor="let item of palabras" cdkDrag>{{item}}</div>
+              </div>
+            </div>
+            </div>
+            
+          </div>
+        </ng-container>
+
+        </div>
+
+        <div class="footer">
+          <button (click)="isVisible=false">
+            Hacer Despues
+          </button>
+         <button type="button" class="btn btn-primary" (click)="validartodas()"  (click)="isVisible=false" >
+           Enviar Respuestas
+          </button>  
+        </div>
+
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<a [routerLink]="['../admin-preturno']" class="menu">
+  <i class="fa fa-plus-circle crear" aria-hidden="true"> Crear</i>
+</a>
+
+
+
+  

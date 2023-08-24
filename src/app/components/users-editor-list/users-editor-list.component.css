@@ -1,0 +1,50 @@
+.boton{
+    margin-bottom: 10px;
+}
+
+.optionsHeader{
+    display: flex;
+    flex-direction: column;
+    padding-right: 1rem;
+}
+
+.optionsHeader .editIcon{
+    margin-left: 1rem;
+}
+
+.optionsHeader .editIcon:hover{
+    color: var(--color-secondary);
+    cursor: pointer;
+}
+
+.user{
+    display: flex;
+    width: 100%;
+    padding: .5rem 1rem;
+    border-radius: 3px;
+    box-shadow: var(--shadow1);
+    background-color: var(--terciaryDark);
+    margin-bottom: .5rem;    
+}
+.user .editIcon:hover{
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.user .title{
+    margin:0;
+    line-height: 24px;    
+    flex-grow: 1;
+}
+
+.user .title:hover{
+    cursor: pointer;
+    color: var(--color-secondary);
+}
+
+.scroll{
+    margin-left: .5rem;
+    margin-right: 1rem;
+    margin-top: .5rem;
+    margin-bottom: 5.5rem;
+}

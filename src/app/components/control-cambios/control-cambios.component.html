@@ -1,0 +1,54 @@
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <div class="cronograma">
+                
+                <select class="form-control" [(ngModel)]="seleccionado" (change)="onSelectionChange($event,1)">
+                    <option *ngFor="let option of options" [value]="option.value">{{option.name}}</option>
+                  </select>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row principal" *ngIf="seleccionado!=0">
+    <div class="col-md-4 container">
+        <h4 class="cabeza">Actual</h4>
+        <div class="articleContainer">
+            <header class="header">
+                <div [innerHTML]="titulo_actual"></div> 
+            </header>
+            <div class="content">
+                <div [innerHTML]="contenido_actual"></div>  
+            </div>
+        </div>  
+    </div>
+    <div class="col-md-4 container">
+        <h4 class="cabeza">Cambios</h4>
+        <div class="articleContainer">
+            <header class="header">
+                <div [innerHTML]="titulo_cambios"></div>
+            </header>
+            <div class="content">
+                <div [innerHTML]="contenido_cambios"></div>   
+            </div>
+        </div>  
+    </div>
+    <div class="col-md-4 container">
+        <h4 class="cabeza">Anterior</h4>
+        <div class="articleContainer">
+            <header class="header">
+                <div [innerHTML]="titulo_antiguo"></div> 
+            </header>
+            <div class="content">
+                <div [innerHTML]="contenido_antiguo"></div> 
+            </div>
+        </div>  
+    </div>
+    
+</div>
+
+
+

@@ -1,0 +1,89 @@
+<div class="articleContainer">
+    {{articleId}}
+    <header class="header" *ngIf="article">
+   
+       <em class="fa fa-arrow-left" (click)="goBack()"[ngStyle]="{'cursor':'pointer'}"></em>
+        <h4 class="title">{{ article.title }}</h4>
+    </header>
+    <ng-scrollbar class="content">
+        <div #content [hidden]="adjuntosVisibles"></div>
+
+      
+            <app-rteviewbanco [articulo]="articleobj">
+                
+            </app-rteviewbanco>
+            
+            <a id="links" target="_blank" *ngFor="let link of links" [href]="link.content_url">{{link.display_file_name}}</a>
+       
+       
+    </ng-scrollbar>
+    <div class="footer footer-page" *ngIf="article">
+  
+      <div class="div mt-2">
+        <p>{{'explorer.actualizacion' | translate }}: {{ article.fecha_evento | date}}</p>
+      </div>
+       <div class="div">
+            
+
+                
+              
+
+                <ng-container *ngIf="article.id_otros===null">
+
+                <em class="fa fa-trash socialButton rm1" *appUserRoleIsIn="15" (click)="articleDelete()" ></em>
+
+                <em class="fa fa-pencil socialButton rm1" *appUserRoleIsIn="14"  (click)="goToArticleEdition()" tooltip="Editar articulo" placement="top" show-delay="500"></em>
+               
+                </ng-container>
+
+                <em class="fa fa-star socialButton favoriteIcon rm1" *ngIf="article.type != 'news'"  tooltip="Agregar a favoritos" placement="top" show-delay="500" (click)="addToFavorites()"></em>
+                <span *ngIf="article.type != 'news'">{{article.favoritos}}</span>
+                <em class="fa fa-thumbs-o-up socialButton rm1" tooltip="Útil" placement="top" show-delay="500" (click)="addLike()"></em>
+                <span>{{article.likes}}</span>
+                <em class="fa fa-thumbs-o-down socialButton rm1" tooltip="No útil" placement="top" show-delay="500" (click)="addDislike()"></em> 
+                <span>{{article.dislikes}}</span>    
+            </div>      
+    </div>
+</div>
+<div class="side_panel">
+    <div class="index" *ngIf="article">
+        <div class="index_menu" *ngIf="article.type != 'noticia'">
+            <div class="tab {{modo == 'indice' ? 'active':''}}"  [ngStyle]="{'cursor':'pointer'}" (click)="modo = 'indice'" class="d-flex align-items-center">
+                <em class="fa fa-indent"   aria-hidden="true"></em>
+                <h6 [ngStyle]="{'margin':'0'}"> {{'Indice' | translate }}</h6>
+            </div>
+            <div class="tab {{modo == 'tags' ? 'active':''}}" (click)="modo = 'tags'" [ngStyle]="{'cursor':'pointer'}"  class="d-flex align-items-center">
+                <em class="fa fa-tags"  aria-hidden="true"></em>
+                <h6 [ngStyle]="{'margin':'0'}"> Tags</h6>
+            </div>
+            <div class="tab {{modo == 'adjuntos' ? 'active':''}}" [ngStyle]="{'cursor':'pointer'}" (click)="modo = 'adjuntos'"  class="d-flex align-items-center">
+                <em class="fa fa-paperclip"  aria-hidden="true"></em>
+                <h6 [ngStyle]="{'margin':'0'}">{{'Adjuntos' | translate}}</h6>
+            </div>
+        </div>
+        
+            <div class="fileList pt1" *ngIf="modo == 'adjuntos'">
+                <ng-scrollbar>
+                <app-file-prev class="mb.5" *ngFor="let file of article.attached" [fileName]="file"
+                [articleId]="article.id" [mode]="'notDelete'"></app-file-prev>
+            </ng-scrollbar>
+            </div>
+            <div class="tagList" *ngIf="modo == 'tags'">
+                <ng-scrollbar>
+                    <div class="lista">
+                        <div class="tag" *ngFor="let tag of article.tags" (click)="searchTag(tag)">{{tag}}</div>
+
+                    </div>
+                </ng-scrollbar>
+            </div>
+            <div class="indice" *ngIf="modo == 'indice'">
+             
+                <div *ngFor="let el of indexElements; index as i" [innerHTML]="el.innerHTML"
+                    [ngClass]="[el.tagName, calculateActive(i)]" (click)="scrollTo(el)"></div>
+                
+            </div>
+    </div>
+    <div class="comments" *ngIf="article">
+        <app-comment-list [articleId]="article.id"></app-comment-list>
+    </div>
+</div>

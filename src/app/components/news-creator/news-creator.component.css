@@ -1,0 +1,42 @@
+:host{
+    padding: 1rem 2rem .5rem 2rem;
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.side_var{
+    width: 20%;
+    height: 100%;
+}
+
+.selector{
+    display: flex;
+}
+
+.selector .active{
+    color: var(--color-secondary) !important;    
+}
+
+.selector .separator{
+    font-weight: 100;
+    color: lightgrey;
+    font-size: 23px;
+}
+
+.selector .tab{
+    color: var(--secondaryText);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+
+.selector .tab:hover{
+    cursor: pointer;
+    color: var(--color-secondary);
+}
+
+.editor{
+    width: 85%;
+    padding-left: 1rem;
+}

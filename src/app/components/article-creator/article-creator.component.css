@@ -1,0 +1,125 @@
+:host{
+    padding: 2.5rem;
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.articleOps{
+    width: 25%;
+    margin-left: 1rem;
+    margin-top: 4rem;
+    overflow-y: scroll;
+}
+
+.articleEditor_container{
+    width: 75%;
+}
+
+.articleTitle_input{
+    width: 50%;
+    background-color: white;
+    margin: 0;
+    padding: 1rem 1.5rem;
+    border: 0;
+    border-radius: 3px;
+    outline: 0 !important;
+    box-shadow: var(--shadow1);
+    margin-bottom: 1rem;
+}
+
+.tagList{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.tagList .tag span{
+    flex-grow: 1;
+}
+
+.tagList .tag app-icon {
+    margin-left: .5rem;
+}
+
+.tagList .tag app-icon:hover {
+    color: var(--error);
+    cursor: pointer;
+}
+
+.tagList .tag{
+    padding: .4rem 1rem .4rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primaryLight);
+    margin-bottom: .5rem;
+    margin-right: .5rem;
+    border-radius: 1rem;
+}
+
+.fileStatus{
+    width: 100%;
+    height: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tagEditor{
+    width: 100%;
+    padding: .75rem;
+    border: 0;
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: var(--shadow1);
+    outline: none !important;
+}
+
+.scroll{
+    padding: .1rem;
+    padding-right: 1rem;
+}
+
+.hide{
+    display:none
+}
+.show {
+    display: block;
+}
+
+.ql-editor{
+    width: 100% !important;
+}
+
+
+
+.file-area{
+    width: 100%;
+    height: 80px;
+    border:2px dotted #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+ }
+ .file-fqke{
+     left:100px;
+     top:20px;
+ }
+
+ .file-input {
+     width: 100%;
+     height: 100%;
+     opacity: 0;
+     position: absolute;
+     cursor: pointer;
+ }
+
+.loader{
+    align-items: center;
+    display: -webkit-box;
+    display: flex;
+    justify-content: center;
+}

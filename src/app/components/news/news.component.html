@@ -1,0 +1,6 @@
+<div class="filters">
+    <ejs-calendar (change)='onChange($event)' [max]='maxDate' ></ejs-calendar>
+</div>
+<div class="newsList">
+    <app-news-list [date]="selectedDate"></app-news-list>
+</div>

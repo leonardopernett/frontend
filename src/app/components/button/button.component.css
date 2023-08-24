@@ -1,0 +1,28 @@
+:host{
+    width: 100%;
+    background-color: var(--color-green);
+    box-shadow: var(--shadow1);
+    color: white;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .3rem 1em;
+    border-radius: 3px;
+    border-top: 2px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+:host:hover{
+    cursor: pointer;
+}
+
+:host:active{
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-top: 2px solid rgba(0,0,0,0.1);
+    background-color: rgb(0, 128, 233);
+}
+
+:host app-icon{
+    margin-right: .3rem;
+}

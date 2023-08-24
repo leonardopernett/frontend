@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-md-6 buscar">
+        <div class="card ">
+            <div class="card-header">
+                <h6 class="text-center">Base de donde viene la persona matriculada</h6>
+            </div>
+            <div class="card-body">
+                <select [(ngModel)]="clientList" class="custom-select col-md-12 cliente" (change)="mostrarpcrc()">
+                    <option value="Selected" selected>Seleccionar</option>
+                    <option *ngFor="let cliente of clientes" [value]="cliente.id_dp_clientes">{{cliente.cliente}}
+                    </option>
+                </select>
+
+                <select [(ngModel)]="pcrcOrigen" *ngIf="pcrc" class="custom-select col-md-12" (change)="getMultipleUser()">
+                    <option value="Selected" selected>Seleccionar</option>
+                    <option *ngFor="let item of pcrc" [value]="item.cod">{{item.text}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5 tabla">
+        <div class="card ">
+            <div class="card-header">
+                <h6 class="text-center">Bases que tiene el pcrc automatizado</h6>
+            </div>
+            <div class="card-body" *ngIf="pcrcOrigen">
+                <select  [(ngModel)]="clientListD" class="custom-select col-md-12 cliente" (change)="mostrarpcrcD()">
+                    <option value="Selected" selected>Seleccionar</option>
+                    <option *ngFor="let clienteD of clientesD" [value]="clienteD.id_dp_clientes">{{clienteD.cliente}}
+                    </option>
+                </select>
+
+                <select [(ngModel)]="pcrcDestino" *ngIf="pcrcD" class="custom-select col-md-12">
+                    <option value="Selected" selected>Seleccionar</option>
+                    <option *ngFor="let item of pcrcD" [value]="item.cod">{{item.text}}</option>
+                </select>
+
+                <button *ngIf="pcrcDestino" type="button" class="btn btn-primary tabla" (click)="agregarDestino()">Guardar Pcrc automatizado</button>
+
+                <table class="table tabla">
+                    <thead>
+                        <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">Nombre del Pcrc</th>
+                          <th scope="col">Pcrc Automatizados</th>
+                          <th scope="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr  class="text-center" *ngFor="let item of destino">
+                          <th scope="row">{{item.id}}</th>
+                          <td>{{item.pcrc}}</td>
+                          <td>{{item.pcrc_destino}}</td>
+                          <td><i (click)="quitarautomatizado(item.id)" class="fa fa-times-circle pointer"></i></td>
+                        </tr>
+                      </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

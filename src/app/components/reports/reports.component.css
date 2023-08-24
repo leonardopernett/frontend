@@ -1,0 +1,58 @@
+.layout{
+    padding: 1rem 1rem;
+    height: 100% !important;
+    width: 100% !important;
+    display: flex;
+}
+
+.menu{
+    width: 20%;
+}
+
+.menu .menuButton:hover{
+    cursor: pointer;
+    color: var(--color-secondary); 
+}
+
+.menu .menuButton.active{
+    background: var(--color-secondary)!important; ;
+    cursor: pointer;
+    color:#fff !important; 
+}
+
+.menu .menuButton .text.active{
+    color:#fff ;
+   
+}
+
+.report_area{
+    height: 100%;
+    width: 90%;
+    
+}
+
+.menu .menuButton{
+    display: flex;
+    align-items: center;
+    padding: .5rem 1rem;
+    background-color: var(--terciaryDark);
+    border-radius: 5px;
+    margin-bottom: .5rem;
+    transition: all 200ms ease-in-out;
+    text-decoration: none;
+    color:#000;
+}
+
+.menu .menuButton .text{
+    margin-left: 1rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    color:black;
+    border-bottom: none;
+}
+
+.menu .menuButton .text:hover{
+    color:000;
+   
+}
+

@@ -1,0 +1,12 @@
+<header class="header">
+    <app-icon [iconName]="category.icon" *ngIf="!editCategoryNameMode"></app-icon>
+
+    <h4 class="title" (click)="seleccionarCategoria()"  (click)="desplegado" *ngIf="!!!getSubCategories().length"   [ngClass]="{'leaftCategory': !!!getSubCategories().length}">{{category.name}}</h4>
+    
+    <h4 class="title leaftCategory" (click)="desplegado = !desplegado"  *ngIf="getSubCategories().length"  >{{category.name}}</h4>
+    
+    <em class="fa fa-caret-square-o-down dropDownIcon icon"  (click)="desplegado = !desplegado" *ngIf="!!getSubCategories().length"></em>
+</header>
+<div class="body" *ngIf="desplegado">
+    <app-categorie *ngFor="let category of getSubCategories()" [mode]="mode" [category]="category" [allCategories]="allCategories" (onCategorySelected)="seleccionarCategoria($event)"> </app-categorie>
+</div> 

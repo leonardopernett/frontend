@@ -1,0 +1,28 @@
+<div class="img_header" #imgHeader>
+    <img *ngIf="imageSrc" [src]="imageSrc" alr="image">
+</div>
+<a class="title" [routerLink]="['/app/articles',news.id]">{{news.title}}</a>
+<div class="article_body">
+    <div class="resumme" #resume>
+        <a [routerLink]="['/app/articles',news.id]"><p *ngFor="let frase of resumen" [innerHTML]="frase"></p></a>
+    </div>
+    <div class="resume_lists" #resumeLists>
+
+    </div>
+    <div class="links">
+        <a *ngFor="let link of links" [href]="link.href" target="'_blank'">{{link.text}}</a>
+    </div>
+    <div class="footer">
+
+        <a routerLink="/app/newseditor/{{news.id}}"><em  class="fa fa-pencil pl-2 rm1" *appUserRoleIsIn="['publicador','admin']" tooltip="Editar articulo" placement="top" show-delay="500"></em></a>   
+
+        <em class="fa fa-star pl-2 favoriteIcon rm1" *ngIf="article.type != 'news'"  tooltip="Agregar a favoritos" placement="top" show-delay="500" (click)="addToFavorites()"></em>
+       <span *ngIf="article.type != 'news'">{{news.favoritos}}</span>
+   
+       <em class="fa fa-thumbs-o-up pl-2 rm1" tooltip="Útil" placement="top" show-delay="500" (click)="addLike()"></em>
+       <span>{{news.likes}}</span>
+   
+       <em class="fa fa-thumbs-o-down pl-2 rm1" tooltip="No útil" placement="top" show-delay="500" (click)="addDislike()"></em> 
+       <span>{{news.dislikes}}</span> 
+    </div>
+</div>

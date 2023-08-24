@@ -1,0 +1,330 @@
+<div class="articleEditor_container">
+    <div class="articleTitle">
+        <input class="articleTitle_input" type="text" placeholder="Titulo del articulo" #articleTitle>
+    </div>
+    <div class="articleEditor">
+        <app-rich-text-editor></app-rich-text-editor>
+    </div>
+    <p>
+
+</div>
+
+<!-- hello -->
+<div class="articleOps">
+    <!-- add -->
+    <div class="scroll">
+
+              <div *ngIf="ocultarbtnobligatorio" class="custom-control custom-switch">
+             <input type="checkbox" [(ngModel)]="accion" class="custom-control-input" id="accion" (click)="accionF(accion)">
+             <label class="custom-control-label" for="accion">{{accionText}}</label>
+          </div>
+
+          <ng-container *ngIf="Obedit==0">
+          <div *ngIf="ocultarbtnobligatorioedit" class="custom-control custom-switch">
+            <input type="checkbox" [(ngModel)]="accion" class="custom-control-input" id="accion" (click)="accionE(accion)">
+            <label class="custom-control-label" for="accion">{{accionTextedit}}</label>
+         </div>
+        </ng-container>
+ 
+        <ng-container *ngIf="accion">
+
+            <br>
+
+            <div class="form-group">
+                <label for="exampleInputDate1">Fecha Inicial</label>
+                <input type="datetime-local" [(ngModel)]="fechainicial" class="form-control" id="exampleInputDate1">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputDate2">Fecha Final</label>
+                <input type="datetime-local" [(ngModel)]="fechafinal" class="form-control" id="exampleInputDate2">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputDate3">Titulo de la Obligacion</label>
+                <input type="varchar" [(ngModel)]="titulorequired" class="form-control" id="exampleInputDate3">
+            </div>
+            
+            <p>Cliente</p>
+            <ng-select2 focusable (focused)="log($event)" (notFocused)="log($event)" [(ngModel)]="clientesList" [data]="cliente" [placeholder]="''" [width]="300" [options]="options" (click)="obtenerPcrcs()"></ng-select2>
+            
+            <br>
+            <br>
+            <p>Pcrc</p>
+            <ng-select2   [(ngModel)]="pcrcList" [data]="pcrc" [placeholder]="''" [width]="300" [options]="options2"></ng-select2>
+            <br>
+            <br>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".bd-example-modal-lg">Crear Cuestionario</button>
+ <br>
+        </ng-container>
+
+
+        
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Anexar Preguntas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                      <div class="input-group">
+                        <select class="custom-select" [(ngModel)]="preguntas" id="inputGroupSelect04" aria-label="Example select with button addon">
+                          <option selected>Selecciona numero de preguntas</option>
+                          <option value="1">1 Pregunta</option>
+                          <option value="2">2 Pregunta</option>
+                          <option value="3">3 Pregunta</option>
+                          <option value="4">4 Pregunta</option>
+                        </select>
+                      </div>
+                      <br>
+
+                      <ng-container *ngIf="preguntas==1 || preguntas==2 || preguntas==3 || preguntas==4">
+
+                        
+                    
+                      <div class="form-group">
+                        <label for="pregunta1">Pregunta 1</label>
+                        <input [(ngModel)]="pregunta1"  type="text" class="form-control" id="pregunta1" placeholder="Escribe tu pregunta es obligatoria">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="respuesta1">Respuesta Correcta</label>
+                        <input [(ngModel)]="respuestacorrecta1" type="text" class="form-control" id="respuesta1" placeholder="Escribe tu respuesta correcta (campo obligatorio)">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="respuesta2">Respuesta 1</label>
+                        <input [(ngModel)]="respuesta1" type="text" class="form-control" id="respuesta2" placeholder="Escribe tu respuesta (campo obligatorio)">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="respuesta3">Respuesta 2</label>
+                        <input [(ngModel)]="respuesta2" type="text" class="form-control" id="respuesta3" placeholder="Escribe tu respuesta">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="respuesta4">Respuesta 3</label>
+                        <input [(ngModel)]="respuesta3" type="text" class="form-control" id="respuesta4" placeholder="Escribe tu respuesta">
+                      </div>
+
+                    <ng-container *ngIf="preguntas==2 || preguntas==3 || preguntas==4">
+
+                        <div class="form-group">
+                            <label for="pregunta1">Pregunta 2</label>
+                            <input [(ngModel)]="pregunta2"  type="text" class="form-control" id="pregunta1" placeholder="Escribe tu pregunta es obligatoria">
+                          </div>
+    
+                          <div class="form-group">
+                            <label for="respuesta1">Respuesta Correcta</label>
+                            <input [(ngModel)]="respuestacorrecta2" type="text" class="form-control" id="respuesta1" placeholder="Escribe tu respuesta correcta (campo obligatorio)">
+                          </div>
+    
+                          <div class="form-group">
+                            <label for="respuesta2">Respuesta 1</label>
+                            <input [(ngModel)]="respuesta4" type="text" class="form-control" id="respuesta2" placeholder="Escribe tu respuesta (campo obligatorio)">
+                          </div>
+    
+                          <div class="form-group">
+                            <label for="respuesta3">Respuesta 2</label>
+                            <input [(ngModel)]="respuesta5" type="text" class="form-control" id="respuesta3" placeholder="Escribe tu respuesta">
+                          </div>
+    
+                          <div class="form-group">
+                            <label for="respuesta4">Respuesta 3</label>
+                            <input [(ngModel)]="respuesta6" type="text" class="form-control" id="respuesta4" placeholder="Escribe tu respuesta">
+                          </div>
+
+                    </ng-container>
+
+                    <ng-container *ngIf="preguntas==3 || preguntas==4">
+
+                        <div class="form-group">
+                            <label for="pregunta1">Pregunta 3</label>
+                            <input [(ngModel)]="pregunta3"  type="text" class="form-control" id="pregunta1" placeholder="Escribe tu pregunta es obligatoria">
+                          </div>
+    
+                          <div class="form-group">
+                            <label for="respuesta1">Respuesta Correcta</label>
+                            <input [(ngModel)]="respuestacorrecta3" type="text" class="form-control" id="respuesta1" placeholder="Escribe tu respuesta correcta (campo obligatorio)">
+                          </div>
+    
+                          <div class="form-group">
+                            <label for="respuesta2">Respuesta 1</label>
+                            <input [(ngModel)]="respuesta7" type="text" class="form-control" id="respuesta2" placeholder="Escribe tu respuesta (campo obligatorio)">
+                          </div>
+    
+                          <div class="form-group">
+                            <label for="respuesta3">Respuesta 2</label>
+                            <input [(ngModel)]="respuesta8" type="text" class="form-control" id="respuesta3" placeholder="Escribe tu respuesta">
+                          </div>
+    
+                          <div class="form-group">
+                            <label for="respuesta4">Respuesta 3</label>
+                            <input [(ngModel)]="respuesta9" type="text" class="form-control" id="respuesta4" placeholder="Escribe tu respuesta">
+                          </div>
+  
+                      </ng-container>
+
+                      <ng-container *ngIf="preguntas==4">
+
+                        <div class="form-group">
+                            <label for="pregunta1">Pregunta 4</label>
+                            <input [(ngModel)]="pregunta4"  type="text" class="form-control" id="pregunta1" placeholder="Escribe tu pregunta es obligatoria">
+                          </div>
+    
+                          <div class="form-group">
+                            <label for="respuesta1">Respuesta Correcta</label>
+                            <input [(ngModel)]="respuestacorrecta4" type="text" class="form-control" id="respuesta1" placeholder="Escribe tu respuesta correcta (campo obligatorio)">
+                          </div>
+    
+                          <div class="form-group">
+                            <label for="respuesta2">Respuesta 1</label>
+                            <input [(ngModel)]="respuesta10" type="text" class="form-control" id="respuesta2" placeholder="Escribe tu respuesta (campo obligatorio)">
+                          </div>
+    
+                          <div class="form-group">
+                            <label for="respuesta3">Respuesta 2</label>
+                            <input [(ngModel)]="respuesta11" type="text" class="form-control" id="respuesta3" placeholder="Escribe tu respuesta">
+                          </div>
+    
+                          <div class="form-group">
+                            <label for="respuesta4">Respuesta 3</label>
+                            <input [(ngModel)]="respuesta12" type="text" class="form-control" id="respuesta4" placeholder="Escribe tu respuesta">
+                          </div>
+  
+                      </ng-container>
+
+                    </ng-container>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="guardarCuestionario(preguntas,pregunta1,respuestacorrecta1,respuesta1,respuesta2,respuesta3,pregunta2,respuestacorrecta2,respuesta4,respuesta5,respuesta6,pregunta3,respuestacorrecta3,respuesta7,respuesta8,respuesta9,pregunta4,respuestacorrecta4,respuesta10,respuesta11,respuesta12)">Guardar Cuestionario</button>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <br>
+
+        <input type="text" #tagstext class="tagEditor mb1" placeholder="Tag1,Tag2" (change)="addTag($event.target.value)" (keyup)="addTag($event.target.value)" spellcheck="false">
+        <div class="tagList mb1">
+            <div class="tag" *ngFor="let tag of tags">
+                <span>{{tag}}</span>
+            </div>
+        </div>
+        <h4 *ngIf="articleToEdit else singuardar">{{'Estado' | translate}}: {{articleToEdit.state == '2' ? borradorD : publicado }}</h4>
+        <ng-template #singuardar>
+            <h4>{{'Estado'| translate }}: {{'Sin guardar' | translate}}</h4>
+        </ng-template>
+        <div class="spinner" *ngIf="addArticleSpinner"></div>
+        <ng-container *appUserRoleIsIn="2">
+            <app-button [buttonText]="'Publicar' | translate" class="mb.5" (click)="saveArticle()" [iconName]="'mdi:publish'" *ngIf="!addArticleSpinner"></app-button>
+        </ng-container>
+        <ng-container *appUserRoleIsIn="25">
+            <app-button class="mb2" [buttonText]="'Guardar como borrador' | translate" (click)="saveAsDraft()" [iconName]="'mdi:archive'" *ngIf="!updateArticleSpinner"></app-button>
+        </ng-container>
+        <div *ngIf="articleToEdit">
+            <h4>{{articleToEdit.attached.length}} {{'Archivos adjuntos' | translate}}</h4>
+            <app-file-prev class="mb.5" *ngFor="let file of articleToEdit.attached" [fileName]="file" [articleId]="articleToEdit.id" (onFileDeleted)="fileDeleted(file)"></app-file-prev>
+        </div>
+
+        <ejs-uploader [autoUpload]="false" *ngIf="articleToEdit" (selected)="onFileSelect($event)" (success)="onFileUploaded($event)" [showFileList]="true" [asyncSettings]='path' #defaultupload [multiple]='false'>
+            <ng-template #template let-data="">
+                <div class="fileStatus">
+                    <app-file-prev class="mb.5" [fileName]="status" [articleId]="articleToEdit.id" [mode]="'notDelete'" *ngIf="status != 'Cargado con exito'"></app-file-prev>
+                    <span class="success" *ngIf="status == 'Cargado con exito'">
+                        {{'Agregado con exito' | translate}} ✔️
+                    </span>
+                </div>
+            </ng-template>
+        </ejs-uploader>
+
+    </div>
+    <!-- repo -->
+    <div class="card mt-5" *appUserRoleIsIn="58">
+        <div class="card-header">
+            <h6> {{'Repositorios de Documentos' | translate}} </h6>
+        </div>
+        <div class="card-body">
+            <form (submit)="saveImage()">
+                <div class="file-area">
+                    <span class="file-name" id="file-name">{{'Seleccione o arrastra el archivo' | translate}}</span>
+                    <input type="file" id="file" #image (change)="uploadImage($event)" class="file-input mt-2">
+                </div>
+                <button class="btn btn-primary btn-block ver" [disabled]="loading ? true : false ">
+                     {{'Agregar' | translate}}  
+                </button>
+
+                <ng-container *ngIf="loading; else nodata">
+                    <div class="loader">
+                        &nbsp; &nbsp; <span class="spinner2 mt-1"></span>
+                    </div>
+                </ng-container>
+
+            </form>
+
+            <table class="table table-bordered mt-3">
+                <caption>archivos</caption>
+                <thead class="text-white">
+                    <tr>
+                        <th scope="col">{{'Archivo' | translate}}</th>
+                        <th scope="col">{{'Detalle' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let doc of documentos">
+                        <td>
+                            <a href="{{doc.url}}" download>{{doc.nombre_archivo}}{{doc.extension}}</a>
+                        </td>
+                        <td>
+                            <a href="" data-toggle="modal" (click)="obtenerId(doc.id)" data-target="#exampleModal">
+                                <em class="fa fa-search"></em>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="modal fade" #modal #exampleModal id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{{'Informacion Documento' | translate}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <ng-container *ngIf="document">
+                                <p>{{'Nombre de Archivo' | translate}}: {{document.nombre_archivo }}</p>
+                                <p>{{'Peso' | translate}}: {{document.peso }}</p>
+                                <p>{{'Formato' | translate}}: {{document.extension }}</p>
+                                <p>{{'Usuario'| translate}}: {{document.documento_creador}}</p>
+                                <p>{{'Fecha de Creacion' | translate}}: {{document.fecha_creacion | date }}</p>
+                            </ng-container>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'cerrar'| translate}}</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="borradorDocumento(document)"> <em class="fa fa-trash"></em> {{'eliminar'| translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<jw-modal *ngIf="sinContenidoModalOpen" (onClose)="sinContenidoModalOpen = false">
+    <app-card>
+        <h4>{{'Debes proporcionar el contenido del articulo y un titulo' | translate }}</h4>
+    </app-card>
+</jw-modal>
+<ngx-spinner></ngx-spinner>

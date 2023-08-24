@@ -1,0 +1,56 @@
+<div class="layout">
+    <div class="menu">
+        <!--- <a class="menuButton" routerLink="./indicadores" routerLinkActive="active">
+            <app-icon [iconName]="'mdi:chart-bar'"></app-icon>
+            <span class="text">Indicadores</span>
+        </a>-->
+        <a *appUserRoleIsIn="45" class="menuButton" routerLinkActive="active" routerLink="./comentarios">
+            <em class="fa fa-comments" aria-hidden="true"></em>
+            <span class="text">{{'Comentarios' | translate}}</span>
+        </a>
+        <a *appUserRoleIsIn="46" class="menuButton" routerLink="./cambios" routerLinkActive="active">
+            <em class="fa fa-handshake-o"></em>
+            <span class="text">{{'Control de cambios' | translate}} </span>
+        </a>
+        <a *appUserRoleIsIn="47" class="menuButton" routerLink="./basedatos" routerLinkActive="active">
+            <em class="fa fa-database" aria-hidden="true"></em>
+            <span class="text">{{'Base de datos' | translate}}</span>
+        </a>
+        <a *appUserRoleIsIn="48" class="menuButton" routerLink="./lectura" routerLinkActive="active">
+            <em class="fa fa-book"></em>
+            <span class="text">{{'Lecturabilidad' | translate}}</span>
+        </a>
+        <a *appUserRoleIsIn="49" class="menuButton" routerLink="./usuario" routerLinkActive="active">
+            <em class="fa fa-users"></em>
+            <span class="text">{{'Usuarios' | translate}}</span>
+        </a>
+
+        <a *appUserRoleIsIn="50" class="menuButton" routerLink="/app/reports/consolidado" routerLinkActive="active">
+            <em class="fa fa-eye"></em>
+            <span class="text">{{'Consolidado' | translate }}</span>
+        </a>
+
+           <a class="menuButton" routerLink="/app/reports/obligatorio" routerLinkActive="active">
+            <em class="fa fa-eye"></em>
+            <span class="text">{{'Lectura Articulos Obligatorios' | translate }}</span>
+        </a> 
+
+
+        <a class="menuButton" routerLink="/app/reports/cuestionario" routerLinkActive="active">
+            <em class="fa fa-eye"></em>
+            <span class="text">{{'Resultado Obligatorios' | translate }}</span>
+        </a>
+        
+        <a class="menuButton" routerLink="/app/reports/preturno" routerLinkActive="active">
+            <em class="fa fa-eye"></em>
+            <span class="text">{{'Resultado Aprendizajes Ágiles' | translate }}</span>
+        </a>
+
+    </div>
+    <div class="report_area">
+        <ng-scrollbar>
+            <router-outlet></router-outlet>
+
+        </ng-scrollbar>
+    </div>
+</div>

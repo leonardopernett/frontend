@@ -1,0 +1,17 @@
+<div class="optionsHeader">
+    <button *appUserRoleIsIn="44" class="btn-primary boton" routerLink="/app/usermasive">{{'Asignar Permisos Masivos' | translate}}</button>
+    <app-search-input class="mb.5" (onConfirm)="search($event)"></app-search-input>
+    <app-check-box (onChange)="state.buscarEnTodosCheckChange($event)"></app-check-box>
+</div>
+<ng-scrollbar *appUserRoleIsIn="43">
+    <div  class="scroll" *ngIf="state.userslist$ | loading | async as response " >
+        <ng-template [ngIf]="response.state == 'finish'">
+            <div class="user" *ngFor="let user of response.value" (click)="userList(user.cedula)">
+                <h4 class="title">{{user.nombre}} </h4>
+            </div>
+        </ng-template>
+        <ng-template [ngIf]="response.state == 'loading'" >
+            <app-spinner></app-spinner>
+        </ng-template>
+    </div>
+</ng-scrollbar>

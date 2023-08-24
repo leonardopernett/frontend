@@ -1,0 +1,35 @@
+:host{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.newsList{
+    height: 100%;
+    width: 80%;
+}
+
+.filters{
+    display: flex;    
+    align-items: center;
+    flex-direction: column;
+    padding-top: 1rem;
+    width: 20%;
+}
+
+ejs-calendar{
+    box-shadow: var(--shadow2);
+    border-radius: 3px;
+}
+
+ejs-calendar td{
+    border:0;
+}
+
+ejs-calendar .e-prev{
+    transform: rotate(-90deg);
+}
+
+ejs-calendar .e-next{
+    transform: rotate(-90deg);
+}

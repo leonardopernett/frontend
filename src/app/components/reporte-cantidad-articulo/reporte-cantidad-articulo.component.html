@@ -1,0 +1,52 @@
+<div class="filters">
+
+   
+    <div class="col-md-12 text-center mt-2">
+        <button class="inputButton" type="submit"  (click)="buscar()"   id="button">buscar</button>
+        <input class="inputButton ml-5" type="submit" value="limpiar" (click)="limpiar()" >
+    </div>
+
+
+</div>
+
+<div *ngIf="loading">
+   <div class="spinner"></div>
+</div>
+
+
+<div class="container w-100">
+<h4>Total Articulos:</h4>
+ <hr>
+  <div class="row">
+      <div class="col-md-12 col-lg-12">
+       
+            <table   class="table table-bordered hide">
+                <caption>description</caption>
+                <thead class="bg-fondo">
+                 <tr>
+                     <th  scope="col" [ngStyle]="{'width':'500px'}">Cliente</th>
+                     <th  scope="col" [ngStyle]="{'width':'500px'}">Pcrc</th>
+                     <th  scope="col" [ngStyle]="{'width':'120px'}">Total</th>
+                   </tr>
+                </thead>   
+                
+                 <tbody>
+                     <tr class="cabeza" *ngFor="let res of datos | paginate: { itemsPerPage: 5, currentPage: p }" >
+                        <td>{{res.cliente}}</td>
+                         <td>{{res.pcrc}}</td>
+                         <td>{{res.total}}</td>
+                       </tr>            
+                 <tr>
+                     <td *ngIf="!verificar" colspan="8"  style="text-align: center;">Sin Datos</td>
+                 </tr>
+                 </tbody>
+
+            </table>
+            <pagination-controls (pageChange)="p = $event" class="paginacion hide"></pagination-controls>
+
+        <button (click)="exportExcel()" *ngIf="verificar" class="btn btn-success mt-3">Exportar Tabla</button>
+      </div>
+  </div>
+</div>
+
+<br>

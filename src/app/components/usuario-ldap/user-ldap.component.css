@@ -1,0 +1,32 @@
+h3{
+    text-align: center;
+    padding-top: 20px;
+}
+
+.caja{
+    padding-left: 20px;
+}
+
+.boton{
+    height: 39px;
+    position: relative;
+    top: 32px;
+}
+
+.boton2{
+    height: 39px;
+    position: relative;
+    top: 32px;
+    margin-left: 10px;
+}
+
+.cabeza{
+    overflow-y: scroll;
+    height: 500px;
+}
+
+.rm2{
+    position: relative;
+    top: 36px;
+    cursor: pointer;
+}

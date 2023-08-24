@@ -1,0 +1,37 @@
+#contenedor{
+    color: #58595b;
+    padding:30px;
+    font-family: 'CIBFontSans' ;
+    src: url('/assets/font/CIBFontSans/ttf/CIBFontSans-Regular.ttf');
+}
+
+#contenedor p{
+    line-height: 1.6;
+    font-size: 14px;
+    margin-top:14px;
+}
+
+#contenedor h4{
+    font-size: 20px;
+    line-height: 120%;
+    margin: 32px 0 8px 0;
+    color: #00448d;
+}
+
+#contenedor td{
+    border: 1px solid #ddd;
+    padding: 4px;
+}
+
+#contenedor table{
+    width: 100%;
+}
+
+#contenedor a{
+    color: #00448d;
+    text-decoration: none;
+}
+
+#contenedor p a{
+    font-weight: bold;
+}

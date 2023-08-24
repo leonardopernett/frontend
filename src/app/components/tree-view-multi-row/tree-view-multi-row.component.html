@@ -1,0 +1,13 @@
+<div class="header" [ngClass]="{'active':false, bloqueado: clienteBloqueado() }" (click)="isDesplegado = !isDesplegado">
+    <em class="fa fa-caret-right tam"   [ngClass]="{ 'desplegado': isDesplegado }"></em>
+    <span  >{{cliente.cliente}}</span>
+    <app-icon *ngIf="clienteHabilitado()" [iconName]="'mdi:check'" class="ml1"></app-icon>
+</div>
+<div class="body" [ngClass]="{ 'desplegado': isDesplegado }">
+    <ng-scrollbar [position]="'invertY'">
+        <div class="header" *ngFor="let pcrc of cliente.pcrcs; index as i"  (click)="pcrcSeleccionado(pcrc)" [ngClass]="{'active':false}">
+            {{ pcrc.pcrc }} - {{pcrc.cod_pcrc}}
+            <app-icon *ngIf="pcrcHabilitado(pcrc.id_dp_pcrc)" [iconName]="'mdi:check'" class="ml1" ></app-icon>
+        </div>
+    </ng-scrollbar> 
+</div>

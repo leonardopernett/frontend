@@ -1,0 +1,11 @@
+<div class="search ma.5">
+    <app-search-input (onConfirm)="search($event)"></app-search-input>
+</div>
+
+<ng-scrollbar class="list">
+    <div infiniteScroll [scrollWindow]="false" scrollViewport (scrolled)="onScroll()">
+        <div class="articleTitle" *ngFor="let article of articleList" (click)="articleSelected(article)">
+            {{article.title}}
+        </div>
+    </div>
+</ng-scrollbar>

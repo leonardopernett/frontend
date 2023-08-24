@@ -1,0 +1,30 @@
+:host{
+    display: flex;
+    width: 100%;
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: var(--shadow1);
+    height: 2.5rem;
+    padding-right: 1rem;
+}
+
+.input{
+    padding: 1rem 1.5rem;
+    width: 100%;
+    height: 100%;    
+    border: 0;
+    font-size: inherit;
+    font-family: inherit;
+    outline: unset !important;
+}
+
+app-icon:hover{
+    color: var(--primary);
+    cursor: pointer;
+}
+
+
+.buscador{
+    cursor: pointer;
+    margin-top: .8rem;
+}

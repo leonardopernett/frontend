@@ -1,0 +1,55 @@
+h3{
+    text-align: center;
+    padding: 20px;
+}
+
+.table-edicion{
+    padding: 50px;
+}
+
+.principal{
+    padding-left: 36px;
+}
+
+.icono{
+    cursor: pointer;
+}
+
+.boton{
+    text-align: center;
+}
+
+.mensaje{
+    text-align: center;
+}
+
+.rol{
+    float: right;
+}
+
+.rm1{
+    font-size: 22px;
+    padding-right: 25px;
+    cursor: pointer;
+}
+
+.api{
+    margin-left: 10px;
+}
+
+.ocultar{
+    opacity: 0;
+}
+
+.mostrar{
+    display: block;
+}
+
+.titulo{
+    text-align: center;
+}
+
+.boton2{
+    position: relative;
+    right: 2%;
+}

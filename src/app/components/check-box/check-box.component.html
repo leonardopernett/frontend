@@ -1,0 +1,2 @@
+<app-icon [iconName]="checked ? 'mdi:checkbox-marked-outline':'mdi:checkbox-blank-outline'" (click)="checked = !checked; onChange.next(checked)"></app-icon>
+<p class="text" (click)="checked = !checked; onChange.next(checked)">{{'Buscar en todos los pcrc' | translate }}</p>

@@ -1,0 +1,23 @@
+<app-users-editor-list class="side_var"></app-users-editor-list>
+<div class="userCard" *ngIf="(state.selectedUser$ | async) as user else noSeleciconado">
+    <hr>
+    <h3 class="userName ml2">{{user.nombre}}</h3>
+    <hr>
+    <h4 class="ml1">{{'Rol' | translate }}</h4>
+    <div class="mb1 ml1" *ngFor="let rol of roles">
+        <ejs-radiobutton [(ngModel)]="user.rol" [value]="rol" [label]="rol" name="rol" (change)="userRolChange($event)"></ejs-radiobutton>
+    </div>
+    <h4 class="ml1">Pcrc</h4>
+    <div class="pcrcPicker">
+        <div class="accesoTodos">
+            <app-button *appUserRoleIsIn="40" [buttonText]="'Dar acceso a todos' | translate" [iconName]="'mdi:all-inclusive'" (click)="darAccesoTodos()" class="mb.5 mr.5"></app-button>
+            <app-button *appUserRoleIsIn="41" [buttonText]="'Quitar accesos' | translate" [iconName]="'mdi:all-inclusive'" (click)="quitarAccesoTodos()" class="mb.5"></app-button>
+        </div>
+        <ng-scrollbar>
+            <app-tree-view-multi></app-tree-view-multi>
+        </ng-scrollbar>
+    </div>
+</div>
+<ng-template #noSeleciconado>
+    <h4>{{'Ningun usuario Seleccionado' | translate}}</h4>
+</ng-template>

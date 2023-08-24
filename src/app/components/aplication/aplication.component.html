@@ -1,0 +1,17 @@
+<div class="site " disableSelect>
+    <app-header></app-header>
+    <div class="mainContent">
+      
+        <div class="row">
+            <div class="col-md-12">
+                <app-breadcrumb></app-breadcrumb>
+            </div>
+        </div>
+
+        <router-outlet></router-outlet>
+        <!-- Routed components go here -->
+    </div>
+    <app-side-sheet [ngClass]="{'open':state.sideSheetOpen$ | async}"></app-side-sheet>
+    
+    <app-notifications [ngClass]="{'open':articlesWebSockets.notificationsOpen$ | async}"></app-notifications>
+</div>

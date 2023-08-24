@@ -1,0 +1,51 @@
+
+
+@media(max-width:2000px){
+  .ql-editore{
+    width: 98%;
+  }
+}
+
+@media(max-width:1900px){
+  .ql-editore{
+    width: 98% !important;
+  }
+}
+
+@media(max-width:1800px){
+  .ql-editore{
+    width: 98% !important;
+  }
+}
+
+@media(max-width:1700px){
+  .ql-editore{
+    width: 98% !important;
+  }
+}
+
+@media(max-width:1600px){
+  .ql-editore{
+    width: 98% !important;
+  }
+}
+
+@media(max-width:1500px){
+  .ql-editore{
+    width: 98% !important;
+  }
+}
+
+
+
+@media(max-width:1400px){
+  .ql-editore{
+    width: 97%  !important;
+  }
+}
+
+@media screen and (max-width:1300px){
+  .ql-editore{
+    width: 97% !important;
+  }
+}

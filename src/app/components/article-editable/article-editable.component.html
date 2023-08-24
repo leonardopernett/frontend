@@ -1,0 +1,43 @@
+<div class="title">
+<h4  [routerLink]="['/app/articles/',article.id]" [state]="article" >
+    {{article.title}}
+</h4>
+</div>
+
+<div class="iconsContainer">
+    <em class="fa fa-random editIcon" (click)="obtenercontrolcambio(article.id)" (click)="abrirmodal()"></em>
+    <app-icon *appUserRoleIsIn="14" class="editIcon" [iconName]="'mdi:pencil'" (click)="goToArticleEdition()"></app-icon>
+    <app-icon *appUserRoleIsIn="15" class="editIcon" [iconName]="'mdi:delete'" (click)="deleteArticleModalOpen = true" ></app-icon>
+</div>
+
+<div #mymodal  class="modal">
+    <div class="modal-content">
+      <span (click)="closeModal()" class="close" >&times;</span>
+      <div class="tablacontrol">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Titulo</th>
+            <th scope="col">Fecha Cambio</th>
+            <th scope="col">Nombre del Publicador</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let control of controles; let u=index">
+          <tr>
+            <td>{{control.title}}</td>
+            <td>{{control.date | date : "dd-MM-yy hh:mm"}}</td>
+            <td>{{control.user_name}}</td>
+            <td><em class="fa fa-eye" [routerLink]="['/app/control/',control.id,article.id]"></em></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+
+<jw-modal *ngIf="deleteArticleModalOpen" (onClose)="deleteArticleModalOpen = false">    
+    <app-card>
+        <h4>Eliminar articulo: {{article.title}}</h4>
+        <app-button [buttonText]="'Confirmar'" [iconName]="'mdi:delete'" (click)="deleteArticle(); deleteArticleModalOpen = false"></app-button>
+    </app-card>
+</jw-modal>

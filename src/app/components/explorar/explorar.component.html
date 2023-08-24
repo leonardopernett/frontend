@@ -1,0 +1,27 @@
+
+<div class="categoriesContainer">
+
+    <div class="exporarSectionTab mb1" (click)="changeModeTo('update')" [ngClass]="{ active: mode == 'update'}">
+        <em class="fa fa-history mr1"></em>
+        <h5>{{ 'explorer.actualizacion' | translate }}</h5>
+    </div>
+    <div class="exporarSectionTab mb1" (click)="changeModeTo('top')" [ngClass]="{ active: mode == 'top'}">
+        <em class="fa fa-trophy mr1"></em>
+        <h5>{{ 'explorer.articulo' | translate }}</h5>
+    </div>
+    <div class="exporarSectionTab mb1" (click)="changeModeTo('obligatorio')" [ngClass]="{ active: mode == 'obligatorio'}">
+            <em class="fa fa-exclamation-circle mr1"></em>
+            <h5>Artículo obligatorio</h5>
+            <div class="notificacionC">{{totalService.total | async }}</div>
+        </div> 
+    <div class="ma.5 mr1">
+        <app-categories [mode]="'explore'" (onCategorySelected)="categoriaSeleccionada($event)"></app-categories>
+    </div>
+
+</div>
+
+<div infiniteScroll (scrolled)="onScroll($event)" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000" [scrollWindow]="false" class="searchContainer">
+
+    <app-article-list [articles]="articles" [placeholders]="placeholders"></app-article-list>
+
+</div>

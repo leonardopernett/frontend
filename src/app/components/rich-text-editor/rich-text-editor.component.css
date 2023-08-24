@@ -1,0 +1,29 @@
+
+:host{
+    height: 100%;
+    width: 100%;
+}
+
+
+.ql-container{
+    height: 42rem;
+}
+
+
+@media only screen and (max-height:870px) { 
+    .ql-container{
+        height: 37rem;
+    }
+}
+
+@media only screen and (max-height:808px) { 
+    .ql-container{
+        height: 30rem;
+    }
+}
+
+@media only screen and (max-height:750px) { 
+    .ql-container{
+        height: 24rem;
+    }
+}

@@ -1,0 +1,114 @@
+.articleTitle_input{
+    width: 100%;
+    background-color: white;
+    margin: 0;
+    padding: 1rem 1.5rem;
+    border: 0;
+    border-radius: 3px;
+    outline: 0 !important;
+    box-shadow: var(--shadow1);
+    margin-bottom: 1rem;
+}
+
+.quitar{
+    position: relative;
+    top: 9px;
+}
+
+.preguntas{
+    margin-top: 20px;
+}
+
+.botonpregunta{
+    margin-right: 10px;
+}
+
+.h5 {
+    width: 450px;
+}
+
+.espacio{
+    padding:40px;
+}
+
+.checks{
+    display: inline-flex;
+}
+
+.check{
+    margin: 10px;
+}
+
+.buscar{
+    display: flex;
+}
+
+.buscartitulo{
+    margin-right: 10px;
+    position: relative;
+    top: 6px;
+}
+
+.buscarcaja{
+    width: 100%;
+}
+
+.barra{
+    overflow-y: scroll;
+    height: 100hv !important;
+}
+
+.cuerpo{
+    height: 590px !important;
+}
+
+.modal-dialog {
+    max-width: 100% !important;   
+    margin:1.75rem 1.75rem !important;
+}
+
+.rm1{
+    font-size: 15px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.fa-trash, .fa-pencil {
+    font-size: 15px !important;
+    color:#fff !important;
+}
+
+.tarjeta{
+    box-shadow: 0px 0px 3px 0px rgb(0 0 0 / 50%) !important;
+}
+
+
+.lab .custom-control-label::before {
+    border-color: #007bff;
+    background-color: #007bff;
+  }
+
+  
+  .lab.custom-switch .custom-control-label::after {
+      background-color: white;
+  }
+
+
+  .ayuda{
+     font-size: 13px; 
+  }
+
+.question-body{
+    overflow: auto !important;
+    height: 50vh !important;
+
+}
+
+.contenido{
+    overflow-y: auto;
+    height: 751px;
+}
+
+.cont{
+    width: 100%;
+}

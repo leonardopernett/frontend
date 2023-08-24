@@ -1,0 +1,11 @@
+<div class="header" (click)="isDesplegado = !isDesplegado" [ngClass]="{'active':(state.selectedCliente$ | async)?.cliente == data[dataText]}">
+    <em class="fa fa-caret-right tam"  [ngClass]="{ 'desplegado': isDesplegado }"></em>
+    <span>{{data[dataText]}}</span>
+</div>
+<div class="body" [ngClass]="{ 'desplegado' : isDesplegado }">
+    <div class="scroll">
+        <div class="header" *ngFor="let child of data[child]; index as i" (click)="childSeleccionado(i)" [ngClass]="{ 'active':(state.selectedCliente$ | async)?.cliente == data[dataText] && (state.selectedPcrc$ | async).pcrc == child[childText] }">
+           <p [ngStyle]="{'font-size':'14px','margin-bottom':'5px'}">{{ child[childText] }}</p> 
+        </div>
+    </div>
+</div>

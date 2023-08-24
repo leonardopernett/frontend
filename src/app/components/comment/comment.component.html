@@ -1,0 +1,51 @@
+<div class="comment">
+   <div class="div" *ngIf="comment.reply_to == null" >
+            <div class="title">
+                <span class="text">{{comment.user_name}}</span>
+                <em class="fa fa-trash  replyIcon" *appUserRoleIsIn="60" (click)="borrarcomentario(comment.id)"></em> 
+                <em class="fa fa-paper-plane replyIcon"  (click)="replyMode = !replyMode" *ngIf="!replyMode"></em>
+            </div>
+
+            <div class="content">
+                {{comment.text}}
+            </div>
+            <div class="footer">
+                {{ gethumanTime(comment.publication_date) }}
+                
+            </div>
+   </div>
+   
+
+    <div class="inputArea_container" *ngIf="replyMode">
+        <div class="inputArea">
+            <app-icon class="iconPicker" [iconName]="'mdi:emoticon-tongue-outline'" (click)="emojiMode = !emojiMode"></app-icon>
+            <div class="inputScroll">
+                <textarea autosize class="textareaInput" #input placeholder="Comentario" [maxLength]="150"></textarea>
+            </div>
+            <em class="fa fa-send iconPicker" (click)="sendComment()" (keyup.enter)="sendComment()" *ngIf="input.value.length >=3"></em>
+        </div>
+        
+        <emoji-mart (emojiClick)="addEmoji($event)" [sheetSize]="16" [perLine]="8" [hideObsolete]="true" [totalFrequentLines]="2" [emojiSize]="20" [color]="'#039be5'" [isNative]="true" (emojiSelect)="iconoSeleccionado($event);emojiMode = false" *ngIf="emojiMode" (emojiClick)="addEmoji($event)" >
+        </emoji-mart>
+
+        
+        <span class="lenghtIndicator">
+            {{input.value.length}}/150
+        </span>
+    </div>
+
+    <div class="responseList" *ngFor="let reply of comments">
+        <div class="comment" *ngIf="reply.reply_to == comment.id" >
+            <div class="title">
+                <span class="text">{{reply.user_name}}</span>
+                 <em class="fa fa-trash replay" *appUserRoleIsIn="['admin','publicador']" (click)="borrareply(reply.id)"></em> 
+            </div>
+            <div class="content">
+                {{reply.text}}
+            </div>
+            <div class="footer">
+                {{gethumanTime(reply.publication_date)}}
+            </div>
+        </div>
+    </div>
+</div>

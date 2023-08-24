@@ -1,0 +1,13 @@
+<div *ngIf="state.selectedPcrcCategories$ | loading | async as response" class="ma.5">
+    <ng-template [ngIf]="response.state == 'finish'">
+        <app-category-editable *ngFor="let category of getFirstCategories(response.value)" [allCategories]="response.value" [category]="category" (onCategoryDeleted)="categoryDeleted($event)" (onCategorySelected)="seleccionarCategoria($event)"></app-category-editable>
+        <h5 class="dafaultMessage" *ngIf="!!!response.value.length">{{'No hay categorias en esta linea, agrega la primer categoria' | translate }}</h5>
+        <app-text-input placeholder="{{ 'Nombre nueva categoria' | translate }}" [cancelButton]="nuevaCategoriaMode" *ngIf="(!!!response.value.length) || nuevaCategoriaMode" (onConfirm)="agregarNuevaCategoria($event)" (onCancel)="nuevaCategoriaMode = false">  </app-text-input>
+        <ng-container *appUserRoleIsIn="18">
+        <app-button [buttonText]="'Nueva categoria' | translate" (click)="nuevaCategoriaMode = true" *ngIf="!!response.value.length && !nuevaCategoriaMode">  </app-button>
+        </ng-container>
+    </ng-template>
+    <ng-template [ngIf]="response.state == 'loading'" >
+        <app-articleplaceholder *ngFor="let placeholder of [1,2,3]" [type]="'categoria' | translate"></app-articleplaceholder>
+    </ng-template>
+</div>

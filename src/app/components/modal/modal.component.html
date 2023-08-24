@@ -1,0 +1,8 @@
+<div class="absolute-center" (click)="$event.stopPropagation()">
+    <ng-content>
+        
+    </ng-content>
+    <div class="closeIcon" (click)="close()">
+        <app-icon [iconName]="'mdi:close-circle'"></app-icon>
+    </div>
+</div>

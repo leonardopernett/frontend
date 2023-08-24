@@ -1,0 +1,24 @@
+<div *ngIf="categories">
+        <ng-template [ngIf]="categories.state == 'finish'">
+            <app-categorie *ngFor="let category of getFirstCategories(categories.value)" [category]="category" [allCategories]="categories.value" (onCategorySelected)="seleccionarCategoria($event)" [mode]="mode"></app-categorie>
+            <h5 class="dafaultMessage" *ngIf="!!!categories.value">No hay categorias en esta linea</h5>
+        </ng-template>
+        <ng-template [ngIf]="categories.state == 'loading'" >
+            ...Cargando
+        </ng-template>    
+</div>
+<div *ngIf="mode == 'explore'">
+    
+    <ng-container *ngIf="estado!=null">
+    <div *ngIf="state.selectedPcrcCategories$ | loading | async as response">
+        <ng-template [ngIf]="response.state == 'finish'">
+            <app-categorie *ngFor="let category of getFirstCategories(response.value)" [category]="category" [allCategories]="response.value" (onCategorySelected)="seleccionarCategoria($event)" [mode]="mode"></app-categorie>
+            <h5 class="dafaultMessage" *ngIf="!!!response.value">No hay categorias en esta linea</h5>
+        </ng-template>
+        <ng-template [ngIf]="response.state == 'loading'" >
+            <app-articleplaceholder [type]="'categoria'" *ngFor="let category of [1,2,3]">a</app-articleplaceholder>
+        </ng-template>
+    </div>
+</ng-container>
+
+</div>

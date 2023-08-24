@@ -1,0 +1,79 @@
+:host{
+    background-color: var(--terciaryDark);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: .5rem;
+    border-radius: 3px;
+    box-shadow: var(--shadow1);
+}
+
+:host app-category-editable{
+    margin-bottom: 0rem;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+:host .header{
+    display: flex;
+    width: 100%;
+    align-items: center;    
+    padding: .5rem; 
+}
+
+:host .header .editIcon{
+    color: transparent;
+    display: none;
+    transition: all 200ms ease-in-out;
+    padding-left: 10px;
+}
+
+:host .header:hover .editIcon{
+    display: unset;
+    color: var(--primaryText);
+}
+
+:host .header:hover .editIcon:hover{
+    color: var(--color-secondary);
+}
+
+:host .header .title{
+    overflow-wrap: break-word;
+    width: 1rem;
+    margin: 0;
+    margin-left: 1rem;
+    line-height: 1.5rem;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    font-size: 20px;
+
+}
+:host .header .title.leaftCategory:hover{
+    color: var(--color-secondary);
+    cursor: pointer;
+}   
+
+:host .body{
+    padding-left: 1.5rem;
+    padding-right: .5rem;
+    width: 100%;
+}
+
+:host .body .body{
+    padding-right: 0;
+}
+
+.header app-icon:first-child{
+    margin-left: 0;
+}
+
+.header app-icon{
+    margin-left: 1rem;
+}
+
+app-icon:hover{
+    cursor: pointer;
+    color: var(--color-secondary);
+}

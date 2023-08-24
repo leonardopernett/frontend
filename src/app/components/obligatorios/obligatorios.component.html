@@ -1,0 +1,121 @@
+
+
+<div class="row">
+    <div class="col-md-12">
+      <h3>{{'Administrar Articulos Obligatorios' | translate}}</h3>
+    </div>
+  </div>
+  
+  <div class="row container principal">
+    <div class="col-md-3">
+      <input type="text" class="form-control" id="buscar" [(ngModel)]="buscar" placeholder="Buscar Por Id Articulo o Titulo">
+      </div>
+      <div class="col-md-1 boton">
+        <em class="fa fa-search fa-2x icono"  (click)="buscararticulo()"  tooltip="Buscar Articulo" placement="top" show-delay="500"></em>
+    
+      </div>
+      <div class="col-md-1 boton2">
+        <em class="fa fa-trash fa-2x icono"  (click)="vaciar()"  tooltip="Borrar Articulo" placement="top" show-delay="500"></em>
+    
+      </div>
+  </div>
+
+  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" >
+      <div class="modal-content ">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{'Editar Periodo'| translate}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+  
+            <div class="form-group">
+                <label for="exampleInputDate1">Fecha Inicial</label>
+                <input type="date" #inicio [ngModel]="fechainicial | date:'yyyy-MM-dd'"  class="form-control" id="exampleInputDate1">
+            </div>
+            
+
+            <div class="form-group">
+                <label for="exampleInputDate2">Fecha Final</label>
+                <input type="date" #final [ngModel]="fechafinal | date:'yyyy-MM-dd'" class="form-control" id="exampleInputDate2">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputDate3">Titulo</label>
+                <input type="text" [(ngModel)]="titulo" class="form-control" id="exampleInputDate3">
+            </div>
+        
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" id="closeModal" class="btn btn-secondary" data-dismiss="modal">{{'Cerrar' | translate}}</button>
+
+          <button type="button" (click)=editar(inicio,final) class="btn btn-secondary">{{'Guardar' | translate}}</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-10 col-md-12 table-edicion">
+  <div class="table-responsive">
+    <table  class="table table-bordered hide table-wrapper " id="table">
+         <thead [ngStyle]="{'background':'#039be5', 'color':'#fff'}">
+             <tr >
+                 <th scope="col">{{'Id Articulo' | translate}}</th>
+                 <th scope="col">{{'Titulo Articulo' | translate}}</th>
+                 <th scope="col">{{'Fecha Inicial' | translate}}</th>
+                 <th scope="col">{{'Fecha Final' | translate}}</th>
+                 <th scope="col">{{'Estado' | translate}}</th>
+                 <th scope="col">{{'Fecha Creacion' | translate}}</th>
+                 <th scope="col">{{'Titulo Periodo' | translate}}</th>
+                 <th scope="col" *appUserRoleIsIn="53"></th>
+               </tr>
+         </thead>
+  
+         <ng-container *ngIf="obligatorios === undefined">
+          <tr>
+            <td class="mensaje" colspan="6">{{'Sin Datos' | translate}}</td>
+          </tr>
+        </ng-container>
+        
+         <ng-container *ngIf="obligatorios?.length === 0">
+          <tr>
+            <td class="mensaje" colspan="6">{{'Sin Datos' | translate}}</td>
+          </tr>
+        </ng-container>
+  
+        <ng-container *ngIf="obligatorios?.length > 0" >
+       
+         <tr *ngFor="let res of obligatorios">
+           <td>{{res.id_articulo}}</td>
+           <td>{{res.title}}</td>
+       
+           <td>{{res.fecha_inicial | date : "dd-MM-yy"}}</td>
+  
+           <td>{{res.fecha_final | date : "dd-MM-yy"}}</td>
+  
+           <td>{{res.estado}}</td>
+
+           <td>{{res.fecha_creacion | date : "dd-MM-yy"}}</td>
+
+           <td>{{res.titulo}}</td>
+       
+           <td *appUserRoleIsIn="53" class="boton">
+            <em class="fa fa-edit fa-2x icono"  tooltip="Editar Periodo" (click)="pasarela(res.fecha_inicial,res.fecha_final,res.titulo,res.id)" placement="top" show-delay="500" data-toggle="modal" data-target="#exampleModal2"></em>
+           </td>
+       
+         </tr>
+
+         </ng-container>
+
+    </table>
+        
+        </div>
+     
+    </div>
+  </div>
+  

@@ -1,0 +1,71 @@
+<div id="RTEtoolbar" >
+    <span class="ql-formats">
+        <select class="ql-font" >
+            <option selected></option>
+            <option value="serif"></option>
+            <option value="monospace"></option>
+            <option value="roboto">Roboto</option>
+            <option value="lato">Lato</option>
+            <option value="montserrat">Montserrat</option>
+            <option value="raleway">Raleway</option>
+            <option value="opensans">Open Sans</option>
+            <option value="CIBFontSans">CIBFontSans</option>
+
+        </select>
+        <select class="ql-header">
+            <option value="1"></option>
+            <option value="2"></option>
+            <option value="3"></option>
+            <option value="4"></option>
+            <option value="5"></option>
+            <option value="6"></option>
+            <option selected></option>
+        </select>
+    </span> 
+    <span class="ql-formats">
+        <button class="ql-bold" tooltip="Negrita" placement="top" show-delay="500" ></button>
+        <button class="ql-italic" tooltip="Italica" placement="top" show-delay="500"></button>
+        <button class="ql-underline" tooltip="Subrayado" placement="top" show-delay="500"></button>
+        <button class="ql-strike" tooltip="Tachado" placement="top" show-delay="500"></button>
+    </span>
+    <span class="ql-formats">
+        <button class="ql-blockquote" tooltip="Cita" placement="top" show-delay="500"></button>
+        <button class="ql-script" value="sub" tooltip="Subindice" placement="top" show-delay="500"></button>
+        <button class="ql-script" value="super" tooltip="Superindice" placement="top" show-delay="500"></button>
+    </span>
+    <span class="ql-formats">
+        <select class="ql-color" >
+            <option *ngFor="let color of colors" value="{{color}}"></option>
+        </select>
+        <select class="ql-background">
+            <option *ngFor="let color of colors" value="{{color}}"></option>
+        </select>
+    </span>
+    <span class="ql-formats">
+        <button class="ql-indent" value="-1" tooltip="Disminuir sangria" placement="top" show-delay="500"></button>
+        <button class="ql-indent" value="+1" tooltip="Aumentar sangria" placement="top" show-delay="500"></button>
+    </span>
+    <span class="ql-formats">
+        <button class="ql-list" value="ordered" tooltip="Lista ordenada" placement="top" show-delay="500"></button>
+        <button class="ql-list" value="bullet" tooltip="Lista desordenada" placement="top" show-delay="500"></button>
+        <select class="ql-align">
+            <option selected></option>
+            <option value="center"></option>
+            <option value="right"></option>
+            <option value="justify"></option>
+        </select>
+    </span>
+    <span class="ql-formats">
+        <button class="ql-link" tooltip="Link" placement="top" show-delay="500"></button>
+        <button class="ql-image" tooltip="Imagen" placement="top" show-delay="500"></button>
+        <button class="ql-video" tooltip="Video" placement="top" show-delay="500"></button>
+        <button (click)="insertTable()" placement="top" show-delay="500">
+            <em class="fa fa-table"></em>
+        </button> 
+    </span>
+    <span class="ql-formats">
+        <button class="ql-clean" tooltip="Limpiar formato" placement="top" show-delay="500"></button>
+    </span>
+</div>
+
+<div #RTE></div>

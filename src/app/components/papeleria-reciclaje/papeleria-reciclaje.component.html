@@ -1,0 +1,57 @@
+
+
+
+
+<div class="container mt-5">
+    <h4 class="text-center"> {{'Articulos Eliminados' | translate }}</h4>
+    <div class="row">
+        <div class="col-md-4">
+            <input type="text" class="form-control my-2" [(ngModel)]="search" placeholder="{{ 'Search' | translate }}">
+         </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mx-auto papeleria">
+            <table class="table table-bordered">
+                <caption>description</caption>
+                <thead style="color:white">
+                    <tr>
+                        <th scope="col" class="indice">#</th>
+                        <th scope="col">{{'Nombre Articulo' | translate }}</th>
+                        <th scope="col">Pcrc</th>
+                        <th scope="col">{{'Fecha de eliminacion' | translate }}</th>
+                        <th scope="col">{{'User' | translate }}</th>
+                        <th scope="col">{{'Accion' | translate }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let article of papeleras | buscador:search | paginate:{ itemsPerPage: 10, currentPage: p }">
+                       <td>{{ article.id}}</td>
+                       <td>{{ article.title }}</td>
+                       <td>{{ article.pcrc }}</td>
+                       <td>{{ article.created | date }}</td>
+                       <td>{{ article.user_name }}</td>
+                     
+                       <td [ngStyle]="{'display':'flex'}">
+                           <button (click)="eliminarArticulo(article.id)" class="btn btn-danger btn-sm mr-3" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'Eliminar Permanentemente'| translate }}">
+                                <em class="fa fa-trash"></em>
+                           </button>
+
+                           <button (click)="restaurarArticle(article)" class="btn btn-light btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'Restaurar'| translate }}">
+                               <em class="fa fa-pencil"></em>
+                           </button>
+                       </td>
+                    </tr>
+                    <tr  *ngIf="papeleras.length == 0">
+                        <td colspan="6" [ngStyle]="{'text-align':'center'}">{{'No hay datos' | translate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+        </div>
+    </div>
+
+
+
+   
+</div>

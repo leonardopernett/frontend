@@ -1,0 +1,47 @@
+:host{
+    padding: 2rem 3rem;
+    height: 100% !important;
+    width: 100%;
+    display: flex;
+}
+
+.verticalColumn{
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    width: 33.33%;
+}
+
+.verticalColumn .scroll{
+    padding: 1rem 1rem 1rem .1rem;
+}
+
+.Listheader{
+    width: 100%;
+    display: flex;    
+    padding: .1rem;
+}
+
+.Listheader .editIcon:hover{
+    color: var(--color-secondary);
+    cursor: pointer;
+}
+
+.columnTitle{
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0;
+    margin-bottom: 1rem;
+    padding: 0;
+}
+
+.icono{
+padding: 5px;
+}
+
+.btn {
+    background-color:var(--color-green) !important;
+    border:none;
+}

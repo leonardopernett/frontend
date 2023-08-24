@@ -1,0 +1,560 @@
+<div class="container-fluid mt-5">
+    <div class="row">
+      
+      <div class="col-md-6">
+        
+        <div class="card card-body">
+     
+            <div class="">
+              <h5>Hola, {{ state.getValueOf("user").name }}</h5>
+            </div>
+       
+        </div>
+  
+      </div>
+  
+      <div class="col-md-6">
+  
+        <div>
+     
+            <div class="row">
+            <div class="col-md-8 buscar" *appUserRoleIsIn="67">
+                <h5 class="buscartitulo">Buscar: </h5> <input class="form-control buscarcaja" type="text">
+            </div>
+            <div class="col-md-4">
+              <ng-container *appUserRoleIsIn="63"><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Crear</button></ng-container>
+            </div>
+        </div>
+            
+        </div>
+  
+       <!-- contenido de los preturnos -->
+  
+  
+      </div>
+  
+    </div>
+    <div class="contenido">
+    <div class="row cont" *appUserRoleIsIn="66">
+        <div class="col-md-6" *ngFor="let preturno of preturnos">
+
+            <div class="scroll">
+                <div class="card mt-2"> 
+                  <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="h5">{{preturno.titulo}}</h5>
+                                                                        
+                      <div class="text-right mb-2 mr-2">
+                        <ng-container *appUserRoleIsIn="64">    
+                        <button 
+                          class="btn btn-success btn-sm mr-2" 
+                          (click)="editarpreturno(preturno.id_preturno,preturno.titulo,preturno.descripcion,preturno.contenido,preturno.fecha_inicial,preturno.fecha_final)" tooltip="Editar Preturno" placement="top" show-delay="500" data-toggle="modal" data-target="#exampleModal2">
+                          <i class="fa fa-pencil text-sucess "></i> 
+                        </button>
+                      </ng-container> 
+                      
+                      <ng-container *appUserRoleIsIn="65">
+                        <button class="btn btn-danger  btn-sm"  (click)="eliminarpreturno(preturno.id_preturno)" tooltip="Eliminar Preturno" placement="top" show-delay="500" >  
+                          <i class="fa fa-trash "></i> 
+                      </button>
+                    </ng-container>
+
+                    </div>
+
+                  </div>              
+                   <div class="card-body">
+                      <div class="d-flex justify-content-between align-items-center">
+                    
+                        <span class="semaforo-verde"></span>
+                      </div>
+                      <p>{{preturno.descripcion}}</p>
+                   </div>
+
+
+          
+                   
+                </div>
+          
+
+                </div>
+
+        </div>
+    </div>
+  </div>
+  </div>
+    
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content cuerpo">
+    
+
+         <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Crear {{palabratipo}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body barra">
+        
+        <div class="row">
+            <div class="col-md-8 espacio">
+                <input [(ngModel)]="preturnotitulo" [maxLength]="80" class="articleTitle_input" type="text" placeholder="Título del {{palabratipo}}" >
+                <input [(ngModel)]="preturnodescripcion" [maxLength]="200" class="articleTitle_input" type="text" placeholder="Descripción del {{palabratipo}}" >
+                <ckeditor [(ngModel)]="preturnocontenido"></ckeditor>
+            </div>
+            <div class="col-md-4 espacio">
+                <div class="form-group">
+                    <label for="exampleInputDate1">Fecha Inicial</label>
+                    <input type="datetime-local" [(ngModel)]="fechainicial" class="form-control" id="exampleInputDate1">
+                </div>
+    
+                <div class="form-group">
+                    <label for="exampleInputDate2">Fecha Final</label>
+                    <input type="datetime-local" [(ngModel)]="fechafinal" class="form-control" id="exampleInputDate2">
+                </div>
+                
+                <div class="checks" *ngIf="accionOcultar">
+    
+                
+                  <div id="lab" class="custom-control custom-switch check lab" >
+                    <input type="checkbox" [(ngModel)]="accionF" class="custom-control-input" id="accionF" (click)="obtenerTipopreturno()">
+                    <label *ngIf="!accionF" class="custom-control-label" for="accionF">Por persona a cargo</label>
+                    <label *ngIf="accionF" class="custom-control-label" for="accionF">Por centro de costos</label>
+                 </div>
+  
+              </div>
+
+                <ng-container *ngIf="accionF">
+                
+                <p>Cliente</p>
+                <ng-select2 (focus)="log(true)" (focusout)="log(false)" [(ngModel)]="clientesList" [data]="cliente" [placeholder]="'cliente'"  [options]="options" (click)="obtenerPcrcs()"></ng-select2>
+                
+                <br>
+                <br>
+                <p>PCRC</p>
+                <ng-select2   [(ngModel)]="pcrcList" [data]="pcrc" [placeholder]="'pcrc'"  [options]="options2"></ng-select2>
+                <br>
+                <br>
+                <br> 
+              </ng-container>
+
+            <ng-container *ngIf="!accionF">
+              
+              <p>Personas a cargo</p>
+                <ng-select2 [(ngModel)]="personasList" [data]="personasA" [placeholder]="'personas'"  [options]="options3"></ng-select2>
+                
+                <br>
+                <br>
+              
+            </ng-container>
+         
+            <button class="btn btn-primary" (click)="insertarpreturno()"  data-dismiss="modal">Publicar</button>
+                <br>
+                <br>
+               
+                <div class="checks">
+    
+                
+                    <div  class="custom-control custom-switch check" >
+                      <input type="checkbox" [(ngModel)]="accion" class="custom-control-input" id="accion1">
+                      <label class="custom-control-label" for="accion1">Preguntas</label>
+                   </div>
+    
+                </div>
+                
+            
+               <div class="d-flex align-items-center justify-content-between ">
+                <button *ngIf="accion"  type="button" class="btn btn-danger mr-2" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal3" >Selección Múltiple</button>
+                <button *ngIf="accion"  type="button" class="btn btn-danger mr-2" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal5">Selección Concepto</button>
+                <button *ngIf="accion"  type="button" class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal4">Respuesta Corta</button>
+               </div>
+            </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      
+  
+           <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar Preturno</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+          <div class="row">
+              <div class="col-md-8 espacio">
+                  <input [(ngModel)]="preturnotituloeditar" class="articleTitle_input" type="text" placeholder="Titulo del preturno" >
+                  <input [(ngModel)]="preturnodescripcioneditar" class="articleTitle_input" type="text" placeholder="Descripcion del preturno" >
+                  <ckeditor [(ngModel)]="preturnocontenidoeditar"></ckeditor>
+              </div>
+              <div class="col-md-3 espacio">
+                  <div class="form-group">
+                      <label for="exampleInputDate1">Fecha Inicial</label>
+                      <input type="date" #inicial [ngModel]="fechainicialeditar | date:'yyyy-MM-dd'" class="form-control" id="exampleInputDate1">
+                  </div>
+      
+                  <div class="form-group">
+                      <label for="exampleInputDate2">Fecha Final</label>
+                      <input type="date" #final [ngModel]="fechafinaleditar | date:'yyyy-MM-dd'" class="form-control" id="exampleInputDate2">
+                  </div>
+                  
+                  <br>
+                  <br>
+                  <br> 
+                  <app-button [buttonText]="'Publicar' | translate" class="mb.5" (click)="actualizarpreturno(inicial,final)" [iconName]="'mdi:publish'"></app-button>
+                  <br>
+                  <br>
+              </div>
+                
+  
+        </div>
+        <div class="modal-footer">
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Preguntas -->
+
+<div class="modal fade bd-example-modal-lg" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Anexar Preguntas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body question-body">
+
+                  <div class="input-group">
+                    <select class="custom-select" [(ngModel)]="preguntas" id="inputGroupSelect04" aria-label="Example select with button addon">
+                      <option value="0" selected>Selecciona número de preguntas</option>
+                      <option value="1">1 Pregunta</option>
+                      <option value="2">2 Pregunta</option>
+                      <option value="3">3 Pregunta</option>
+                      <option value="4">4 Pregunta</option>
+                    </select>
+                  </div>
+                  <br>
+
+                  <ng-container *ngIf="preguntas==1 || preguntas==2 || preguntas==3 || preguntas==4">
+
+                    
+                
+                  <div class="form-group">
+                    <label for="pregunta1">Pregunta 1</label>
+                    <input [(ngModel)]="pregunta1"  type="text" class="form-control" id="pregunta1" placeholder="Escribe tu pregunta es obligatoria">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="respuesta1">Respuesta Correcta</label>
+                    <input [(ngModel)]="respuestacorrecta1" type="text" class="form-control" id="respuesta1" placeholder="Escribe tu respuesta correcta (campo obligatorio)">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="respuesta2">Respuesta 1</label>
+                    <input [(ngModel)]="respuesta1" type="text" class="form-control" id="respuesta2" placeholder="Escribe tu respuesta (campo obligatorio)">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="respuesta3">Respuesta 2</label>
+                    <input [(ngModel)]="respuesta2" type="text" class="form-control" id="respuesta3" placeholder="Escribe tu respuesta">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="respuesta4">Respuesta 3</label>
+                    <input [(ngModel)]="respuesta3" type="text" class="form-control" id="respuesta4" placeholder="Escribe tu respuesta">
+                  </div>
+
+                <ng-container *ngIf="preguntas==2 || preguntas==3 || preguntas==4">
+
+                    <div class="form-group">
+                        <label for="pregunta1">Pregunta 2</label>
+                        <input [(ngModel)]="pregunta2"  type="text" class="form-control" id="pregunta1" placeholder="Escribe tu pregunta es obligatoria">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="respuesta1">Respuesta Correcta</label>
+                        <input [(ngModel)]="respuestacorrecta2" type="text" class="form-control" id="respuesta1" placeholder="Escribe tu respuesta correcta (campo obligatorio)">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="respuesta2">Respuesta 1</label>
+                        <input [(ngModel)]="respuesta4" type="text" class="form-control" id="respuesta2" placeholder="Escribe tu respuesta (campo obligatorio)">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="respuesta3">Respuesta 2</label>
+                        <input [(ngModel)]="respuesta5" type="text" class="form-control" id="respuesta3" placeholder="Escribe tu respuesta">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="respuesta4">Respuesta 3</label>
+                        <input [(ngModel)]="respuesta6" type="text" class="form-control" id="respuesta4" placeholder="Escribe tu respuesta">
+                      </div>
+
+                </ng-container>
+
+                <ng-container *ngIf="preguntas==3 || preguntas==4">
+
+                    <div class="form-group">
+                        <label for="pregunta1">Pregunta 3</label>
+                        <input [(ngModel)]="pregunta3"  type="text" class="form-control" id="pregunta1" placeholder="Escribe tu pregunta es obligatoria">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="respuesta1">Respuesta Correcta</label>
+                        <input [(ngModel)]="respuestacorrecta3" type="text" class="form-control" id="respuesta1" placeholder="Escribe tu respuesta correcta (campo obligatorio)">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="respuesta2">Respuesta 1</label>
+                        <input [(ngModel)]="respuesta7" type="text" class="form-control" id="respuesta2" placeholder="Escribe tu respuesta (campo obligatorio)">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="respuesta3">Respuesta 2</label>
+                        <input [(ngModel)]="respuesta8" type="text" class="form-control" id="respuesta3" placeholder="Escribe tu respuesta">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="respuesta4">Respuesta 3</label>
+                        <input [(ngModel)]="respuesta9" type="text" class="form-control" id="respuesta4" placeholder="Escribe tu respuesta">
+                      </div>
+
+                  </ng-container>
+
+                  <ng-container *ngIf="preguntas==4">
+
+                    <div class="form-group">
+                        <label for="pregunta1">Pregunta 4</label>
+                        <input [(ngModel)]="pregunta4"  type="text" class="form-control" id="pregunta1" placeholder="Escribe tu pregunta es obligatoria">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="respuesta1">Respuesta Correcta</label>
+                        <input [(ngModel)]="respuestacorrecta4" type="text" class="form-control" id="respuesta1" placeholder="Escribe tu respuesta correcta (campo obligatorio)">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="respuesta2">Respuesta 1</label>
+                        <input [(ngModel)]="respuesta10" type="text" class="form-control" id="respuesta2" placeholder="Escribe tu respuesta (campo obligatorio)">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="respuesta3">Respuesta 2</label>
+                        <input [(ngModel)]="respuesta11" type="text" class="form-control" id="respuesta3" placeholder="Escribe tu respuesta">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="respuesta4">Respuesta 3</label>
+                        <input [(ngModel)]="respuesta12" type="text" class="form-control" id="respuesta4" placeholder="Escribe tu respuesta">
+                      </div>
+
+                  </ng-container>
+
+                </ng-container>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".bd-example-modal-lg" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target=".bd-example-modal-lg" (click)="guardarCuestionario(preguntas,pregunta1,respuestacorrecta1,respuesta1,respuesta2,respuesta3,pregunta2,respuestacorrecta2,respuesta4,respuesta5,respuesta6,pregunta3,respuestacorrecta3,respuesta7,respuesta8,respuesta9,pregunta4,respuestacorrecta4,respuesta10,respuesta11,respuesta12)">Guardar Cuestionario</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    
+<!-- Modal Preguntas Unicas-->
+
+<div class="modal fade bd-example-modal-lg" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Anexar Preguntas</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body question-body">
+
+                <div class="input-group">
+                  <select class="custom-select" [(ngModel)]="preguntas" id="inputGroupSelect04" aria-label="Example select with button addon">
+                    <option value="0" selected>Selecciona número de preguntas</option>
+                    <option value="1">1 Pregunta</option>
+                    <option value="2">2 Pregunta</option>
+                    <option value="3">3 Pregunta</option>
+                    <option value="4">4 Pregunta</option>
+                  </select>
+                </div>
+                <br>
+
+                <ng-container *ngIf="preguntas==1 || preguntas==2 || preguntas==3 || preguntas==4">
+
+                  
+              
+                <div class="form-group">
+                  <label for="pregunta1">Pregunta 1</label>
+                  <input [(ngModel)]="preguntaunica1"  type="text" class="form-control" placeholder="Escribe tu pregunta es obligatoria">
+                </div>
+
+                <div class="form-group">
+                  <label for="nrespuestas">N de respuestas</label>
+                  <input #np (keyup)="crearespuestas(np)"   type="number" class="form-control" placeholder="Escribe tu numero de respuestas">
+                </div>
+              
+                 
+                <div *ngFor="let item of nrespuestas; let i = index" class="form-group">
+                  <label for="respuesta1">Respuesta Correcta {{i+1}}</label>
+                  <input #rs (keyup)="getrespuestas(rs,i)" type="text" class="form-control" placeholder="Escribe tu respuesta correcta">
+                </div> 
+
+                
+
+              <ng-container *ngIf="preguntas==2 || preguntas==3 || preguntas==4">
+
+                <div class="form-group">
+                  <label for="pregunta1">Pregunta 2</label>
+                  <input [(ngModel)]="preguntaunica2"  type="text" class="form-control" placeholder="Escribe tu pregunta es obligatoria">
+                </div>
+
+                <div class="form-group">
+                  <label for="nrespuestas">N de respuestas</label>
+                  <input #np  (keyup)="crearespuestas2(np)"   type="number" class="form-control" placeholder="Escribe tu numero de respuestas">
+                </div>
+              
+                 
+                <div *ngFor="let item of nrespuestas2; let i = index" class="form-group">
+                  <label for="respuesta1">Respuesta Correcta {{i+1}}</label>
+                  <input #rs (keyup)="getrespuestas2(rs,i)" type="text" class="form-control"  placeholder="Escribe tu respuesta correcta">
+                </div> 
+
+                   
+
+              </ng-container>
+
+              <ng-container *ngIf="preguntas==3 || preguntas==4">
+
+                <div class="form-group">
+                  <label for="pregunta1">Pregunta 3</label>
+                  <input [(ngModel)]="preguntaunica3"  type="text" class="form-control" placeholder="Escribe tu pregunta es obligatoria">
+                </div>
+
+                <div class="form-group">
+                  <label for="nrespuestas">N de respuestas</label>
+                  <input #np  (keyup)="crearespuestas3(np)"   type="number" class="form-control" placeholder="Escribe tu numero de respuestas">
+                </div>
+              
+                 
+                <div *ngFor="let item of nrespuestas3; let i = index" class="form-group">
+                  <label for="respuesta1">Respuesta Correcta {{i+1}}</label>
+                  <input #rs (keyup)="getrespuestas3(rs,i)" type="text" class="form-control"  placeholder="Escribe tu respuesta correcta">
+                </div> 
+
+                   
+
+                </ng-container>
+
+                <ng-container *ngIf="preguntas==4">
+
+                  <div class="form-group">
+                    <label for="pregunta1">Pregunta 1</label>
+                    <input [(ngModel)]="preguntaunica4"  type="text" class="form-control" placeholder="Escribe tu pregunta es obligatoria">
+                  </div>
+  
+                  <div class="form-group">
+                    <label for="nrespuestas">N de respuestas</label>
+                    <input #np  (keyup)="crearespuestas4(np)"   type="number" class="form-control" placeholder="Escribe tu numero de respuestas">
+                  </div>
+                
+                   
+                  <div *ngFor="let item of nrespuestas4; let i = index" class="form-group">
+                    <label for="respuesta1">Respuesta Correcta {{i+1}}</label>
+                    <input #rs (keyup)="getrespuestas4(rs,i)" type="text" class="form-control" id="respuesta1" placeholder="Escribe tu respuesta correcta">
+                  </div> 
+
+                  
+
+                </ng-container>
+
+              </ng-container>
+              
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target=".bd-example-modal-lg">Cerrar</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target=".bd-example-modal-lg" (click)="guardarUnicas()">Guardar Cuestionario</button>
+          </div>
+
+      </div>
+  </div>
+  </div>
+
+
+  <!-- Modal Preguntas Concepto-->
+
+<div class="modal fade bd-example-modal-lg" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Anexar Preguntas</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body question-body">
+
+             <div class="row">
+              <div class="col-md-4"></div>
+               <div class="col-md-4">
+                  <button type="button" class="btn btn-danger botonpregunta" (click)="agregarpregunta()">Agregar Pregunta</button>
+                  <button type="button" class="btn btn-danger" (click)="agregarespuesta()">Agregar Respuesta</button>
+               </div>
+               <div class="col-md-4"></div>
+             </div> 
+             
+             <div class="preguntas">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group" *ngFor="let item of preguntasconcepto; let i = index; last as isLast">
+                      <div class="d-flex">
+                      <p class="col-md-1">{{item}} - </p>
+                      <input [(ngModel)]="preguntasconceptog[i]" type="text" class="form-control col-md-9" placeholder="Pregunta">
+                      <i (click)="quitarpregunta()" class="fa fa-times-circle col-md-1 quitar" *ngIf="isLast"></i>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group" *ngFor="let item of respuestasconcepto; let i = index; last as isLast">
+                    <div class="d-flex">
+                          <p class="col-md-1">{{item}} - </p>
+                      <input [(ngModel)]="respuestasconceptog[i]" type="text" class="form-control col-md-9" placeholder="Respuesta">
+                          <i (click)="quitarespuesta()" class="fa fa-times-circle col-md-1 quitar" *ngIf="isLast"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".bd-example-modal-lg" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target=".bd-example-modal-lg" (click)="guardarConcepto()">Guardar Cuestionario</button>
+          </div>
+
+      </div>
+  </div>
+  </div>
+

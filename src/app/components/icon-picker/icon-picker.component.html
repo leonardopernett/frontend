@@ -1,0 +1,11 @@
+<div class="iconPicker">    
+    <div class="iconsList">
+        <app-drop-down [values]="categories" [textoInicial]="'Seleccionar categoria'" (onValueSelected)="onSelectedCategory($event)"></app-drop-down>
+        <div class="icons">
+            <div class="icon" *ngFor="let icon of icons" (click)="selectIcon(icon)" [ngClass]="{'active': icon == selectedIcon }">
+                <app-icon  [iconName]="'mdi:' + icon.name"></app-icon>
+            </div>
+        </div>
+        <app-pager [numberOfItems]="allIconsCount" [pageSize]="pageSize" (onPageSelected)="changeIconsPage($event)" #pager></app-pager>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+.list{
+    max-height: 15rem;   
+}
+
+.articleTitle{
+    padding: .5rem;
+    border-top: 1px solid lightgray;
+}
+
+.articleTitle:hover{
+    cursor: pointer;
+    color: var(--primary);
+}

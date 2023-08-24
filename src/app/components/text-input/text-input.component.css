@@ -1,0 +1,31 @@
+:host{
+    background-color: white;
+    display: flex;
+    box-shadow: var(--shadow1);
+    border-radius: 3px;
+    color:  var(--primaryText);
+    width: 100%;
+}
+
+:host input{
+    flex-grow: 1;
+    background-color: transparent;
+    margin: 0;
+    padding: .2rem;
+    padding-left: 1rem;
+    border: 0;
+    outline: 0 !important;
+}
+
+:host app-icon{
+    margin: .3rem;
+}
+
+:host app-icon:hover{
+    cursor: pointer;
+    color: var(--primary);
+}
+
+.icono{
+padding: 5px;
+}

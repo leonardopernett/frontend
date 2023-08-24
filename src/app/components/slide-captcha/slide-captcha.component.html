@@ -1,0 +1,10 @@
+<div class="slide_container" (mousemove)="mouseMove($event)" (mouseup)="mouseUp($event)">
+    <div class="slide">
+        <div class="box" (mousedown)="mouseDown($event)"  #box>
+            <em class="fa fa-chevron-circle-right tam"></em>
+        </div>
+        <div class="text">
+            {{'Desliza para ingresar' | translate}}
+        </div>
+    </div>
+</div>

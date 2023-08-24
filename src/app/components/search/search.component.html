@@ -1,0 +1,9 @@
+<div infiniteScroll (scrolled)="onScroll()"        
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="1000" 
+    [scrollWindow]="false"
+    class="searchContainer">
+    <h4 *ngIf="searchError">{{'Se ha producido un error' | translate}} 😕, {{'intentaremos de nuevo en' | translate }} {{searchErrorMessage}}s.</h4>
+    <h4 *ngIf="error$ | async">{{'Se ha producido un error' | translate}} 😕, {{'intentalo mas tarde' | translate }}.</h4>
+    <app-article-list [articles]="articles" [placeholders]="placeholders"></app-article-list>
+</div>

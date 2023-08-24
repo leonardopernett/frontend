@@ -1,0 +1,11 @@
+<div class="dropDown">
+    <div class="header" (click)="unfolded = !unfolded">
+        <span class="selection">{{ getSelection() }}</span>
+        <app-icon [iconName]="'mdi:arrow-down-drop'" [ngClass]="{ 'ufolded': unfolded }"> </app-icon>
+    </div>
+    <div class="values" *ngIf="unfolded">
+        <div class="value" *ngFor="let value of values" (click)="seleccionar(value); unfolded = false">
+            {{value[textField] || value}}
+        </div>
+    </div>
+</div>

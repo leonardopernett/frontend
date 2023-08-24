@@ -1,0 +1,12 @@
+.table-size{
+    height: 500px;
+    overflow-y: scroll;
+}
+
+thead{
+    color:#fff;
+}
+
+h2{
+    color:var(--color-principal)
+}

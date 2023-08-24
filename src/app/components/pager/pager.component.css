@@ -1,0 +1,43 @@
+:host{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.pagerArrow:hover{
+    cursor: pointer;
+    color: var(--primary);
+}
+
+
+.pagerNumber.active:hover{
+    color: white;
+}
+.pagerNumber.active{
+    color: white;
+    background-color: var(--primary);
+}
+
+.pagerNumber:hover{
+    color: var(--primary);
+    cursor: pointer;    
+    box-shadow: var(--shadow2);
+}
+
+.pagerNumber{
+    padding: .5rem;
+    margin-left: .5rem;
+    box-shadow: var(--shadow1);
+    border-radius: 100%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    transition: all 200ms ease-in-out;
+}
+.pagerNumber:last-of-type{
+    margin-right: .5rem;
+}

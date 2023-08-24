@@ -1,0 +1,17 @@
+nav{
+    width: 97%;
+    margin-top: 14px;
+    padding:1px;
+    margin-left:20px;
+}
+
+  .color-link{
+      color:#CC0F69;  
+      font-size: 16px;
+  }
+
+  ol{
+      margin:0px;
+      padding:5px;
+      width: 100%;
+  }

@@ -1,0 +1,264 @@
+:host{
+    min-height: 3.5rem;
+    max-height: 3.5rem;
+    grid-area: "main_header";
+   
+    
+     box-shadow: -1px 0px 4px 2px rgb(0 0 0 / 17%) !important;
+    display: flex; 
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: .5rem 1rem .5rem 1rem;
+    color: var(--color-principal);
+    font-weight: 500;
+    background: #fff;
+    
+}
+
+
+
+.logoheader{
+padding-right: 5px;
+}
+
+.title{
+    padding:2px 8px;
+}
+
+/* .title:hover {
+  background:var(--color-secondary); 
+  color:#fff;
+  padding:2px 8px;
+  border-radius: 1000px;
+} */
+
+:host .separator{
+    flex-grow: 1;
+}
+.separator2{
+  flex-grow: 0;
+}
+app-icon:hover{
+    cursor: pointer;
+}
+
+.mr1{
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.menu li {
+    display: inline;
+}
+
+
+.fondo {
+    background: #039be5;
+    color:#fff;
+}
+
+
+.notificar {
+    position: relative;  
+}
+.campana{
+    z-index: 5 !important;
+    color:var(--color-principal)  !important;
+}
+
+.campan:hover{
+    color:#fff !important;
+    
+}
+
+.nav-link{
+    color:var(--color-principal)
+}
+
+
+.badge-danger {
+   position: absolute;
+   top:-5px;
+   right: 7px;
+}
+
+
+p{
+    margin:0;
+    width: 100%;
+}
+
+.modal-body{
+    overflow-y: scroll;
+    height: 300px;
+}
+
+.modal-body::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+   
+  }
+  .modal-body::-webkit-scrollbar-track {
+    background: #fff ; 
+    border-radius: 10px;
+  }
+  .modal-body::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    height: 5px;
+    background: #cccccc;
+  }
+  
+  .lista{
+      cursor:pointer;
+  }
+
+ .hide {
+      background-color: #ccc;
+  }
+
+  .clear{
+      cursor:pointer;
+      color:#039be5
+  }
+
+  .leido:hover{
+    text-decoration: underline;
+    cursor:pointer
+  }
+  .leido{
+      font-size: 11px;
+      padding-bottom: 10px;
+  }
+
+  .visto {
+      background-color: #efeeee;
+  }
+
+  .cerrar{
+      font-size: 12px;
+  }
+
+  .parrafo {
+      font-size: 13px;
+  }
+
+  .nik{
+      border-radius: 50%;
+      padding: 10px;
+  }
+
+  .link {
+      text-decoration: none;
+      color:#000
+  }
+
+  .nav-link:hover {
+   color:#fff;
+  }
+
+  .hide {
+      overflow-y: hidden;
+  }
+
+  .lang{
+    color:var(--color-principal)
+  }
+
+
+  .lang:hover{
+    color:var(--color-secondary)
+  }
+
+  .dropdown-toggle:hover {
+      color:var(--color-secondary)
+  }
+
+  .badge-danger{
+    background:var(--color-secondary) !important;
+
+  }
+
+  .preturnos{
+    position:relative;
+    z-index:10 !important;
+  }
+
+  .preturnos-item{
+   border-radius:50%;
+   color:#fff;
+   position:absolute;
+   top:-5px;
+   right:-3px;
+   width:20px;
+   background:var(--color-secondary);
+   height:20px;
+   text-align:center;
+   z-index:5 !important;
+  }
+
+  .active{
+    border-bottom: 2px solid var(--color-secondary);
+    padding: 0px 15px;
+    color:var(--color-principal);
+  }
+
+  .preturno-name {
+    position: relative;
+  }
+
+  .preturno-count {
+    position: absolute;
+    background-color: var(--color-secondary);
+    right: -5px;
+    top: -9px;
+    width: 19px;
+    height: 19px;
+    padding: 1px 1px 3px 1px;
+    border-radius: 50%;
+    margin: 0px 0px 0px 0px;
+  }
+
+  .preturno-number{
+    font-size: 14px;
+    position: absolute;
+    right: 6px;
+    top: -2px;
+    color:#fff;
+  }
+
+  .avatar{
+    border-radius: 50%;
+    width: 51px;
+    padding: 0px;
+    position: relative;
+    background-color: #faf5f5;
+    right: 10px;
+    border-style: solid;
+    border-width: 1px;
+    height: 52px;
+    border-color: #212529;
+  }
+
+  .avatar2{
+    border-radius: 50%;
+    width: 100px;
+    padding: 0px;
+    position: relative;
+    background-color: #faf5f5;
+    right: 10px;
+    border-style: solid;
+    border-width: 1px;
+    height: 52px;
+    border-color: #212529;
+  }
+
+  .modalavatar{
+    margin-left: 0px;
+  }
+
+  .contentavatar{
+    padding-bottom: 10px;
+  }
+
+  
